@@ -8,14 +8,14 @@ import com.jeketos.associatewith.di.Injector;
  *
  */
 
-public class DrawPresenterImpl implements DrawMVP.DrawPresenter {
+public class DrawerPresenterImpl implements DrawerMVP.DrawerPresenter {
 
-    private DrawMVP.DrawView view;
-    private DrawMVP.DrawModel model;
+    private DrawerMVP.DrawerView view;
+    private DrawerMVP.DrawerModel model;
     private int movesCount;
 
 
-    public DrawPresenterImpl(DrawMVP.DrawView view) {
+    public DrawerPresenterImpl(DrawerMVP.DrawerView view) {
         this.view = view;
         init();
     }

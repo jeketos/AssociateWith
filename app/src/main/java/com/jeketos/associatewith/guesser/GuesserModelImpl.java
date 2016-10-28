@@ -7,4 +7,10 @@ package com.jeketos.associatewith.guesser;
 
 public class GuesserModelImpl implements GuesserMVP.GuesserModel {
 
+    private GuesserMVP.GuesserPresenter presenter;
+
+    public GuesserModelImpl(GuesserMVP.GuesserPresenter presenter) {
+
+        this.presenter = presenter;
+    }
 }

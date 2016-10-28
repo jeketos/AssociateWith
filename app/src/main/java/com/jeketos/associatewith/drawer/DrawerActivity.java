@@ -17,14 +17,14 @@ import com.jeketos.associatewith.listener.TouchListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DrawActivity extends AppCompatActivity implements DrawMVP.DrawView {
+public class DrawerActivity extends AppCompatActivity implements DrawerMVP.DrawerView {
 
-//    private static final String TAG = "DrawActivity";
+//    private static final String TAG = "DrawerActivity";
     private Canvas canvas;
     private Paint paint;
     @BindView(R.id.image_view)
     ImageView imageView;
-    DrawMVP.DrawPresenter presenter;
+    DrawerMVP.DrawerPresenter presenter;
 
     private TouchListener.MoveListener moveListener = new TouchListener.MoveListener() {
         @Override

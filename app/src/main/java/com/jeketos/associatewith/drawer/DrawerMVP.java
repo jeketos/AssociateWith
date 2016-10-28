@@ -7,21 +7,21 @@ import com.jeketos.associatewith.Point;
  *
  */
 
-public class DrawMVP {
+public class DrawerMVP {
 
-    public interface DrawView{
+    public interface DrawerView {
 
         void init();
 
     }
 
-    public interface DrawPresenter{
+    public interface DrawerPresenter {
 
         void sendPoint(Point point);
 
     }
 
-    public interface DrawModel{
+    public interface DrawerModel {
 
         int getMovesCount();
 

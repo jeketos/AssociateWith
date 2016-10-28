@@ -6,7 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.jeketos.associatewith.R;
-import com.jeketos.associatewith.drawer.DrawActivity;
+import com.jeketos.associatewith.drawer.DrawerActivity;
+import com.jeketos.associatewith.guesser.GuesserActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,12 +23,8 @@ public class LoginActivity extends AppCompatActivity {
         startDrawerActivity();
     }
 
-    private void startDrawerActivity() {
-        Intent intent = new Intent(this, DrawActivity.class);
-        startActivity(intent);
-    }
-
     @OnClick(R.id.button_guesser) void onGuesserClick(){
+        startGuesserActivity();
     }
 
     @Override
@@ -36,4 +33,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
     }
+
+    private void startDrawerActivity() {
+        Intent intent = new Intent(this, DrawerActivity.class);
+        startActivity(intent);
+    }
+
+    private void startGuesserActivity() {
+        Intent intent = new Intent(this, GuesserActivity.class);
+        startActivity(intent);
+    }
+
 }
