@@ -18,5 +18,4 @@ public class Injector {
     public static DrawMVP.DrawModel provideDrawModel(DrawMVP.DrawPresenter presenter){
         return  new DrawModelImpl(presenter);
     }
-
 }
