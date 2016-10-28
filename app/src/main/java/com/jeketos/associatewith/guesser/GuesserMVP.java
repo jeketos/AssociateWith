@@ -1,5 +1,6 @@
 package com.jeketos.associatewith.guesser;
 
+import com.google.firebase.database.DataSnapshot;
 import com.jeketos.associatewith.Point;
 
 /**
@@ -13,13 +14,14 @@ public class GuesserMVP {
 
         void init();
 
-        void drawPoint(Point point);
+        void draw(float previousX, float previousY, Point point);
 
-        void drawLine(float previousX, float previousY, Point point);
+        void clearBoard();
     }
 
     public interface GuesserPresenter{
 
+        void dataReceived(DataSnapshot point);
     }
 
     public interface GuesserModel{

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.widget.ImageView;
 
 import com.jeketos.associatewith.Point;
@@ -56,12 +57,29 @@ public class GuesserActivity extends AppCompatActivity implements GuesserMVP.Gue
     }
 
     @Override
+    public void draw(float previousX, float previousY, Point point) {
+        switch (point.motionEvent){
+            case MotionEvent.ACTION_DOWN:
+                drawPoint(point);
+                break;
+            default:
+                drawLine(previousX, previousY, point);
+                break;
+        }
+    }
+
+    @Override
+    public void clearBoard() {
+        init();
+    }
+
+
     public void drawPoint(Point point) {
         canvas.drawPoint(point.x, point.y, paint);
         imageView.invalidate();
     }
 
-    @Override
+
     public void drawLine(float previousX, float previousY, Point point) {
         canvas.drawLine(previousX, previousY, point.x, point.y, paint);
         imageView.invalidate();
