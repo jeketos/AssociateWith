@@ -1,8 +1,8 @@
 package com.jeketos.associatewith.di;
 
-import com.jeketos.associatewith.draw.DrawMVP;
-import com.jeketos.associatewith.draw.DrawModelImpl;
-import com.jeketos.associatewith.draw.DrawPresenterImpl;
+import com.jeketos.associatewith.drawer.DrawMVP;
+import com.jeketos.associatewith.drawer.DrawModelImpl;
+import com.jeketos.associatewith.drawer.DrawPresenterImpl;
 
 /**
  * Created by eugene.kotsogub on 10/28/16.

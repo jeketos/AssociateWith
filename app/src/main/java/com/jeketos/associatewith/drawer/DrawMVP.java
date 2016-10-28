@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.draw;
+package com.jeketos.associatewith.drawer;
 
 import com.jeketos.associatewith.Point;
 

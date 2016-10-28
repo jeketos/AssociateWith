@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.jeketos.associatewith.R;
-import com.jeketos.associatewith.draw.DrawActivity;
+import com.jeketos.associatewith.drawer.DrawActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

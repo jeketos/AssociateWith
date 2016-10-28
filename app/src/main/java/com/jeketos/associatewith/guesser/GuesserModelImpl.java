@@ -6,4 +6,5 @@ package com.jeketos.associatewith.guesser;
  */
 
 public class GuesserModelImpl implements GuesserMVP.GuesserModel {
+
 }

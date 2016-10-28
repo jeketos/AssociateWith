@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.draw;
+package com.jeketos.associatewith.drawer;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.jeketos.associatewith.Point;
@@ -25,8 +24,6 @@ public class DrawActivity extends AppCompatActivity implements DrawMVP.DrawView 
     private Paint paint;
     @BindView(R.id.image_view)
     ImageView imageView;
-    @BindView(R.id.block_view)
-    View blockView;
     DrawMVP.DrawPresenter presenter;
 
     private TouchListener.MoveListener moveListener = new TouchListener.MoveListener() {
@@ -51,7 +48,7 @@ public class DrawActivity extends AppCompatActivity implements DrawMVP.DrawView 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_drawer);
         ButterKnife.bind(this);
         onTouchListener = new TouchListener(moveListener);
         presenter = Injector.provideDrawPresenter(this);
