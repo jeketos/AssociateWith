@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.draw;
+package com.jeketos.associatewith.drawer;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -12,13 +12,13 @@ import java.util.Map;
  *
  */
 
-public class DrawModelImpl implements DrawMVP.DrawModel {
+public class DrawerModelImpl implements DrawerMVP.DrawerModel {
 
     private static final String MOVE = "move";
-    DrawMVP.DrawPresenter presenter;
+    DrawerMVP.DrawerPresenter presenter;
     private DatabaseReference reference;
 
-    public DrawModelImpl(DrawMVP.DrawPresenter presenter) {
+    public DrawerModelImpl(DrawerMVP.DrawerPresenter presenter) {
         this.presenter = presenter;
         reference = FirebaseDatabase.getInstance().getReference(MOVE);
     }

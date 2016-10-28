@@ -1,65 +1,46 @@
-package com.jeketos.associatewith.draw;
+package com.jeketos.associatewith.guesser;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.View;
+import android.view.MotionEvent;
 import android.widget.ImageView;
 
 import com.jeketos.associatewith.Point;
 import com.jeketos.associatewith.R;
 import com.jeketos.associatewith.di.Injector;
-import com.jeketos.associatewith.listener.TouchListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DrawActivity extends AppCompatActivity implements DrawMVP.DrawView {
+/**
+ * Created by eugene.kotsogub on 10/28/16.
+ *
+ */
 
-//    private static final String TAG = "DrawActivity";
+public class GuesserActivity extends AppCompatActivity implements GuesserMVP.GuesserView {
+
+    GuesserMVP.GuesserPresenter presenter;
     private Canvas canvas;
     private Paint paint;
     @BindView(R.id.image_view)
     ImageView imageView;
-    @BindView(R.id.block_view)
-    View blockView;
-    DrawMVP.DrawPresenter presenter;
-
-    private TouchListener.MoveListener moveListener = new TouchListener.MoveListener() {
-        @Override
-        public void actionDown(Point point) {
-            drawPoint(point);
-        }
-
-        @Override
-        public void actionMove(float previousX, float previousY, Point point) {
-            drawLine(previousX, previousY, point);
-        }
-
-        @Override
-        public void actionUp(float previousX, float previousY, Point point) {
-            drawLine(previousX, previousY, point);
-        }
-    };
-    private TouchListener onTouchListener;
-
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_guesser);
         ButterKnife.bind(this);
-        onTouchListener = new TouchListener(moveListener);
-        presenter = Injector.provideDrawPresenter(this);
-
+        presenter = Injector.provideGuesserPresenter(this);
     }
 
     @Override
-     public void init() {
+    public void init() {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         Bitmap bitmap = Bitmap.createBitmap(displayMetrics.widthPixels,displayMetrics.heightPixels,
                 Bitmap.Config.ARGB_8888);
@@ -73,20 +54,34 @@ public class DrawActivity extends AppCompatActivity implements DrawMVP.DrawView 
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(12);
         imageView.setImageBitmap(bitmap);
-        imageView.setOnTouchListener(onTouchListener);
+    }
+
+    @Override
+    public void draw(float previousX, float previousY, Point point) {
+        switch (point.motionEvent){
+            case MotionEvent.ACTION_DOWN:
+                drawPoint(point);
+                break;
+            default:
+                drawLine(previousX, previousY, point);
+                break;
+        }
+    }
+
+    @Override
+    public void clearBoard() {
+        init();
     }
 
 
     public void drawPoint(Point point) {
         canvas.drawPoint(point.x, point.y, paint);
         imageView.invalidate();
-        presenter.sendPoint(point);
     }
 
 
     public void drawLine(float previousX, float previousY, Point point) {
         canvas.drawLine(previousX, previousY, point.x, point.y, paint);
         imageView.invalidate();
-        presenter.sendPoint(point);
     }
 }

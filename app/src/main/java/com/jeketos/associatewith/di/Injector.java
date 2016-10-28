@@ -1,8 +1,11 @@
 package com.jeketos.associatewith.di;
 
-import com.jeketos.associatewith.draw.DrawMVP;
-import com.jeketos.associatewith.draw.DrawModelImpl;
-import com.jeketos.associatewith.draw.DrawPresenterImpl;
+import com.jeketos.associatewith.drawer.DrawerMVP;
+import com.jeketos.associatewith.drawer.DrawerModelImpl;
+import com.jeketos.associatewith.drawer.DrawerPresenterImpl;
+import com.jeketos.associatewith.guesser.GuesserMVP;
+import com.jeketos.associatewith.guesser.GuesserModelImpl;
+import com.jeketos.associatewith.guesser.GuesserPresenterImpl;
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
@@ -11,11 +14,19 @@ import com.jeketos.associatewith.draw.DrawPresenterImpl;
 
 public class Injector {
 
-    public static DrawMVP.DrawPresenter provideDrawPresenter(DrawMVP.DrawView view){
-        return new DrawPresenterImpl(view);
+    public static DrawerMVP.DrawerPresenter provideDrawPresenter(DrawerMVP.DrawerView view){
+        return new DrawerPresenterImpl(view);
     }
 
-    public static DrawMVP.DrawModel provideDrawModel(DrawMVP.DrawPresenter presenter){
-        return  new DrawModelImpl(presenter);
+    public static DrawerMVP.DrawerModel provideDrawModel(DrawerMVP.DrawerPresenter presenter){
+        return  new DrawerModelImpl(presenter);
+    }
+
+    public static GuesserMVP.GuesserPresenter provideGuesserPresenter(GuesserMVP.GuesserView view) {
+        return new GuesserPresenterImpl(view);
+    }
+
+    public static GuesserMVP.GuesserModel provideGuesserModel(GuesserMVP.GuesserPresenter presenter) {
+        return new GuesserModelImpl(presenter);
     }
 }
