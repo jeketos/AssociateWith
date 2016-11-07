@@ -22,6 +22,8 @@ public class GuesserMVP {
         void clearChat();
 
         void addChatItem(IChatItem item);
+
+        void showWinnerDialog(String name, String word);
     }
 
     public interface GuesserPresenter{
@@ -31,11 +33,17 @@ public class GuesserMVP {
         void sendMessage(String message);
 
         void chatDataReceived(DataSnapshot dataSnapshot);
+
+        void selectedWordReceived(DataSnapshot dataSnapshot);
+
+        void winnerDataReceived(DataSnapshot dataSnapshot);
     }
 
     public interface GuesserModel{
 
         void sendMessage(IChatItem item);
+
+        void setWinner(IChatItem item);
     }
 
 }

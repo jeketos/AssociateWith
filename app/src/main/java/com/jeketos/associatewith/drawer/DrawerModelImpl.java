@@ -10,6 +10,8 @@ import com.jeketos.associatewith.Point;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.jeketos.associatewith.guesser.GuesserModelImpl.WINNER;
+
 /**
  * Created by eugene.kotsogub on 10/28/16.
  *
@@ -26,6 +28,7 @@ public class DrawerModelImpl implements DrawerMVP.DrawerModel {
     private DatabaseReference referenceChat;
     private DatabaseReference referenceWords;
     private DatabaseReference referenceSelectedWord;
+    private DatabaseReference referenceWinner;
 
     public DrawerModelImpl(DrawerMVP.DrawerPresenter presenter) {
         this.presenter = presenter;
@@ -48,6 +51,18 @@ public class DrawerModelImpl implements DrawerMVP.DrawerModel {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 presenter.wordsDataReceived(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        referenceWinner = FirebaseDatabase.getInstance().getReference(WINNER);
+        referenceWinner.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                presenter.winnerDataReceived(dataSnapshot);
             }
 
             @Override

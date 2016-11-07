@@ -1,5 +1,7 @@
 package com.jeketos.associatewith.guesser;
 
+import android.text.TextUtils;
+
 import com.google.firebase.database.DataSnapshot;
 import com.jeketos.associatewith.Point;
 import com.jeketos.associatewith.di.Injector;
@@ -21,6 +23,7 @@ public class GuesserPresenterImpl implements GuesserMVP.GuesserPresenter {
     private float previousX, previousY;
     private int previousPointCount;
     private int previousChatCount;
+    String selectedWord;
 
     public GuesserPresenterImpl(GuesserMVP.GuesserView view) {
         this.view = view;
@@ -65,11 +68,29 @@ public class GuesserPresenterImpl implements GuesserMVP.GuesserPresenter {
     }
 
     @Override
+    public void selectedWordReceived(DataSnapshot dataSnapshot) {
+        selectedWord = (String) dataSnapshot.getValue();
+    }
+
+    @Override
+    public void winnerDataReceived(DataSnapshot dataSnapshot) {
+        String name  = (String) dataSnapshot.getValue();
+        String word = selectedWord;
+        if(!TextUtils.isEmpty(name)) {
+            view.showWinnerDialog(name, word);
+        }
+    }
+
+    @Override
     public void sendMessage(String message) {
         IChatItem item = new ChatItem();
         item.setName(android.os.Build.MODEL);
         item.setMessage(message);
         model.sendMessage(item);
+        if(message.toLowerCase().equals(selectedWord)){
+            model.setWinner(item);
+            view.showWinnerDialog(item.getName(), message);
+        }
     }
 
     private float getFloatValue(Object value){

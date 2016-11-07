@@ -1,5 +1,7 @@
 package com.jeketos.associatewith.drawer;
 
+import android.text.TextUtils;
+
 import com.google.firebase.database.DataSnapshot;
 import com.jeketos.associatewith.Point;
 import com.jeketos.associatewith.di.Injector;
@@ -73,5 +75,13 @@ public class DrawerPresenterImpl implements DrawerMVP.DrawerPresenter {
     @Override
     public void saveWord(CharSequence word) {
         model.saveSelectedWord(word);
+    }
+
+    @Override
+    public void winnerDataReceived(DataSnapshot dataSnapshot) {
+        String name = (String) dataSnapshot.getValue();
+        if(!TextUtils.isEmpty(name)) {
+            view.showWinnerDialog(name);
+        }
     }
 }

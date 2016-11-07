@@ -19,9 +19,13 @@ public class GuesserModelImpl implements GuesserMVP.GuesserModel {
 
     private static final String MOVE = "move";
     public static final String CHAT = "chat";
+    public static final String SELECTED_WORD = "selected_word";
+    public static final String WINNER = "winner";
     private GuesserMVP.GuesserPresenter presenter;
     DatabaseReference referenceChat;
+    private DatabaseReference referenceSelectedWord;
     private int chatCount;
+    private DatabaseReference referenceWinner;
 
 
     public GuesserModelImpl(GuesserMVP.GuesserPresenter presenter) {
@@ -62,6 +66,30 @@ public class GuesserModelImpl implements GuesserMVP.GuesserModel {
             }
         };
         referenceChat.addValueEventListener(chatValueEventListener);
+        referenceSelectedWord = FirebaseDatabase.getInstance().getReference(SELECTED_WORD);
+        referenceSelectedWord.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                presenter.selectedWordReceived(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        referenceWinner = FirebaseDatabase.getInstance().getReference(WINNER);
+        referenceWinner.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                presenter.winnerDataReceived(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -70,5 +98,10 @@ public class GuesserModelImpl implements GuesserMVP.GuesserModel {
         map.put(Integer.toString(chatCount), item);
         referenceChat.updateChildren(map);
         chatCount++;
+    }
+
+    @Override
+    public void setWinner(IChatItem item) {
+        referenceWinner.setValue(item.getName());
     }
 }

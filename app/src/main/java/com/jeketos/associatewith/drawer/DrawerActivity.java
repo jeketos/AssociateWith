@@ -18,6 +18,7 @@ import com.jeketos.associatewith.di.Injector;
 import com.jeketos.associatewith.guesser.chat.ChatAdapter;
 import com.jeketos.associatewith.guesser.chat.IChatItem;
 import com.jeketos.associatewith.listener.TouchListener;
+import com.jeketos.associatewith.util.DialogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,6 +106,13 @@ public class DrawerActivity extends AppCompatActivity implements DrawerMVP.Drawe
             dialogInterface.dismiss();
         });
         builder.create().show();
+    }
+
+    @Override
+    public void showWinnerDialog(String name) {
+        AlertDialog.Builder builder = DialogUtils.createWinnerDialog(this,name,null);
+        builder.create();
+        builder.show();
     }
 
 

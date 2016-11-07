@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.jeketos.associatewith.R;
 import com.jeketos.associatewith.di.Injector;
 import com.jeketos.associatewith.guesser.chat.ChatAdapter;
 import com.jeketos.associatewith.guesser.chat.IChatItem;
+import com.jeketos.associatewith.util.DialogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,6 +107,13 @@ public class GuesserActivity extends AppCompatActivity implements GuesserMVP.Gue
     @Override
     public void addChatItem(IChatItem item) {
         chatAdapter.updateItems(item);
+    }
+
+    @Override
+    public void showWinnerDialog(String name, String word) {
+        AlertDialog.Builder builder = DialogUtils.createWinnerDialog(this, name, word);
+        builder.create();
+        builder.show();
     }
 
 

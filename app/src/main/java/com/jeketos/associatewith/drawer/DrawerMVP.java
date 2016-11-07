@@ -20,6 +20,8 @@ public class DrawerMVP {
         void clearChat();
 
         void showChooseWordDialog(CharSequence[] words);
+
+        void showWinnerDialog(String name);
     }
 
     public interface DrawerPresenter {
@@ -33,6 +35,8 @@ public class DrawerMVP {
         void wordsDataReceived(DataSnapshot dataSnapshot);
 
         void saveWord(CharSequence word);
+
+        void winnerDataReceived(DataSnapshot dataSnapshot);
     }
 
     public interface DrawerModel {
