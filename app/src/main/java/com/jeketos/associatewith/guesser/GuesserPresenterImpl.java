@@ -5,6 +5,7 @@ import com.jeketos.associatewith.Point;
 import com.jeketos.associatewith.di.Injector;
 import com.jeketos.associatewith.guesser.chat.ChatItem;
 import com.jeketos.associatewith.guesser.chat.IChatItem;
+import com.jeketos.associatewith.util.ChatUtils;
 
 import java.util.HashMap;
 
@@ -57,12 +58,7 @@ public class GuesserPresenterImpl implements GuesserMVP.GuesserPresenter {
             view.clearChat();
         } else {
             for (int i = previousChatCount; i < childrenCount; i++) {
-                String name = (String) ((HashMap) dataSnapshot.child(Integer.toString(i)).getValue()).get(ChatItem.NAME);
-                String message = (String) ((HashMap) dataSnapshot.child(Integer.toString(i)).getValue()).get(ChatItem.MESSAGE);
-                IChatItem item = new ChatItem();
-                item.setName(name);
-                item.setMessage(message);
-                view.addChatItem(item);
+                view.addChatItem(ChatUtils.getChatItem(dataSnapshot,i));
             }
         }
         previousChatCount = childrenCount;
