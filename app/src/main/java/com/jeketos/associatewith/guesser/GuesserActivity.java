@@ -7,16 +7,23 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.jeketos.associatewith.Point;
 import com.jeketos.associatewith.R;
 import com.jeketos.associatewith.di.Injector;
+import com.jeketos.associatewith.guesser.chat.ChatAdapter;
+import com.jeketos.associatewith.guesser.chat.IChatItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
@@ -30,6 +37,19 @@ public class GuesserActivity extends AppCompatActivity implements GuesserMVP.Gue
     private Paint paint;
     @BindView(R.id.image_view)
     ImageView imageView;
+    @BindView(R.id.recycler_view)
+    RecyclerView chatRecyclerView;
+    @BindView(R.id.edit_text)
+    EditText editText;
+    private ChatAdapter chatAdapter;
+
+    @OnClick(R.id.send) void OnSendClick(){
+        String message = editText.getText().toString();
+        if(!TextUtils.isEmpty(message)){
+            presenter.sendMessage(message);
+            editText.setText(null);
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +74,11 @@ public class GuesserActivity extends AppCompatActivity implements GuesserMVP.Gue
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(12);
         imageView.setImageBitmap(bitmap);
+//        chatRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        chatRecyclerView.setLayoutManager(layoutManager);
+        chatAdapter = new ChatAdapter();
+        chatRecyclerView.setAdapter(chatAdapter);
     }
 
     @Override
@@ -71,6 +96,16 @@ public class GuesserActivity extends AppCompatActivity implements GuesserMVP.Gue
     @Override
     public void clearBoard() {
         init();
+    }
+
+    @Override
+    public void clearChat() {
+        chatAdapter.updateItems(null);
+    }
+
+    @Override
+    public void addChatItem(IChatItem item) {
+        chatAdapter.updateItems(item);
     }
 
 

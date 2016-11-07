@@ -6,12 +6,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
 import com.jeketos.associatewith.Point;
 import com.jeketos.associatewith.R;
 import com.jeketos.associatewith.di.Injector;
+import com.jeketos.associatewith.guesser.chat.ChatAdapter;
+import com.jeketos.associatewith.guesser.chat.IChatItem;
 import com.jeketos.associatewith.listener.TouchListener;
 
 import butterknife.BindView;
@@ -25,6 +29,8 @@ public class DrawerActivity extends AppCompatActivity implements DrawerMVP.Drawe
     @BindView(R.id.image_view)
     ImageView imageView;
     DrawerMVP.DrawerPresenter presenter;
+    @BindView(R.id.recycler_view)
+    RecyclerView chatRecyclerView;
 
     private TouchListener.MoveListener moveListener = new TouchListener.MoveListener() {
         @Override
@@ -43,6 +49,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerMVP.Drawe
         }
     };
     private TouchListener onTouchListener;
+    private ChatAdapter chatAdapter;
 
 
     @Override
@@ -71,6 +78,20 @@ public class DrawerActivity extends AppCompatActivity implements DrawerMVP.Drawe
         paint.setStrokeWidth(12);
         imageView.setImageBitmap(bitmap);
         imageView.setOnTouchListener(onTouchListener);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        chatRecyclerView.setLayoutManager(layoutManager);
+        chatAdapter = new ChatAdapter();
+        chatRecyclerView.setAdapter(chatAdapter);
+    }
+
+    @Override
+    public void addChatItem(IChatItem chatItem) {
+        chatAdapter.updateItems(chatItem);
+    }
+
+    @Override
+    public void clearChat() {
+        chatAdapter.updateItems(null);
     }
 
 

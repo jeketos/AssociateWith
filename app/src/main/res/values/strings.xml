@@ -2,4 +2,6 @@
     <string name="app_name">AssociateWith</string>
     <string name="drawer">Drawer</string>
     <string name="guesser">guesser</string>
+    <string name="colon">:&#160;</string>
+    <string name="send">Send</string>
 </resources>
