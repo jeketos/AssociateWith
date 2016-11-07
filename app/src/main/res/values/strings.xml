@@ -4,4 +4,8 @@
     <string name="guesser">guesser</string>
     <string name="colon">:&#160;</string>
     <string name="send">Send</string>
+    <string name="choose_word">Choose the word</string>
+    <string name="winner">Winner!</string>
+    <string name="winner_is">"Winner is -&#160;"</string>
+    <string name="source_word">"source word -&#160;"</string>
 </resources>
