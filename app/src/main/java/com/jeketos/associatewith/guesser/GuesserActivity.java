@@ -74,7 +74,6 @@ public class GuesserActivity extends AppCompatActivity implements GuesserMVP.Gue
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(12);
         imageView.setImageBitmap(bitmap);
-//        chatRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         chatRecyclerView.setLayoutManager(layoutManager);
         chatAdapter = new ChatAdapter();

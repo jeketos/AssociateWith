@@ -14,6 +14,7 @@ import java.util.HashMap;
 public class ChatUtils {
 
     public static IChatItem getChatItem(DataSnapshot dataSnapshot, int position){
+        dataSnapshot.child(Integer.toString(position)).getValue();
         String name = (String) ((HashMap) dataSnapshot.child(Integer.toString(position)).getValue()).get(ChatItem.NAME);
         String message = (String) ((HashMap) dataSnapshot.child(Integer.toString(position)).getValue()).get(ChatItem.MESSAGE);
         IChatItem item = new ChatItem();

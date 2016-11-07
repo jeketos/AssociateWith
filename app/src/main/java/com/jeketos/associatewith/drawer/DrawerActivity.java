@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -92,6 +93,18 @@ public class DrawerActivity extends AppCompatActivity implements DrawerMVP.Drawe
     @Override
     public void clearChat() {
         chatAdapter.updateItems(null);
+    }
+
+    @Override
+    public void showChooseWordDialog(CharSequence[] words) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.choose_word);
+        builder.setCancelable(false);
+        builder.setItems(words, (dialogInterface, i) -> {
+            presenter.saveWord(words[i]);
+            dialogInterface.dismiss();
+        });
+        builder.create().show();
     }
 
 
