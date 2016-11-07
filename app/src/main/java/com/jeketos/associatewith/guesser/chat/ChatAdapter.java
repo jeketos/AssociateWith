@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
 
-    List<IChatItem> chatItems;
+    private List<IChatItem> chatItems;
 
     public ChatAdapter(){
         chatItems = new ArrayList<>();
@@ -46,7 +46,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
         return chatItems.size();
     }
 
-    public void updateItems(){
+    public void updateItems(IChatItem item){
+        if(item != null) {
+            chatItems.add(item);
+        } else {
+            chatItems = new ArrayList<>();
+        }
         notifyDataSetChanged();
     }
 
@@ -57,9 +62,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
         @BindView(R.id.message)
         TextView message;
 
-        public ChatHolder(View itemView) {
+         ChatHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView.getContext(), itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

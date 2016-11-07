@@ -5,6 +5,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jeketos.associatewith.guesser.chat.IChatItem;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
@@ -14,7 +18,10 @@ import com.google.firebase.database.ValueEventListener;
 public class GuesserModelImpl implements GuesserMVP.GuesserModel {
 
     private static final String MOVE = "move";
+    public static final String CHAT = "chat";
     private GuesserMVP.GuesserPresenter presenter;
+    DatabaseReference referenceChat;
+    private int chatCount;
 
 
     public GuesserModelImpl(GuesserMVP.GuesserPresenter presenter) {
@@ -25,8 +32,9 @@ public class GuesserModelImpl implements GuesserMVP.GuesserModel {
     }
 
     private void init() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(MOVE);
-        ValueEventListener valueEventListener = new ValueEventListener() {
+        chatCount = 0;
+        DatabaseReference referenceMove = FirebaseDatabase.getInstance().getReference(MOVE);
+        ValueEventListener moveValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 presenter.dataReceived(dataSnapshot);
@@ -38,6 +46,29 @@ public class GuesserModelImpl implements GuesserMVP.GuesserModel {
 
             }
         };
-        reference.addValueEventListener(valueEventListener);
+        referenceMove.addValueEventListener(moveValueEventListener);
+        referenceChat = FirebaseDatabase.getInstance().getReference(CHAT);
+        ValueEventListener chatValueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                presenter.chatDataReceived(dataSnapshot);
+                chatCount = ((Number) dataSnapshot.getChildrenCount()).intValue();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        referenceChat.addValueEventListener(chatValueEventListener);
+    }
+
+    @Override
+    public void sendMessage(IChatItem item) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(Integer.toString(chatCount), item);
+        referenceChat.updateChildren(map);
+        chatCount++;
     }
 }

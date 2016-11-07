@@ -7,8 +7,11 @@ package com.jeketos.associatewith.guesser.chat;
 
 public class ChatItem implements IChatItem {
 
-    String name;
-    String message;
+    public static final String NAME = "name";
+    public static final String MESSAGE = "message";
+
+    private String name;
+    private String message;
 
     @Override
     public String getMessage() {

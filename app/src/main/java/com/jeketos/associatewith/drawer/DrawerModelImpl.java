@@ -16,11 +16,12 @@ public class DrawerModelImpl implements DrawerMVP.DrawerModel {
 
     private static final String MOVE = "move";
     DrawerMVP.DrawerPresenter presenter;
-    private DatabaseReference reference;
+    private DatabaseReference referenceMove;
+    private DatabaseReference referenceChat;
 
     public DrawerModelImpl(DrawerMVP.DrawerPresenter presenter) {
         this.presenter = presenter;
-        reference = FirebaseDatabase.getInstance().getReference(MOVE);
+        referenceMove = FirebaseDatabase.getInstance().getReference(MOVE);
     }
 
     //FIXME
@@ -33,11 +34,11 @@ public class DrawerModelImpl implements DrawerMVP.DrawerModel {
     public void sendPoint(int movesCount, Point point) {
         Map<String, Object> map = new HashMap<>();
         map.put(Integer.toString(movesCount), point);
-        reference.updateChildren(map);
+        referenceMove.updateChildren(map);
     }
 
     @Override
     public void clearData() {
-        reference.removeValue();
+        referenceMove.removeValue();
     }
 }
