@@ -89,6 +89,8 @@ public class DrawerModelImpl implements DrawerMVP.DrawerModel {
     public void clearData() {
         referenceMove.removeValue();
         referenceChat.removeValue();
+        referenceSelectedWord.removeValue();
+        referenceWinner.removeValue();
         presenter.clearChat();
     }
 

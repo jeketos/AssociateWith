@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+//        addWords();
     }
 
     private void startDrawerActivity() {
@@ -43,5 +44,31 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GuesserActivity.class);
         startActivity(intent);
     }
+//
+//    private void addWords(){
+//        DatabaseReference words = FirebaseDatabase.getInstance().getReference("words");
+//        words.removeValue();
+//            File file = new File(Environment.getExternalStorageDirectory() + "/word_rus.txt");
+//        List<String> text = new ArrayList<>();
+//
+//        try {
+//            BufferedReader br = new BufferedReader(new FileReader(file));
+//            String line;
+//
+//            while ((line = br.readLine()) != null) {
+//                text.add(line);
+//            }
+//            br.close();
+//
+//            Map<String, Object> map = new HashMap<>();
+//            for (int i = 0; i < text.size(); i++) {
+//                map.put(Integer.toString(i), text.get(i));
+//            }
+//            words.updateChildren(map);
+//
+//        }
+//        catch (IOException e) {
+//        }
+//    }
 
 }

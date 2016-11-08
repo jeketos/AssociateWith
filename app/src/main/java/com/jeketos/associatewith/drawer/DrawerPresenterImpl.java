@@ -65,7 +65,7 @@ public class DrawerPresenterImpl implements DrawerMVP.DrawerPresenter {
         if(dataSnapshot.getChildrenCount() != 0){
             CharSequence[] words = new CharSequence[3];
             for (int i = 0; i < 3; i++) {
-                String word = (String) dataSnapshot.child(Integer.toString(random.nextInt(10))).getValue();
+                String word = (String) dataSnapshot.child(Integer.toString(random.nextInt(childrenCount))).getValue();
                 words[i] = word;
             }
             view.showChooseWordDialog(words);
