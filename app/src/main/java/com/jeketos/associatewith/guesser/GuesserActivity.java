@@ -57,7 +57,7 @@ public class GuesserActivity extends AppCompatActivity implements GuesserMVP.Gue
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guesser);
         ButterKnife.bind(this);
-        presenter = Injector.provideGuesserPresenter(this);
+        presenter = Injector.INSTANCE.provideGuesserPresenter(this);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class GuesserPresenterImpl implements GuesserMVP.GuesserPresenter {
         previousX = 0;
         previousY = 0;
         previousPointCount = 0;
-        model = Injector.provideGuesserModel(this);
+        model = Injector.INSTANCE.provideGuesserModel(this);
         view.init();
     }
 

@@ -29,7 +29,7 @@ public class DrawerPresenterImpl implements DrawerMVP.DrawerPresenter {
 
     private void init() {
         previousChatCount = 0;
-        model = Injector.provideDrawModel(this);
+        model = Injector.INSTANCE.provideDrawModel(this);
         view.init();
         model.clearData();
         movesCount = model.getMovesCount();

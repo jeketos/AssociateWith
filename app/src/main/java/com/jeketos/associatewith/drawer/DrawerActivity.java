@@ -59,7 +59,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerMVP.Drawe
         setContentView(R.layout.activity_drawer);
         ButterKnife.bind(this);
         onTouchListener = new TouchListener(moveListener);
-        presenter = Injector.provideDrawPresenter(this);
+        presenter = Injector.INSTANCE.provideDrawPresenter(this);
 
     }
 
