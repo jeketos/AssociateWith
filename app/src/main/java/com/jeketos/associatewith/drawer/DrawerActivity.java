@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
-
 import com.jeketos.associatewith.Point;
 import com.jeketos.associatewith.R;
 import com.jeketos.associatewith.di.Injector;
@@ -117,14 +116,14 @@ public class DrawerActivity extends AppCompatActivity implements DrawerMVP.Drawe
 
 
     public void drawPoint(Point point) {
-        canvas.drawPoint(point.x, point.y, paint);
+        canvas.drawPoint(point.getX(), point.getY(), paint);
         imageView.invalidate();
         presenter.sendPoint(point);
     }
 
 
     public void drawLine(float previousX, float previousY, Point point) {
-        canvas.drawLine(previousX, previousY, point.x, point.y, paint);
+        canvas.drawLine(previousX, previousY, point.getX(), point.getY(), paint);
         imageView.invalidate();
         presenter.sendPoint(point);
     }

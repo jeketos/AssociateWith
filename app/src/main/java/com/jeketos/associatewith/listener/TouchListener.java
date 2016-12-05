@@ -3,7 +3,6 @@ package com.jeketos.associatewith.listener;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.View;
-
 import com.jeketos.associatewith.Point;
 
 /**

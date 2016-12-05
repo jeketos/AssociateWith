@@ -15,7 +15,6 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import com.jeketos.associatewith.Point;
 import com.jeketos.associatewith.R;
 import com.jeketos.associatewith.di.Injector;
@@ -84,7 +83,7 @@ public class GuesserActivity extends AppCompatActivity implements GuesserMVP.Gue
 
     @Override
     public void draw(float previousX, float previousY, Point point) {
-        switch (point.motionEvent){
+        switch (point.getMotionEvent()){
             case MotionEvent.ACTION_DOWN:
                 drawPoint(point);
                 break;
@@ -118,13 +117,13 @@ public class GuesserActivity extends AppCompatActivity implements GuesserMVP.Gue
 
 
     public void drawPoint(Point point) {
-        canvas.drawPoint(point.x, point.y, paint);
+        canvas.drawPoint(point.getX(), point.getY(), paint);
         imageView.invalidate();
     }
 
 
     public void drawLine(float previousX, float previousY, Point point) {
-        canvas.drawLine(previousX, previousY, point.x, point.y, paint);
+        canvas.drawLine(previousX, previousY, point.getX(), point.getY(), paint);
         imageView.invalidate();
     }
 }

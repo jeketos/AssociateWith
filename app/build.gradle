@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
@@ -22,6 +24,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
@@ -37,8 +42,12 @@ dependencies {
     compile 'com.android.support:percent:25.0.0'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
 }
 
 apply plugin: 'me.tatarka.retrolambda' // Java 8 support
 apply plugin: 'com.google.gms.google-services'
+repositories {
+    mavenCentral()
+}
