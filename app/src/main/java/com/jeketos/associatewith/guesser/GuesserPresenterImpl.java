@@ -61,7 +61,7 @@ public class GuesserPresenterImpl implements GuesserMVP.GuesserPresenter {
             view.clearChat();
         } else {
             for (int i = previousChatCount; i < childrenCount; i++) {
-                view.addChatItem(ChatUtils.getChatItem(dataSnapshot,i));
+                view.addChatItem(ChatUtils.INSTANCE.getChatItem(dataSnapshot,i));
             }
         }
         previousChatCount = childrenCount;
