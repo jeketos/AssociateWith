@@ -14,11 +14,11 @@ object ChatUtils {
 
     fun  getChatItem(dataSnapshot: DataSnapshot , position : Int): IChatItem{
         val hashMap = dataSnapshot.child(position.toString()).value as HashMap<*, *>
-        val name = hashMap[ChatItem.NAME]
-        val message =  hashMap[ChatItem.MESSAGE]
+        val name = hashMap["name"]
+        val message =  hashMap["message"]
         val item = ChatItem()
-        if (message is String) item.message = message
-        if (name is String) item.name = name
+        if (message is String) item.setMessage(message)
+        if (name is String) item.setName(name)
         return item
     }
 
