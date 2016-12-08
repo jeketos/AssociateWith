@@ -12,6 +12,7 @@ import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.di.Injector
 import com.jeketos.associatewith.guesser.chat.ChatAdapter
+import com.jeketos.associatewith.guesser.chat.ChatItem
 import com.jeketos.associatewith.guesser.chat.IChatItem
 import com.jeketos.associatewith.listener.TouchListener
 import com.jeketos.associatewith.util.DialogUtils
@@ -22,7 +23,7 @@ class DrawerActivity() : AppCompatActivity(), DrawerMVP.DrawerView {
 //    private static final String TAG = "DrawerActivity";
     lateinit var canvas : Canvas
     lateinit var paint : Paint
-    lateinit var presenter : DrawerMVP.DrawerPresenter
+    var presenter : DrawerMVP.DrawerPresenter? = null
     lateinit var onTouchListener : TouchListener
     lateinit var chatAdapter : ChatAdapter
 
@@ -48,6 +49,11 @@ class DrawerActivity() : AppCompatActivity(), DrawerMVP.DrawerView {
         presenter = Injector.provideDrawPresenter(this)
     }
 
+    override fun onStop() {
+        super.onStop()
+        presenter = null
+    }
+
     override fun init() {
         val displayMetrics = resources.displayMetrics
         val bitmap = Bitmap.createBitmap(displayMetrics.widthPixels,displayMetrics.heightPixels, Bitmap.Config.ARGB_8888)
@@ -68,7 +74,7 @@ class DrawerActivity() : AppCompatActivity(), DrawerMVP.DrawerView {
         chatRecyclerView.adapter = chatAdapter
     }
 
-    override fun addChatItem(chatItem: IChatItem) {
+    override fun addChatItem(chatItem: IChatItem?) {
         chatAdapter.updateItems(chatItem)
     }
 
@@ -81,7 +87,7 @@ class DrawerActivity() : AppCompatActivity(), DrawerMVP.DrawerView {
         builder.setTitle(R.string.choose_word)
         builder.setCancelable(false)
         builder.setItems(words, { dialogInterface, i ->
-            presenter.saveWord(words[i])
+            presenter!!.saveWord(words[i])
             dialogInterface.dismiss()
         })
         builder.create().show()
@@ -89,18 +95,20 @@ class DrawerActivity() : AppCompatActivity(), DrawerMVP.DrawerView {
 
     override fun showWinnerDialog(name: String) {
         val builder = DialogUtils.createWinnerDialog(this,name,null)
-        builder.create().show()
+        builder.create()
+        if(!this.isFinishing)
+            builder.show()
     }
 
     fun drawPoint(point: Point){
         canvas.drawPoint(point.x, point.y, paint)
         imageView.invalidate()
-        presenter.sendPoint(point)
+        presenter!!.sendPoint(point)
     }
 
     fun drawLine(previousX: Float, previousY: Float, point: Point){
         canvas.drawLine(previousX, previousY, point.x, point.y, paint)
         imageView.invalidate()
-        presenter.sendPoint(point)
+        presenter!!.sendPoint(point)
     }
 }

@@ -110,9 +110,10 @@ public class GuesserActivity extends AppCompatActivity implements GuesserMVP.Gue
 
     @Override
     public void showWinnerDialog(String name, String word) {
-        AlertDialog.Builder builder = DialogUtils.createWinnerDialog(this, name, word);
+        AlertDialog.Builder builder = DialogUtils.INSTANCE.createWinnerDialog(this, name, word);
         builder.create();
-        builder.show();
+        if(!this.isFinishing())
+            builder.show();
     }
 
 

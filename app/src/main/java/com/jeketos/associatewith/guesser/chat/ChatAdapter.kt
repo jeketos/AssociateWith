@@ -36,7 +36,7 @@ class ChatAdapter() : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
         return chatItems.size
     }
 
-    fun updateItems(item: ChatItem?){
+    fun updateItems(item: IChatItem?){
         if(item != null)
             chatItems.add(item)
         else

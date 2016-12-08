@@ -15,7 +15,7 @@ class DrawerMVP() {
 
         fun init()
 
-        fun addChatItem(chatItem: IChatItem)
+        fun addChatItem(chatItem: IChatItem?)
 
         fun clearChat()
 
