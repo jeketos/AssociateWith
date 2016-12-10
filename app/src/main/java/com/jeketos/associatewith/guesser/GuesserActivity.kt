@@ -11,7 +11,7 @@ import android.text.TextUtils
 import android.view.MotionEvent
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
-import com.jeketos.associatewith.di.Injector
+import com.jeketos.associatewith.di.provideGuesserPresenter
 import com.jeketos.associatewith.guesser.chat.ChatAdapter
 import com.jeketos.associatewith.guesser.chat.IChatItem
 import com.jeketos.associatewith.util.DialogUtils
@@ -40,7 +40,7 @@ class GuesserActivity() : AppCompatActivity(), GuesserMVP.GuesserView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guesser)
-        presenter = Injector.provideGuesserPresenter(this)
+        presenter = provideGuesserPresenter(this)
     }
 
     override fun init() {

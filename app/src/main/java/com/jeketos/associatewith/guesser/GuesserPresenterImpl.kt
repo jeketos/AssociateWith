@@ -4,7 +4,7 @@ import android.text.TextUtils
 
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
-import com.jeketos.associatewith.di.Injector
+import com.jeketos.associatewith.di.provideGuesserModel
 import com.jeketos.associatewith.guesser.chat.ChatItem
 import com.jeketos.associatewith.util.ChatUtils
 
@@ -29,7 +29,7 @@ class GuesserPresenterImpl(val view: GuesserMVP.GuesserView) : GuesserMVP.Guesse
         previousX = 0f
         previousY = 0f
         previousPointCount = 0
-        model = Injector.provideGuesserModel(this)
+        model = provideGuesserModel(this)
         view.init()
     }
 

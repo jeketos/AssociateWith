@@ -2,7 +2,7 @@ package com.jeketos.associatewith.drawer
 
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
-import com.jeketos.associatewith.di.Injector
+import com.jeketos.associatewith.di.provideDrawModel
 import com.jeketos.associatewith.util.ChatUtils
 import java.util.Random
 
@@ -19,7 +19,7 @@ class DrawerPresenterImpl(val view: DrawerMVP.DrawerView) : DrawerMVP.DrawerPres
 
     init {
         previousChatCount = 0
-        model = Injector.provideDrawModel(this)
+        model = provideDrawModel(this)
         view.init()
         model.clearData()
         movesCount = model.getMovesCount()

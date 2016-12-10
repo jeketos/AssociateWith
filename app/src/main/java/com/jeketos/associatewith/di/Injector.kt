@@ -11,7 +11,6 @@ import com.jeketos.associatewith.guesser.GuesserPresenterImpl
  * Created by jeketos on 05.12.2016.
  *
  */
-object Injector {
 
     fun provideDrawPresenter(view : DrawerMVP.DrawerView): DrawerMVP.DrawerPresenter{
         return DrawerPresenterImpl(view)
@@ -28,4 +27,3 @@ object Injector {
     fun provideGuesserModel(presenter: GuesserMVP.GuesserPresenter): GuesserMVP.GuesserModel {
         return GuesserModelImpl(presenter)
     }
-}
