@@ -60,6 +60,7 @@ class GuesserPresenterImpl(val view: GuesserMVP.GuesserView) : GuesserMVP.Guesse
             list.forEach {
                 view.addChatItem(ChatUtils.getChatItem(dataSnapshot, it))
             }
+            previousChatCount = childrenCount
         }
     }
 
