@@ -6,7 +6,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.jeketos.associatewith.Point
-import com.jeketos.associatewith.guesser.GuesserModelImpl
 
 import java.util.*
 
@@ -31,7 +30,7 @@ import java.util.*
         referenceMove = FirebaseDatabase.getInstance().getReference(MOVE)
         referenceChat = FirebaseDatabase.getInstance().getReference(CHAT)
         referenceWords = FirebaseDatabase.getInstance().getReference(WORDS)
-        referenceWinner = FirebaseDatabase.getInstance().getReference(GuesserModelImpl.WINNER)
+        referenceWinner = FirebaseDatabase.getInstance().getReference("winner")
         referenceChat.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError?) {}
 

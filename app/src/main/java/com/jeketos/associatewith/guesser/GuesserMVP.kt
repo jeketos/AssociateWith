@@ -28,7 +28,7 @@ import com.jeketos.associatewith.guesser.chat.IChatItem
 
      interface GuesserPresenter{
 
-        fun dataReceived(point : DataSnapshot)
+        fun dataReceived(dataSnapshot: DataSnapshot)
 
         fun sendMessage(message : String)
 
