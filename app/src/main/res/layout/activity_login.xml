@@ -6,13 +6,13 @@
               android:gravity="center">
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/button_drawer"
+        android:id="@+id/buttonDrawer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/drawer"
         />
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/button_guesser"
+        android:id="@+id/buttonGuesser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/guesser"
