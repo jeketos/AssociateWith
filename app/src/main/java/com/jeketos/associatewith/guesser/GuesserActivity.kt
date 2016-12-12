@@ -5,12 +5,12 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.MotionEvent
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
+import com.jeketos.associatewith.base.BaseActivity
 import com.jeketos.associatewith.di.provideGuesserPresenter
 import com.jeketos.associatewith.guesser.chat.ChatAdapter
 import com.jeketos.associatewith.guesser.chat.IChatItem
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_guesser.*
  *
  */
 
-class GuesserActivity() : AppCompatActivity(), GuesserMVP.GuesserView {
+class GuesserActivity() : BaseActivity(), GuesserMVP.GuesserView {
 
     lateinit var presenter : GuesserMVP.GuesserPresenter
     lateinit var canvas : Canvas
@@ -39,6 +39,7 @@ class GuesserActivity() : AppCompatActivity(), GuesserMVP.GuesserView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        component.inject(this)
         setContentView(R.layout.activity_guesser)
         presenter = provideGuesserPresenter(this)
     }

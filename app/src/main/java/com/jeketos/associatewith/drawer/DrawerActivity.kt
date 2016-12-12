@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
+import com.jeketos.associatewith.base.BaseActivity
 import com.jeketos.associatewith.di.provideDrawPresenter
 import com.jeketos.associatewith.guesser.chat.ChatAdapter
 import com.jeketos.associatewith.guesser.chat.IChatItem
@@ -17,7 +18,7 @@ import com.jeketos.associatewith.listener.TouchListener
 import com.jeketos.associatewith.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_drawer.*
 
-class DrawerActivity() : AppCompatActivity(), DrawerMVP.DrawerView {
+class DrawerActivity() : BaseActivity(), DrawerMVP.DrawerView {
 
 //    private static final String TAG = "DrawerActivity";
     lateinit var canvas : Canvas
@@ -43,6 +44,7 @@ class DrawerActivity() : AppCompatActivity(), DrawerMVP.DrawerView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        component.inject(this)
         setContentView(R.layout.activity_drawer)
         onTouchListener = TouchListener(moveListener)
         presenter = provideDrawPresenter(this)
