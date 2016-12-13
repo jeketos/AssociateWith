@@ -11,20 +11,21 @@ import android.view.MotionEvent
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.base.BaseActivity
-import com.jeketos.associatewith.di.provideGuesserPresenter
+import com.jeketos.associatewith.base.BasePresenter
 import com.jeketos.associatewith.guesser.chat.ChatAdapter
 import com.jeketos.associatewith.guesser.chat.IChatItem
 import com.jeketos.associatewith.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_guesser.*
+import javax.inject.Inject
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
  *
  */
 
-class GuesserActivity() : BaseActivity(), GuesserMVP.GuesserView {
+class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.GuesserView {
 
-    lateinit var presenter : GuesserMVP.GuesserPresenter
+    @Inject lateinit var presenter : GuesserMVP.GuesserPresenter
     lateinit var canvas : Canvas
     lateinit var paint : Paint
     lateinit var  chatAdapter : ChatAdapter
@@ -37,11 +38,15 @@ class GuesserActivity() : BaseActivity(), GuesserMVP.GuesserView {
         }
     }
 
+    override fun getPresenter(): BasePresenter<GuesserMVP.GuesserView> {
+        return presenter
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         component.inject(this)
         setContentView(R.layout.activity_guesser)
-        presenter = provideGuesserPresenter(this)
+        init()
     }
 
     override fun init() {

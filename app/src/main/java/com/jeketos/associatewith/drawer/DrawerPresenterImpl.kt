@@ -2,25 +2,24 @@ package com.jeketos.associatewith.drawer
 
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
-import com.jeketos.associatewith.di.provideDrawModel
+import com.jeketos.associatewith.base.BaseMvpPresenter
 import com.jeketos.associatewith.util.ChatUtils
 import java.util.Random
+import javax.inject.Inject
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
  *
  */
 
-class DrawerPresenterImpl(val view: DrawerMVP.DrawerView) : DrawerMVP.DrawerPresenter {
+class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.DrawerView>(), DrawerMVP.DrawerPresenter {
 
-    val model : DrawerMVP.DrawerModel
+    @Inject lateinit var model : DrawerMVP.DrawerModel
     var movesCount : Int
     var previousChatCount : Int
 
     init {
         previousChatCount = 0
-        model = provideDrawModel(this)
-        view.init()
         model.clearData()
         movesCount = model.getMovesCount()
     }
@@ -34,14 +33,14 @@ class DrawerPresenterImpl(val view: DrawerMVP.DrawerView) : DrawerMVP.DrawerPres
         val childrenCount = dataSnapshot.childrenCount.toInt()
         if(childrenCount != 0){
             for(i in previousChatCount until childrenCount){
-                view.addChatItem(ChatUtils.getChatItem(dataSnapshot, i))
+                view!!.addChatItem(ChatUtils.getChatItem(dataSnapshot, i))
             }
         }
         previousChatCount = childrenCount
     }
 
     override fun clearChat() {
-        view.clearChat()
+        view!!.clearChat()
     }
 
     override fun wordsDataReceived(dataSnapshot: DataSnapshot) {
@@ -52,7 +51,7 @@ class DrawerPresenterImpl(val view: DrawerMVP.DrawerView) : DrawerMVP.DrawerPres
             for (i in 0 until 3){
                 words[i] = dataSnapshot.child(random.nextInt(childrenCount).toString()).value as CharSequence
             }
-            view.showChooseWordDialog(words)
+            view!!.showChooseWordDialog(words)
         }
     }
 
@@ -62,6 +61,6 @@ class DrawerPresenterImpl(val view: DrawerMVP.DrawerView) : DrawerMVP.DrawerPres
 
     override fun winnerDataReceived(dataSnapshot: DataSnapshot) {
         val name = dataSnapshot.value as String?
-        if(name != null) view.showWinnerDialog(name)
+        if(name != null) view!!.showWinnerDialog(name)
     }
 }

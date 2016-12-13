@@ -6,13 +6,14 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.jeketos.associatewith.guesser.chat.IChatItem
+import javax.inject.Inject
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
  *
  */
 
- class GuesserModelImpl(val presenter: GuesserMVP.GuesserPresenter) : GuesserMVP.GuesserModel {
+ class GuesserModelImpl @Inject constructor() : GuesserMVP.GuesserModel {
 
     val  MOVE = "move"
     val CHAT = "chat"
@@ -22,6 +23,7 @@ import com.jeketos.associatewith.guesser.chat.IChatItem
     var referenceChat : DatabaseReference
     var referenceSelectedWord : DatabaseReference
     var referenceWinner : DatabaseReference
+    @Inject lateinit var presenter : GuesserMVP.GuesserPresenter
 
     init {
         val referenceMove = FirebaseDatabase.getInstance().getReference(MOVE)

@@ -8,12 +8,13 @@ import com.google.firebase.database.ValueEventListener
 import com.jeketos.associatewith.Point
 
 import java.util.*
+import javax.inject.Inject
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
  *
  */
- class DrawerModelImpl(val presenter: DrawerMVP.DrawerPresenter) : DrawerMVP.DrawerModel {
+ class DrawerModelImpl @Inject constructor() : DrawerMVP.DrawerModel {
 
     val  MOVE = "move"
     val  CHAT = "chat"
@@ -24,6 +25,7 @@ import java.util.*
     val referenceWords : DatabaseReference
     val referenceSelectedWord : DatabaseReference
     val referenceWinner : DatabaseReference
+    @Inject lateinit var presenter : DrawerMVP.DrawerPresenter
 
     init {
         referenceSelectedWord = FirebaseDatabase.getInstance().getReference(SELECTED_WORD)

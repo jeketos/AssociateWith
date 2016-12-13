@@ -6,24 +6,24 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.base.BaseActivity
-import com.jeketos.associatewith.di.provideDrawPresenter
+import com.jeketos.associatewith.base.BasePresenter
 import com.jeketos.associatewith.guesser.chat.ChatAdapter
 import com.jeketos.associatewith.guesser.chat.IChatItem
 import com.jeketos.associatewith.listener.TouchListener
 import com.jeketos.associatewith.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_drawer.*
+import javax.inject.Inject
 
-class DrawerActivity() : BaseActivity(), DrawerMVP.DrawerView {
+class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerView {
 
-//    private static final String TAG = "DrawerActivity";
+    //    private static final String TAG = "DrawerActivity";
     lateinit var canvas : Canvas
     lateinit var paint : Paint
-    var presenter : DrawerMVP.DrawerPresenter? = null
+    @Inject lateinit var presenter : DrawerMVP.DrawerPresenter
     lateinit var onTouchListener : TouchListener
     lateinit var chatAdapter : ChatAdapter
 
@@ -42,17 +42,20 @@ class DrawerActivity() : BaseActivity(), DrawerMVP.DrawerView {
         }
     }
 
+    override fun getPresenter(): BasePresenter<DrawerMVP.DrawerView> {
+        return presenter
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         component.inject(this)
         setContentView(R.layout.activity_drawer)
         onTouchListener = TouchListener(moveListener)
-        presenter = provideDrawPresenter(this)
+        init()
     }
 
     override fun onStop() {
         super.onStop()
-        presenter = null
     }
 
     override fun init() {
@@ -88,7 +91,7 @@ class DrawerActivity() : BaseActivity(), DrawerMVP.DrawerView {
         builder.setTitle(R.string.choose_word)
         builder.setCancelable(false)
         builder.setItems(words, { dialogInterface, i ->
-            presenter!!.saveWord(words[i])
+            presenter.saveWord(words[i])
             dialogInterface.dismiss()
         })
         builder.create().show()
@@ -104,12 +107,12 @@ class DrawerActivity() : BaseActivity(), DrawerMVP.DrawerView {
     fun drawPoint(point: Point){
         canvas.drawPoint(point.x, point.y, paint)
         imageView.invalidate()
-        presenter!!.sendPoint(point)
+        presenter.sendPoint(point)
     }
 
     fun drawLine(previousX: Float, previousY: Float, point: Point){
         canvas.drawLine(previousX, previousY, point.x, point.y, paint)
         imageView.invalidate()
-        presenter!!.sendPoint(point)
+        presenter.sendPoint(point)
     }
 }

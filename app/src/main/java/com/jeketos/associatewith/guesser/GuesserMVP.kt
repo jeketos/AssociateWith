@@ -2,6 +2,7 @@ package com.jeketos.associatewith.guesser
 
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
+import com.jeketos.associatewith.base.BasePresenter
 import com.jeketos.associatewith.guesser.chat.IChatItem
 
 /**
@@ -26,7 +27,7 @@ import com.jeketos.associatewith.guesser.chat.IChatItem
         fun showWinnerDialog(name : String, word : String)
     }
 
-     interface GuesserPresenter{
+     interface GuesserPresenter : BasePresenter<GuesserView>{
 
         fun dataReceived(dataSnapshot: DataSnapshot)
 

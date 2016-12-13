@@ -10,7 +10,7 @@ import com.jeketos.associatewith.di.module.ActivityModule
  * Created by jeketos on 12.12.2016.
  *
  */
-open class BaseActivity : AppCompatActivity(){
+abstract class BaseActivity<V> : AppCompatActivity(){
 
     lateinit var component: ActivityComponent
     lateinit var activityModule: ActivityModule
@@ -24,11 +24,21 @@ open class BaseActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
     }
 
+    override fun onStart() {
+        super.onStart()
+        getPresenter().attachView(this as V)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        getPresenter().detachView()
+    }
+
     private fun createOrRestoreComponent() {
         val state = lastCustomNonConfigurationInstance as Array<*>?
         if (state == null) {
             activityModule = ActivityModule(this)
-            component = App.component.getActivityComponent(activityModule)
+            component = (this.applicationContext as App).component.getActivityComponent(activityModule)
         } else {
             // Restore the retained component
             activityModule = state[0] as ActivityModule
@@ -40,5 +50,7 @@ open class BaseActivity : AppCompatActivity(){
     override fun onRetainCustomNonConfigurationInstance(): Any {
         return arrayOf(activityModule, component)
     }
+
+    abstract fun getPresenter() : BasePresenter<V>
 
 }

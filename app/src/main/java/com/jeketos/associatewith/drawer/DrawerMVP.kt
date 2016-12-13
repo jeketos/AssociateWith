@@ -2,6 +2,7 @@ package com.jeketos.associatewith.drawer
 
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
+import com.jeketos.associatewith.base.BasePresenter
 import com.jeketos.associatewith.guesser.chat.IChatItem
 
 /**
@@ -24,7 +25,7 @@ class DrawerMVP() {
         fun showWinnerDialog(name: String)
     }
 
-    interface DrawerPresenter {
+    interface DrawerPresenter : BasePresenter<DrawerView> {
         fun sendPoint(point: Point)
         fun chatDataReceived(dataSnapshot: DataSnapshot)
         fun clearChat()

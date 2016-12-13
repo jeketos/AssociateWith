@@ -4,21 +4,22 @@ import android.text.TextUtils
 
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
-import com.jeketos.associatewith.di.provideGuesserModel
+import com.jeketos.associatewith.base.BaseMvpPresenter
 import com.jeketos.associatewith.guesser.chat.ChatItem
 import com.jeketos.associatewith.util.ChatUtils
 
 import java.util.HashMap
+import javax.inject.Inject
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
  *
  */
 
-class GuesserPresenterImpl(val view: GuesserMVP.GuesserView) : GuesserMVP.GuesserPresenter {
+class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.GuesserView>(), GuesserMVP.GuesserPresenter {
 
 
-     var model : GuesserMVP.GuesserModel
+     @Inject lateinit var model : GuesserMVP.GuesserModel
      var previousX : Float
      var previousY : Float
      var previousPointCount : Int = 0
@@ -29,21 +30,19 @@ class GuesserPresenterImpl(val view: GuesserMVP.GuesserView) : GuesserMVP.Guesse
         previousX = 0f
         previousY = 0f
         previousPointCount = 0
-        model = provideGuesserModel(this)
-        view.init()
     }
 
     override fun dataReceived(dataSnapshot: DataSnapshot) {
         val childrenCount = dataSnapshot.childrenCount.toInt()
         if(childrenCount == 0){
-            view.clearBoard()
+            view!!.clearBoard()
         } else {
             for (i in previousPointCount until childrenCount){
                 val hashMap = dataSnapshot.child(i.toString()).value as HashMap<*,*>
                 val motionEvent = hashMap["motionEvent"] as Long
                 val x = (hashMap["x"] as Double).toFloat()
                 val y = (hashMap["y"]as Double).toFloat()
-                view.draw(previousX, previousY, Point(x,y,motionEvent.toInt()))
+                view!!.draw(previousX, previousY, Point(x,y,motionEvent.toInt()))
                 previousX = x
                 previousY = y
             }
@@ -54,11 +53,11 @@ class GuesserPresenterImpl(val view: GuesserMVP.GuesserView) : GuesserMVP.Guesse
     override fun chatDataReceived(dataSnapshot: DataSnapshot) {
         val childrenCount = dataSnapshot.childrenCount.toInt()
         if(childrenCount == 0){
-            view.clearChat()
+            view!!.clearChat()
         } else {
             val list = Array(childrenCount - previousChatCount, { i -> i + previousChatCount})
             list.forEach {
-                view.addChatItem(ChatUtils.getChatItem(dataSnapshot, it))
+                view!!.addChatItem(ChatUtils.getChatItem(dataSnapshot, it))
             }
             previousChatCount = childrenCount
         }
@@ -72,7 +71,7 @@ class GuesserPresenterImpl(val view: GuesserMVP.GuesserView) : GuesserMVP.Guesse
         if(dataSnapshot.value != null) {
             val name = dataSnapshot.value as String
             if (!TextUtils.isEmpty(name)) {
-                view.showWinnerDialog(name, selectedWord!!)
+                view!!.showWinnerDialog(name, selectedWord!!)
             }
         }
     }
@@ -84,7 +83,7 @@ class GuesserPresenterImpl(val view: GuesserMVP.GuesserView) : GuesserMVP.Guesse
         model.sendMessage(item)
         if(message.toLowerCase() == (selectedWord)){
             model.setWinner(item)
-            view.showWinnerDialog(item.getName(), message)
+            view!!.showWinnerDialog(item.getName(), message)
         }
     }
 }

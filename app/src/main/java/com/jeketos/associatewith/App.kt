@@ -1,6 +1,7 @@
 package com.jeketos.associatewith
 
 import android.app.Application
+import android.content.Context
 import com.jeketos.associatewith.di.component.AppComponent
 import com.jeketos.associatewith.di.component.DaggerAppComponent
 import com.jeketos.associatewith.di.module.AppModule
@@ -12,10 +13,9 @@ import com.jeketos.associatewith.di.module.AppModule
 
 class App : Application(){
 
-    companion object {
         //platformStatic allow access it from java code
-        @JvmStatic lateinit var component: AppComponent
-    }
+       lateinit var component: AppComponent
+
 
     override fun onCreate() {
         super.onCreate()
