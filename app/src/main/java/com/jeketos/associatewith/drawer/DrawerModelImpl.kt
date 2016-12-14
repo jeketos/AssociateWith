@@ -1,12 +1,7 @@
 package com.jeketos.associatewith.drawer
 
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.jeketos.associatewith.Point
-
 import java.util.*
 import javax.inject.Inject
 
@@ -25,6 +20,7 @@ import javax.inject.Inject
     val referenceWords : DatabaseReference
     val referenceSelectedWord : DatabaseReference
     val referenceWinner : DatabaseReference
+    lateinit var firebaseListener: (DataSnapshot) -> Unit
     @Inject lateinit var presenter : DrawerMVP.DrawerPresenter
 
     init {
@@ -71,10 +67,13 @@ import javax.inject.Inject
         referenceChat.removeValue()
         referenceSelectedWord.removeValue()
         referenceWinner.removeValue()
-        presenter.clearChat()
     }
 
     override fun saveSelectedWord(word: CharSequence) {
         referenceSelectedWord.setValue(word)
+    }
+
+    override fun setListener(firebaseListener: (DataSnapshot) -> Unit) {
+        this.firebaseListener = firebaseListener
     }
 }

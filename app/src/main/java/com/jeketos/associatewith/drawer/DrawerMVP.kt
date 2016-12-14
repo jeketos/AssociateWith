@@ -43,6 +43,9 @@ class DrawerMVP() {
         fun clearData()
 
         fun saveSelectedWord(word: CharSequence)
+
+        fun  setListener(firebaseListener: (DataSnapshot) -> Unit)
     }
 
 }
+

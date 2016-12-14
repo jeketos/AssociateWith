@@ -4,7 +4,7 @@ import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BaseMvpPresenter
 import com.jeketos.associatewith.util.ChatUtils
-import java.util.Random
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -21,12 +21,16 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
     init {
         previousChatCount = 0
         model.clearData()
+        clearChat()
         movesCount = model.getMovesCount()
+
     }
 
     override fun sendPoint(point: Point) {
         model.sendPoint(movesCount, point)
         movesCount++
+
+        model.setListener({dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
     }
 
     override fun chatDataReceived(dataSnapshot: DataSnapshot) {
