@@ -29,7 +29,7 @@ import com.jeketos.associatewith.guesser.chat.IChatItem
 
      interface GuesserPresenter : BasePresenter<GuesserView>{
 
-        fun dataReceived(dataSnapshot: DataSnapshot)
+        fun moveDataReceived(dataSnapshot: DataSnapshot)
 
         fun sendMessage(message : String)
 
@@ -42,9 +42,13 @@ import com.jeketos.associatewith.guesser.chat.IChatItem
 
      interface GuesserModel{
 
-       fun sendMessage(item : IChatItem)
+         fun sendMessage(item : IChatItem)
 
-       fun setWinner(item : IChatItem)
+         fun setWinner(item : IChatItem)
+         fun addChatListener(chatListener: (DataSnapshot) -> Unit)
+         fun addMoveListener(moveListener: (DataSnapshot) -> Unit)
+         fun addSelectedWordListener(selectedWordListener: (DataSnapshot) -> Unit)
+         fun addWinnerListener(winnerListener: (DataSnapshot) -> Unit)
     }
 
 }

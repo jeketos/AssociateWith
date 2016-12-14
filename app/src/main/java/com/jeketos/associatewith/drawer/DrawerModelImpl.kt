@@ -20,8 +20,9 @@ import javax.inject.Inject
     val referenceWords : DatabaseReference
     val referenceSelectedWord : DatabaseReference
     val referenceWinner : DatabaseReference
-    lateinit var firebaseListener: (DataSnapshot) -> Unit
-    @Inject lateinit var presenter : DrawerMVP.DrawerPresenter
+    lateinit var chatListener: (DataSnapshot) -> Unit
+    lateinit var wordsListener: (DataSnapshot) -> Unit
+    lateinit var winnerListener: (DataSnapshot) -> Unit
 
     init {
         referenceSelectedWord = FirebaseDatabase.getInstance().getReference(SELECTED_WORD)
@@ -33,21 +34,21 @@ import javax.inject.Inject
             override fun onCancelled(p0: DatabaseError?) {}
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                presenter.chatDataReceived(dataSnapshot!!)
+                chatListener(dataSnapshot!!)
             }
         })
         referenceWords.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError?) {}
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                presenter.wordsDataReceived(dataSnapshot!!)
+                wordsListener(dataSnapshot!!)
             }
         })
         referenceWinner.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError?) {}
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                presenter.winnerDataReceived(dataSnapshot!!)
+                winnerListener(dataSnapshot!!)
             }
         })
     }
@@ -73,7 +74,14 @@ import javax.inject.Inject
         referenceSelectedWord.setValue(word)
     }
 
-    override fun setListener(firebaseListener: (DataSnapshot) -> Unit) {
-        this.firebaseListener = firebaseListener
+    override fun addChatListener(chatListener: (DataSnapshot) -> Unit) {
+        this.chatListener = chatListener
+    }
+
+    override fun addWordsListener(wordsListener: (DataSnapshot) -> Unit) {
+        this.wordsListener = wordsListener
+    }
+    override fun addWinnerListener(winnerListener: (DataSnapshot) -> Unit) {
+        this.winnerListener = winnerListener
     }
 }

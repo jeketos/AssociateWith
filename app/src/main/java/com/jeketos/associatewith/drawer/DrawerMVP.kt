@@ -26,6 +26,7 @@ class DrawerMVP() {
     }
 
     interface DrawerPresenter : BasePresenter<DrawerView> {
+        fun init()
         fun sendPoint(point: Point)
         fun chatDataReceived(dataSnapshot: DataSnapshot)
         fun clearChat()
@@ -44,7 +45,10 @@ class DrawerMVP() {
 
         fun saveSelectedWord(word: CharSequence)
 
-        fun  setListener(firebaseListener: (DataSnapshot) -> Unit)
+        fun addChatListener(chatListener: (DataSnapshot) -> Unit)
+
+        fun addWordsListener(wordsListener: (DataSnapshot) -> Unit)
+        fun addWinnerListener(winnerListener: (DataSnapshot) -> Unit)
     }
 
 }

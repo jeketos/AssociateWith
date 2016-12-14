@@ -30,9 +30,13 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
         previousX = 0f
         previousY = 0f
         previousPointCount = 0
+        model.addChatListener { dataSnapshot: DataSnapshot -> chatDataReceived(dataSnapshot) }
+        model.addMoveListener { dataSnapshot: DataSnapshot -> moveDataReceived(dataSnapshot) }
+        model.addWinnerListener { dataSnapshot: DataSnapshot ->  winnerDataReceived(dataSnapshot)}
+        model.addSelectedWordListener { dataSnapshot: DataSnapshot ->  selectedWordReceived(dataSnapshot)}
     }
 
-    override fun dataReceived(dataSnapshot: DataSnapshot) {
+    override fun moveDataReceived(dataSnapshot: DataSnapshot) {
         val childrenCount = dataSnapshot.childrenCount.toInt()
         if(childrenCount == 0){
             view!!.clearBoard()

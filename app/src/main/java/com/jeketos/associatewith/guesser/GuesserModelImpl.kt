@@ -23,7 +23,10 @@ import javax.inject.Inject
     var referenceChat : DatabaseReference
     var referenceSelectedWord : DatabaseReference
     var referenceWinner : DatabaseReference
-    @Inject lateinit var presenter : GuesserMVP.GuesserPresenter
+    lateinit var chatListener: (DataSnapshot) -> Unit
+    lateinit var moveListener: (DataSnapshot) -> Unit
+    lateinit var selectedWordListener: (DataSnapshot) -> Unit
+    lateinit var winnerListener: (DataSnapshot) -> Unit
 
     init {
         val referenceMove = FirebaseDatabase.getInstance().getReference(MOVE)
@@ -31,7 +34,7 @@ import javax.inject.Inject
             override fun onCancelled(p0: DatabaseError?) {}
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                presenter.dataReceived(dataSnapshot)
+                moveListener(dataSnapshot)
             }
         })
         referenceChat = FirebaseDatabase.getInstance().getReference(CHAT)
@@ -39,7 +42,7 @@ import javax.inject.Inject
             override fun onCancelled(p0: DatabaseError?) {}
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                presenter.chatDataReceived(dataSnapshot)
+                chatListener(dataSnapshot)
                 chatCount = dataSnapshot.childrenCount.toInt()
             }
 
@@ -49,7 +52,7 @@ import javax.inject.Inject
             override fun onCancelled(p0: DatabaseError?) {}
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                presenter.selectedWordReceived(dataSnapshot)
+                selectedWordListener(dataSnapshot)
             }
 
         })
@@ -58,7 +61,7 @@ import javax.inject.Inject
             override fun onCancelled(p0: DatabaseError?) {}
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                presenter.winnerDataReceived(dataSnapshot)
+                winnerListener(dataSnapshot)
             }
         })
     }
@@ -71,4 +74,20 @@ import javax.inject.Inject
     override fun setWinner(item: IChatItem) {
         referenceWinner.setValue(item.getName())
     }
+
+    override fun addChatListener(chatListener: (DataSnapshot) -> Unit) {
+        this.chatListener = chatListener
+    }
+
+    override fun addMoveListener(moveListener: (DataSnapshot) -> Unit) {
+        this.moveListener = moveListener
+    }
+
+    override fun addSelectedWordListener(selectedWordListener: (DataSnapshot) -> Unit) {
+        this.selectedWordListener = selectedWordListener
+    }
+
+    override fun addWinnerListener(winnerListener: (DataSnapshot) -> Unit) {
+        this.winnerListener = winnerListener
+     }
 }

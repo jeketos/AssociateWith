@@ -15,22 +15,23 @@ import javax.inject.Inject
 class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.DrawerView>(), DrawerMVP.DrawerPresenter {
 
     @Inject lateinit var model : DrawerMVP.DrawerModel
-    var movesCount : Int
-    var previousChatCount : Int
+    var movesCount : Int = 0
+    var previousChatCount : Int = 0
 
-    init {
+   override fun init() {
         previousChatCount = 0
         model.clearData()
         clearChat()
         movesCount = model.getMovesCount()
-
     }
 
     override fun sendPoint(point: Point) {
         model.sendPoint(movesCount, point)
         movesCount++
 
-        model.setListener({dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
+        model.addChatListener({ dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
+        model.addWinnerListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})
+        model.addWordsListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})
     }
 
     override fun chatDataReceived(dataSnapshot: DataSnapshot) {

@@ -20,13 +20,12 @@ abstract class BaseActivity<V> : AppCompatActivity(){
         createOrRestoreComponent()
         // Inject before other initialization
         //component.inject(this);
-
+        getPresenter().attachView(this as V)
         super.onCreate(savedInstanceState)
     }
 
     override fun onStart() {
         super.onStart()
-        getPresenter().attachView(this as V)
     }
 
     override fun onStop() {
