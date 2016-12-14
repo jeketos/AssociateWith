@@ -20,13 +20,13 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
 
 
      @Inject lateinit var model : GuesserMVP.GuesserModel
-     var previousX : Float
-     var previousY : Float
+     var previousX : Float = 0f
+     var previousY : Float = 0f
      var previousPointCount : Int = 0
      var previousChatCount : Int = 0
      var selectedWord : String? = null
 
-    init {
+    override fun init() {
         previousX = 0f
         previousY = 0f
         previousPointCount = 0

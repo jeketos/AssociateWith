@@ -38,7 +38,8 @@ import com.jeketos.associatewith.guesser.chat.IChatItem
         fun selectedWordReceived(dataSnapshot : DataSnapshot)
 
         fun winnerDataReceived(dataSnapshot : DataSnapshot)
-    }
+         fun init()
+     }
 
      interface GuesserModel{
 

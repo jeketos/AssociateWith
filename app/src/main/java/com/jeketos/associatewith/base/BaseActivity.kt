@@ -20,11 +20,15 @@ abstract class BaseActivity<V> : AppCompatActivity(){
         createOrRestoreComponent()
         // Inject before other initialization
         //component.inject(this);
-        getPresenter().attachView(this as V)
         super.onCreate(savedInstanceState)
     }
 
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+    }
+
     override fun onStart() {
+        getPresenter().attachView(this as V)
         super.onStart()
     }
 

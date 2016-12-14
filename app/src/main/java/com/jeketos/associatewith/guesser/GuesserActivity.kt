@@ -49,6 +49,11 @@ class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Gue
         init()
     }
 
+    override fun onStart() {
+        super.onStart()
+        presenter.init()
+    }
+
     override fun init() {
         val bitmap = Bitmap.createBitmap(resources.displayMetrics.widthPixels,
                 resources.displayMetrics.heightPixels,

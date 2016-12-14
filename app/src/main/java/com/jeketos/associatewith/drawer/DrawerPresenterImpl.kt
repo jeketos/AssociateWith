@@ -22,6 +22,9 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
         previousChatCount = 0
         model.clearData()
         clearChat()
+        model.addChatListener({ dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
+        model.addWinnerListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})
+        model.addWordsListener({ dataSnap: DataSnapshot -> wordsDataReceived(dataSnap)})
         movesCount = model.getMovesCount()
     }
 
@@ -29,9 +32,7 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
         model.sendPoint(movesCount, point)
         movesCount++
 
-        model.addChatListener({ dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
-        model.addWinnerListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})
-        model.addWordsListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})
+
     }
 
     override fun chatDataReceived(dataSnapshot: DataSnapshot) {
@@ -66,6 +67,6 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
 
     override fun winnerDataReceived(dataSnapshot: DataSnapshot) {
         val name = dataSnapshot.value as String?
-        if(name != null) view!!.showWinnerDialog(name)
+        if (name != null) view!!.showWinnerDialog(name)
     }
 }

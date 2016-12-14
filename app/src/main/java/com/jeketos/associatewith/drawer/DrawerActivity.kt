@@ -54,12 +54,16 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
         init()
     }
 
+    override fun onStart() {
+        super.onStart()
+        presenter.init()
+    }
+
     override fun onStop() {
         super.onStop()
     }
 
     override fun init() {
-        presenter.init()
         val displayMetrics = resources.displayMetrics
         val bitmap = Bitmap.createBitmap(displayMetrics.widthPixels,displayMetrics.heightPixels, Bitmap.Config.ARGB_8888)
         canvas = Canvas(bitmap)
