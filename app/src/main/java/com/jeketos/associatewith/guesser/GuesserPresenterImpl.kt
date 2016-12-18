@@ -30,10 +30,6 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
         previousX = 0f
         previousY = 0f
         previousPointCount = 0
-        model.addChatListener { dataSnapshot: DataSnapshot -> chatDataReceived(dataSnapshot) }
-        model.addMoveListener { dataSnapshot: DataSnapshot -> moveDataReceived(dataSnapshot) }
-        model.addWinnerListener { dataSnapshot: DataSnapshot ->  winnerDataReceived(dataSnapshot)}
-        model.addSelectedWordListener { dataSnapshot: DataSnapshot ->  selectedWordReceived(dataSnapshot)}
     }
 
     override fun moveDataReceived(dataSnapshot: DataSnapshot) {
@@ -89,5 +85,19 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
             model.setWinner(item)
             view!!.showWinnerDialog(item.getName(), message)
         }
+    }
+
+    override fun attachView(view: GuesserMVP.GuesserView) {
+        super.attachView(view)
+        model.addEventListeners()
+        model.addChatListener { dataSnapshot: DataSnapshot -> chatDataReceived(dataSnapshot) }
+        model.addMoveListener { dataSnapshot: DataSnapshot -> moveDataReceived(dataSnapshot) }
+        model.addWinnerListener { dataSnapshot: DataSnapshot ->  winnerDataReceived(dataSnapshot)}
+        model.addSelectedWordListener { dataSnapshot: DataSnapshot ->  selectedWordReceived(dataSnapshot)}
+    }
+
+    override fun detachView() {
+        super.detachView()
+        model.removeListeners()
     }
 }

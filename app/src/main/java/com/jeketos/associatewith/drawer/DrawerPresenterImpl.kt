@@ -69,4 +69,18 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
         val name = dataSnapshot.value as String?
         if (name != null) view!!.showWinnerDialog(name)
     }
+
+    override fun attachView(view: DrawerMVP.DrawerView) {
+        super.attachView(view)
+        model.addEventListeners()
+        model.addChatListener({ dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
+        model.addWinnerListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})
+        model.addWordsListener({ dataSnap: DataSnapshot -> wordsDataReceived(dataSnap)})
+    }
+
+    override fun detachView() {
+        super.detachView()
+        model.removeListeners()
+    }
+
 }

@@ -50,6 +50,8 @@ import com.jeketos.associatewith.guesser.chat.IChatItem
          fun addMoveListener(moveListener: (DataSnapshot) -> Unit)
          fun addSelectedWordListener(selectedWordListener: (DataSnapshot) -> Unit)
          fun addWinnerListener(winnerListener: (DataSnapshot) -> Unit)
-    }
+         fun addEventListeners()
+         fun removeListeners()
+     }
 
 }

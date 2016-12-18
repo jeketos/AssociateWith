@@ -49,6 +49,8 @@ class DrawerMVP() {
 
         fun addWordsListener(wordsListener: (DataSnapshot) -> Unit)
         fun addWinnerListener(winnerListener: (DataSnapshot) -> Unit)
+        fun addEventListeners()
+        fun removeListeners()
     }
 
 }

@@ -7,7 +7,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.jeketos.associatewith.guesser.chat.IChatItem
 import javax.inject.Inject
-
 /**
  * Created by eugene.kotsogub on 10/28/16.
  *
@@ -23,47 +22,48 @@ import javax.inject.Inject
     var referenceChat : DatabaseReference
     var referenceSelectedWord : DatabaseReference
     var referenceWinner : DatabaseReference
+    var referenceMove : DatabaseReference
     lateinit var chatListener: (DataSnapshot) -> Unit
     lateinit var moveListener: (DataSnapshot) -> Unit
     lateinit var selectedWordListener: (DataSnapshot) -> Unit
     lateinit var winnerListener: (DataSnapshot) -> Unit
+    val moveEventListener = object : ValueEventListener {
+        override fun onCancelled(p0: DatabaseError?) {}
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            moveListener(dataSnapshot)
+        }
+    }
+    val chatEventListener = object : ValueEventListener{
+        override fun onCancelled(p0: DatabaseError?) {}
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            chatListener(dataSnapshot)
+            chatCount = dataSnapshot.childrenCount.toInt()
+        }
+
+    }
+    val selectedWordEventListener = object : ValueEventListener {
+        override fun onCancelled(p0: DatabaseError?) {}
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            selectedWordListener(dataSnapshot)
+        }
+
+    }
+    val winnerEventListener = object : ValueEventListener{
+        override fun onCancelled(p0: DatabaseError?) {}
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            winnerListener(dataSnapshot)
+        }
+    }
 
     init {
-        val referenceMove = FirebaseDatabase.getInstance().getReference(MOVE)
-        referenceMove.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(p0: DatabaseError?) {}
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                moveListener(dataSnapshot)
-            }
-        })
+        referenceMove = FirebaseDatabase.getInstance().getReference(MOVE)
         referenceChat = FirebaseDatabase.getInstance().getReference(CHAT)
-        referenceChat.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(p0: DatabaseError?) {}
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                chatListener(dataSnapshot)
-                chatCount = dataSnapshot.childrenCount.toInt()
-            }
-
-        })
         referenceSelectedWord = FirebaseDatabase.getInstance().getReference(SELECTED_WORD)
-        referenceSelectedWord.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {}
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                selectedWordListener(dataSnapshot)
-            }
-
-        })
         referenceWinner = FirebaseDatabase.getInstance().getReference(WINNER)
-        referenceWinner.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(p0: DatabaseError?) {}
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                winnerListener(dataSnapshot)
-            }
-        })
     }
 
     override fun sendMessage(item: IChatItem) {
@@ -90,4 +90,18 @@ import javax.inject.Inject
     override fun addWinnerListener(winnerListener: (DataSnapshot) -> Unit) {
         this.winnerListener = winnerListener
      }
+
+    override fun addEventListeners() {
+        referenceMove.addValueEventListener(moveEventListener)
+        referenceChat.addValueEventListener(chatEventListener)
+        referenceSelectedWord.addValueEventListener(selectedWordEventListener)
+        referenceWinner.addValueEventListener(winnerEventListener)
+    }
+
+    override fun removeListeners() {
+        referenceWinner.removeEventListener(winnerEventListener)
+        referenceChat.removeEventListener(chatEventListener)
+        referenceSelectedWord.removeEventListener(selectedWordEventListener)
+        referenceMove.removeEventListener(moveEventListener)
+    }
 }

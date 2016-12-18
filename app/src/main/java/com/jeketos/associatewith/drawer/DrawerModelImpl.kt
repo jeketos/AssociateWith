@@ -23,6 +23,27 @@ import javax.inject.Inject
     lateinit var chatListener: (DataSnapshot) -> Unit
     lateinit var wordsListener: (DataSnapshot) -> Unit
     lateinit var winnerListener: (DataSnapshot) -> Unit
+    val chatEventListener = object : ValueEventListener{
+        override fun onCancelled(p0: DatabaseError?) {}
+
+        override fun onDataChange(dataSnapshot: DataSnapshot?) {
+            chatListener(dataSnapshot!!)
+        }
+    }
+    val wordsEventListener = object : ValueEventListener{
+        override fun onCancelled(p0: DatabaseError?) {}
+
+        override fun onDataChange(dataSnapshot: DataSnapshot?) {
+            wordsListener(dataSnapshot!!)
+        }
+    }
+    val winnerEventListener = object : ValueEventListener{
+        override fun onCancelled(p0: DatabaseError?) {}
+
+        override fun onDataChange(dataSnapshot: DataSnapshot?) {
+            winnerListener(dataSnapshot!!)
+        }
+    }
 
     init {
         referenceSelectedWord = FirebaseDatabase.getInstance().getReference(SELECTED_WORD)
@@ -30,27 +51,6 @@ import javax.inject.Inject
         referenceChat = FirebaseDatabase.getInstance().getReference(CHAT)
         referenceWords = FirebaseDatabase.getInstance().getReference(WORDS)
         referenceWinner = FirebaseDatabase.getInstance().getReference("winner")
-        referenceChat.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(p0: DatabaseError?) {}
-
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                chatListener(dataSnapshot!!)
-            }
-        })
-        referenceWords.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(p0: DatabaseError?) {}
-
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                wordsListener(dataSnapshot!!)
-            }
-        })
-        referenceWinner.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(p0: DatabaseError?) {}
-
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                winnerListener(dataSnapshot!!)
-            }
-        })
     }
 
     override fun getMovesCount(): Int{
@@ -83,5 +83,17 @@ import javax.inject.Inject
     }
     override fun addWinnerListener(winnerListener: (DataSnapshot) -> Unit) {
         this.winnerListener = winnerListener
+    }
+
+    override fun addEventListeners() {
+        referenceChat.addValueEventListener(chatEventListener)
+        referenceWords.addValueEventListener(wordsEventListener)
+        referenceWinner.addValueEventListener(winnerEventListener)
+    }
+
+    override fun removeListeners() {
+        referenceChat.removeEventListener(chatEventListener)
+        referenceWords.removeEventListener(wordsEventListener)
+        referenceWinner.removeEventListener(winnerEventListener)
     }
 }
