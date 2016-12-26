@@ -33,6 +33,7 @@ class DrawerMVP() {
         fun wordsDataReceived(dataSnapshot: DataSnapshot )
         fun saveWord(word: CharSequence)
         fun winnerDataReceived(dataSnapshot: DataSnapshot)
+        fun clearDraw()
     }
 
     interface DrawerModel {
@@ -51,6 +52,7 @@ class DrawerMVP() {
         fun addWinnerListener(winnerListener: (DataSnapshot) -> Unit)
         fun addEventListeners()
         fun removeListeners()
+        fun clearDraw()
     }
 
 }

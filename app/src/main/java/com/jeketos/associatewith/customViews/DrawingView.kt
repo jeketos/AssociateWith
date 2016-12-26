@@ -156,4 +156,8 @@ import com.jeketos.associatewith.listener.TouchWatcher
     fun setMoveWatcher(touchWatcher: TouchWatcher) {
         this.touchWatcher = touchWatcher
     }
+
+    fun setDrawColor(selectedColor: Int) {
+        paint.color = selectedColor
+    }
 }

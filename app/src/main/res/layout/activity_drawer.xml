@@ -17,5 +17,13 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:contentDescription="@string/app_name" />
+    <ImageView
+        android:id="@+id/drawerImage"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_left_24dp"/>
+
+
 
 </RelativeLayout>

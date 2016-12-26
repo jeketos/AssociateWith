@@ -8,4 +8,8 @@
     <string name="winner">Winner!</string>
     <string name="winner_is">"Winner is -&#160;"</string>
     <string name="source_word">"source word -&#160;"</string>
+    <string name="change_color">Change color</string>
+    <string name="choose_color">Choose color</string>
+    <string name="color_shades">Color shades</string>
+
 </resources>

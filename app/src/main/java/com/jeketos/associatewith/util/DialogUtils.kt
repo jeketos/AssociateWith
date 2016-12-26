@@ -28,7 +28,7 @@ object DialogUtils {
         return  builder
     }
 
-    fun createProgressDialog(context: Context): ProgressDialog {
+    fun showProgressDialog(context: Context): ProgressDialog {
         val dialog = ProgressDialog(context)
         val window = dialog.window
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

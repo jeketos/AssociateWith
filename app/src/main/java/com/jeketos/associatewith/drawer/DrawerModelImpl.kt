@@ -96,4 +96,8 @@ import javax.inject.Inject
         referenceWords.removeEventListener(wordsEventListener)
         referenceWinner.removeEventListener(winnerEventListener)
     }
+
+    override fun clearDraw() {
+        referenceMove.removeValue()
+    }
 }

@@ -14,6 +14,7 @@ import javax.inject.Inject
 
 class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.DrawerView>(), DrawerMVP.DrawerPresenter {
 
+
     @Inject lateinit var model : DrawerMVP.DrawerModel
     var movesCount : Int = 0
     var previousChatCount : Int = 0
@@ -59,6 +60,10 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
             }
             view!!.showChooseWordDialog(words)
         }
+    }
+
+    override fun clearDraw() {
+        model.clearDraw()
     }
 
     override fun saveWord(word: CharSequence) {

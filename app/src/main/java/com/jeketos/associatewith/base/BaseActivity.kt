@@ -62,7 +62,7 @@ abstract class BaseActivity<V> : AppCompatActivity(){
 
 
     fun showProgressDialog() {
-        currentProgressDialog = DialogUtils.createProgressDialog(this)
+        currentProgressDialog = DialogUtils.showProgressDialog(this)
     }
 
     fun hideProgressDialog() {

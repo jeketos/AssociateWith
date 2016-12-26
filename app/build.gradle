@@ -50,6 +50,8 @@ dependencies {
     compile "com.google.dagger:dagger:$dagger2_version"
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
+    compile 'com.afollestad.material-dialogs:core:0.9.1.0'
+    compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
 }
 
 apply plugin: 'me.tatarka.retrolambda' // Java 8 support
