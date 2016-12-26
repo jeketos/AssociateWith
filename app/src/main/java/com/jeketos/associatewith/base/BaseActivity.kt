@@ -1,10 +1,12 @@
 package com.jeketos.associatewith.base
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.jeketos.associatewith.App
 import com.jeketos.associatewith.di.component.ActivityComponent
 import com.jeketos.associatewith.di.module.ActivityModule
+import com.jeketos.associatewith.util.DialogUtils
 
 /**
  * Created by jeketos on 12.12.2016.
@@ -14,6 +16,8 @@ abstract class BaseActivity<V> : AppCompatActivity(){
 
     lateinit var component: ActivityComponent
     lateinit var activityModule: ActivityModule
+
+    private var currentProgressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Create the object graph(component)
@@ -55,5 +59,17 @@ abstract class BaseActivity<V> : AppCompatActivity(){
     }
 
     abstract fun getPresenter() : BasePresenter<V>
+
+
+    fun showProgressDialog() {
+        currentProgressDialog = DialogUtils.createProgressDialog(this)
+    }
+
+    fun hideProgressDialog() {
+        if (currentProgressDialog != null && currentProgressDialog!!.isShowing) {
+            currentProgressDialog!!.dismiss()
+        }
+        currentProgressDialog = null
+    }
 
 }

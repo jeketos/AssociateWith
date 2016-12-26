@@ -34,6 +34,7 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
         super.onCreate(savedInstanceState)
         component.inject(this)
         setContentView(R.layout.activity_drawer)
+        showProgressDialog()
         init()
     }
 
@@ -63,6 +64,7 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
     }
 
     override fun showChooseWordDialog(words: Array<CharSequence>) {
+        hideProgressDialog()
         val builder = AlertDialog.Builder(this)
         builder.setTitle(R.string.choose_word)
         builder.setCancelable(false)

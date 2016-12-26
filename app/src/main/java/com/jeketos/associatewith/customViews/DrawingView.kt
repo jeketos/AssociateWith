@@ -19,8 +19,8 @@ import com.jeketos.associatewith.listener.TouchWatcher
 
  class DrawingView : View {
 
-   lateinit var touchWatcher: TouchWatcher
-   lateinit var  bitmap : Bitmap
+   var touchWatcher: TouchWatcher? = null
+   var  bitmap : Bitmap? = null
    lateinit var  canvas : Canvas
    lateinit var path : Path
    lateinit var  bitmapPaint : Paint
@@ -68,10 +68,12 @@ import com.jeketos.associatewith.listener.TouchWatcher
     }
 
     private fun initDrawBitmap() {
-        val newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        canvas = Canvas(newBitmap)
-        canvas.drawColor(Color.WHITE)
-        bitmap = newBitmap
+        if(bitmap == null) {
+            val newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            canvas = Canvas(newBitmap)
+            canvas.drawColor(Color.WHITE)
+            bitmap = newBitmap
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -84,7 +86,7 @@ import com.jeketos.associatewith.listener.TouchWatcher
         path.reset()
         path.moveTo(x,y)
         canvas.drawPoint(x,y,paint)
-        touchWatcher.actionTouch(Point(x,y,MotionEvent.ACTION_DOWN))
+        touchWatcher?.actionTouch(Point(x,y,MotionEvent.ACTION_DOWN))
         mX = x
         mY = y
     }
@@ -94,14 +96,14 @@ import com.jeketos.associatewith.listener.TouchWatcher
         val dy = Math.abs(y - mY)
         if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE){
             path.quadTo(mX, mY, (x+mX)/2, (y+mY)/2)
-            touchWatcher.actionTouch(com.jeketos.associatewith.Point((x+mX)/2,(y+mY)/2, MotionEvent.ACTION_MOVE))
+            touchWatcher?.actionTouch(com.jeketos.associatewith.Point((x+mX)/2,(y+mY)/2, MotionEvent.ACTION_MOVE))
             mX = x
             mY = y
         }
     }
 
     fun actionUp(){
-        touchWatcher.actionTouch(com.jeketos.associatewith.Point(mX, mY, MotionEvent.ACTION_UP))
+        touchWatcher?.actionTouch(com.jeketos.associatewith.Point(mX, mY, MotionEvent.ACTION_UP))
         path.lineTo(mX, mY)
         canvas.drawPath(path,paint)
         path.reset()

@@ -1,9 +1,5 @@
 package com.jeketos.associatewith.guesser
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
@@ -26,8 +22,6 @@ import javax.inject.Inject
 class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.GuesserView {
 
     @Inject lateinit var presenter : GuesserMVP.GuesserPresenter
-    lateinit var canvas : Canvas
-    lateinit var paint : Paint
     lateinit var  chatAdapter : ChatAdapter
 
     fun onSendClick(){
@@ -55,30 +49,19 @@ class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Gue
     }
 
     override fun init() {
-        val bitmap = Bitmap.createBitmap(resources.displayMetrics.widthPixels,
-                resources.displayMetrics.heightPixels,
-                Bitmap.Config.ARGB_8888)
-        canvas = Canvas(bitmap)
-        paint = Paint()
-        paint.color = Color.BLACK
-        paint.isAntiAlias = true
-        paint.isDither = true
-        paint.style = Paint.Style.STROKE
-        paint.strokeJoin = Paint.Join.ROUND
-        paint.strokeCap = Paint.Cap.ROUND
-        paint.strokeWidth = 12f
         send.setOnClickListener {onSendClick()}
-        imageView.setImageBitmap(bitmap)
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
         chatAdapter = ChatAdapter()
         chatRecyclerView.adapter = chatAdapter
     }
 
     override fun draw(previousX: Float, previousY: Float, point: Point) {
-        when(point.motionEvent){
-            MotionEvent.ACTION_DOWN -> drawPoint(point)
-            else -> drawLine(previousX, previousY, point)
-        }
+        val motionEvent = MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), point.motionEvent, point.x, point.y, 0)
+        imageView.onTouchEvent(motionEvent)
+//        when(point.motionEvent){
+//            MotionEvent.ACTION_DOWN -> drawPoint(point)
+//            else -> drawLine(previousX, previousY, point)
+//        }
     }
 
     override fun clearBoard() {
@@ -96,15 +79,5 @@ class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Gue
     override fun showWinnerDialog(name: String, word: String) {
         val builder = DialogUtils.createWinnerDialog(this, name, word)
         builder.create().show()
-    }
-
-    fun drawPoint(point: Point) {
-        canvas.drawPoint(point.x, point.y, paint)
-        imageView.invalidate()
-    }
-
-    fun drawLine(previousX: Float,previousY: Float,point: Point) {
-        canvas.drawLine(previousX, previousY, point.x, point.y, paint)
-        imageView.invalidate()
     }
 }
