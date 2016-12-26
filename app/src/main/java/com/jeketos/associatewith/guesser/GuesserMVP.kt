@@ -16,7 +16,7 @@ import com.jeketos.associatewith.guesser.chat.IChatItem
 
         fun init()
 
-        fun draw(previousX : Float, previousY : Float, point : Point)
+        fun draw( point : Point)
 
         fun clearBoard()
 
@@ -24,8 +24,10 @@ import com.jeketos.associatewith.guesser.chat.IChatItem
 
         fun addChatItem(item : IChatItem)
 
-        fun showWinnerDialog(name : String, word : String)
-    }
+        fun showWinnerDialog(name : String, word : String, isWinner : Boolean)
+
+        fun  setDrawColor(color: Int)
+     }
 
      interface GuesserPresenter : BasePresenter<GuesserView>{
 

@@ -1,5 +1,6 @@
 package com.jeketos.associatewith.drawer
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AlertDialog
@@ -9,6 +10,7 @@ import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.base.BaseActivity
 import com.jeketos.associatewith.base.BasePresenter
+import com.jeketos.associatewith.guesser.GuesserActivity
 import com.jeketos.associatewith.guesser.chat.ChatAdapter
 import com.jeketos.associatewith.guesser.chat.IChatItem
 import com.jeketos.associatewith.listener.TouchWatcher
@@ -105,6 +107,10 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
 
     override fun showWinnerDialog(name: String) {
         val builder = DialogUtils.createWinnerDialog(this,name,null)
+        builder.setPositiveButton(android.R.string.ok, {d,i ->
+            finish()
+            startActivity(Intent(this, GuesserActivity::class.java))
+        })
         builder.create()
         if(!this.isFinishing)
             builder.show()

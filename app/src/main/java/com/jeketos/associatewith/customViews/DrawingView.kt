@@ -71,7 +71,7 @@ import com.jeketos.associatewith.listener.TouchWatcher
         if(bitmap == null) {
             val newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             canvas = Canvas(newBitmap)
-            canvas.drawColor(Color.WHITE)
+            canvas.drawColor(Color.TRANSPARENT)
             bitmap = newBitmap
         }
     }
@@ -86,7 +86,7 @@ import com.jeketos.associatewith.listener.TouchWatcher
         path.reset()
         path.moveTo(x,y)
         canvas.drawPoint(x,y,paint)
-        touchWatcher?.actionTouch(Point(x,y,MotionEvent.ACTION_DOWN))
+        touchWatcher?.actionTouch(Point(x,y,MotionEvent.ACTION_DOWN, paint.color))
         mX = x
         mY = y
     }
@@ -96,14 +96,14 @@ import com.jeketos.associatewith.listener.TouchWatcher
         val dy = Math.abs(y - mY)
         if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE){
             path.quadTo(mX, mY, (x+mX)/2, (y+mY)/2)
-            touchWatcher?.actionTouch(com.jeketos.associatewith.Point((x+mX)/2,(y+mY)/2, MotionEvent.ACTION_MOVE))
+            touchWatcher?.actionTouch(com.jeketos.associatewith.Point((x+mX)/2,(y+mY)/2, MotionEvent.ACTION_MOVE, paint.color))
             mX = x
             mY = y
         }
     }
 
     fun actionUp(){
-        touchWatcher?.actionTouch(com.jeketos.associatewith.Point(mX, mY, MotionEvent.ACTION_UP))
+        touchWatcher?.actionTouch(com.jeketos.associatewith.Point(mX, mY, MotionEvent.ACTION_UP, paint.color))
         path.lineTo(mX, mY)
         canvas.drawPath(path,paint)
         path.reset()
@@ -156,6 +156,7 @@ import com.jeketos.associatewith.listener.TouchWatcher
     fun setMoveWatcher(touchWatcher: TouchWatcher) {
         this.touchWatcher = touchWatcher
     }
+
 
     fun setDrawColor(selectedColor: Int) {
         paint.color = selectedColor

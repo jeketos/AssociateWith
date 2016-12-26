@@ -18,15 +18,12 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
 
 
      @Inject lateinit var model : GuesserMVP.GuesserModel
-     var previousX : Float = 0f
-     var previousY : Float = 0f
      var previousPointCount : Int = 0
      var previousChatCount : Int = 0
      var selectedWord : String? = null
+     var isWinner : Boolean = false
 
     override fun init() {
-        previousX = 0f
-        previousY = 0f
         previousPointCount = 0
     }
 
@@ -40,9 +37,8 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
                 val motionEvent = hashMap["motionEvent"] as Long
                 val x = hashMap["x"].toString().toFloat()
                 val y = hashMap["y"].toString().toFloat()
-                view!!.draw(previousX, previousY, Point(x,y,motionEvent.toInt()))
-                previousX = x
-                previousY = y
+                val color = hashMap["color"].toString().toInt()
+                view?.draw( Point(x,y,motionEvent.toInt(),color))
             }
         }
         previousPointCount = childrenCount
@@ -69,7 +65,7 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
         if(dataSnapshot.value != null) {
             val name = dataSnapshot.value as String
             if (!TextUtils.isEmpty(name)) {
-                view!!.showWinnerDialog(name, selectedWord!!)
+                view!!.showWinnerDialog(name, selectedWord!!, isWinner)
             }
         }
     }
@@ -80,8 +76,8 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
         item.setMessage(message)
         model.sendMessage(item)
         if(message.toLowerCase() == (selectedWord)){
+            isWinner = true
             model.setWinner(item)
-            view!!.showWinnerDialog(item.getName(), message)
         }
     }
 

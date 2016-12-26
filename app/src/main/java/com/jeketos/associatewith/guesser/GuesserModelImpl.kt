@@ -1,10 +1,6 @@
 package com.jeketos.associatewith.guesser
 
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.jeketos.associatewith.guesser.chat.IChatItem
 import javax.inject.Inject
 /**
@@ -23,6 +19,7 @@ import javax.inject.Inject
     var referenceSelectedWord : DatabaseReference
     var referenceWinner : DatabaseReference
     var referenceMove : DatabaseReference
+    var referenceColor : DatabaseReference
     lateinit var chatListener: (DataSnapshot) -> Unit
     lateinit var moveListener: (DataSnapshot) -> Unit
     lateinit var selectedWordListener: (DataSnapshot) -> Unit
@@ -64,6 +61,7 @@ import javax.inject.Inject
         referenceChat = FirebaseDatabase.getInstance().getReference(CHAT)
         referenceSelectedWord = FirebaseDatabase.getInstance().getReference(SELECTED_WORD)
         referenceWinner = FirebaseDatabase.getInstance().getReference(WINNER)
+        referenceColor = FirebaseDatabase.getInstance().getReference("color")
     }
 
     override fun sendMessage(item: IChatItem) {

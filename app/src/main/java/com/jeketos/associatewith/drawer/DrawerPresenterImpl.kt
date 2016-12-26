@@ -64,6 +64,7 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
 
     override fun clearDraw() {
         model.clearDraw()
+        movesCount = 0
     }
 
     override fun saveWord(word: CharSequence) {
@@ -72,7 +73,10 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
 
     override fun winnerDataReceived(dataSnapshot: DataSnapshot) {
         val name = dataSnapshot.value as String?
-        if (name != null) view!!.showWinnerDialog(name)
+        if (name != null) {
+            model.clearData()
+            view?.showWinnerDialog(name)
+        }
     }
 
     override fun attachView(view: DrawerMVP.DrawerView) {
