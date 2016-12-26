@@ -2,18 +2,15 @@ package com.jeketos.associatewith.customViews
 
 import android.annotation.TargetApi
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.annotation.RequiresApi
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import com.jeketos.associatewith.Point
+import com.jeketos.associatewith.listener.TouchWatcher
 
 /**
  * Created by eugene.kotsogub on 11/23/16.
@@ -22,6 +19,7 @@ import android.view.View
 
  class DrawingView : View {
 
+   lateinit var touchWatcher: TouchWatcher
    lateinit var  bitmap : Bitmap
    lateinit var  canvas : Canvas
    lateinit var path : Path
@@ -37,15 +35,15 @@ import android.view.View
         init()
     }
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-
+        init()
     }
     constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
-
+        init()
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(context: Context?, attrs: AttributeSet?, defStyle: Int, defStyleRes: Int) : super(context, attrs, defStyle, defStyleRes) {
-
+        init()
     }
 
 
@@ -86,6 +84,7 @@ import android.view.View
         path.reset()
         path.moveTo(x,y)
         canvas.drawPoint(x,y,paint)
+        touchWatcher.actionTouch(Point(x,y,MotionEvent.ACTION_DOWN))
         mX = x
         mY = y
     }
@@ -95,12 +94,14 @@ import android.view.View
         val dy = Math.abs(y - mY)
         if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE){
             path.quadTo(mX, mY, (x+mX)/2, (y+mY)/2)
+            touchWatcher.actionTouch(com.jeketos.associatewith.Point((x+mX)/2,(y+mY)/2, MotionEvent.ACTION_MOVE))
             mX = x
             mY = y
         }
     }
 
     fun actionUp(){
+        touchWatcher.actionTouch(com.jeketos.associatewith.Point(mX, mY, MotionEvent.ACTION_UP))
         path.lineTo(mX, mY)
         canvas.drawPath(path,paint)
         path.reset()
@@ -148,5 +149,9 @@ import android.view.View
         } else {
             super.onRestoreInstanceState(state)
         }
+    }
+
+    fun setMoveWatcher(touchWatcher: TouchWatcher) {
+        this.touchWatcher = touchWatcher
     }
 }

@@ -1,14 +1,12 @@
 package com.jeketos.associatewith.guesser
 
 import android.text.TextUtils
-
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BaseMvpPresenter
 import com.jeketos.associatewith.guesser.chat.ChatItem
 import com.jeketos.associatewith.util.ChatUtils
-
-import java.util.HashMap
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -40,8 +38,8 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
             for (i in previousPointCount until childrenCount){
                 val hashMap = dataSnapshot.child(i.toString()).value as HashMap<*,*>
                 val motionEvent = hashMap["motionEvent"] as Long
-                val x = (hashMap["x"] as Double).toFloat()
-                val y = (hashMap["y"]as Double).toFloat()
+                val x = hashMap["x"].toString().toFloat()
+                val y = hashMap["y"].toString().toFloat()
                 view!!.draw(previousX, previousY, Point(x,y,motionEvent.toInt()))
                 previousX = x
                 previousY = y

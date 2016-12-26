@@ -1,9 +1,5 @@
 package com.jeketos.associatewith.drawer
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -13,32 +9,20 @@ import com.jeketos.associatewith.base.BaseActivity
 import com.jeketos.associatewith.base.BasePresenter
 import com.jeketos.associatewith.guesser.chat.ChatAdapter
 import com.jeketos.associatewith.guesser.chat.IChatItem
-import com.jeketos.associatewith.listener.TouchListener
+import com.jeketos.associatewith.listener.TouchWatcher
 import com.jeketos.associatewith.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_drawer.*
 import javax.inject.Inject
 
 class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerView {
 
-    //    private static final String TAG = "DrawerActivity";
-    lateinit var canvas : Canvas
-    lateinit var paint : Paint
     @Inject lateinit var presenter : DrawerMVP.DrawerPresenter
-    lateinit var onTouchListener : TouchListener
     lateinit var chatAdapter : ChatAdapter
 
-    val moveListener = object : TouchListener.MoveListener {
+    val touchWather = object : TouchWatcher {
 
-        override fun actionDown(point : Point) {
-            drawPoint(point)
-        }
-
-        override fun actionMove(previousX: Float, previousY: Float, point: Point) {
-            drawLine(previousX, previousY, point)
-        }
-
-        override fun actionUp(previousX: Float, previousY: Float, point: Point) {
-            drawLine(previousX, previousY, point)
+        override fun actionTouch(point: Point) {
+            presenter.sendPoint(point)
         }
     }
 
@@ -50,7 +34,6 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
         super.onCreate(savedInstanceState)
         component.inject(this)
         setContentView(R.layout.activity_drawer)
-        onTouchListener = TouchListener(moveListener)
         init()
     }
 
@@ -64,19 +47,7 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
     }
 
     override fun init() {
-        val displayMetrics = resources.displayMetrics
-        val bitmap = Bitmap.createBitmap(displayMetrics.widthPixels,displayMetrics.heightPixels, Bitmap.Config.ARGB_8888)
-        canvas = Canvas(bitmap)
-        paint = Paint()
-        paint.color = Color.BLACK
-        paint.isAntiAlias = true
-        paint.isDither = true
-        paint.style = Paint.Style.STROKE
-        paint.strokeJoin = Paint.Join.ROUND
-        paint.strokeCap = Paint.Cap.ROUND
-        paint.strokeWidth = 12f
-        imageView.setImageBitmap(bitmap)
-        imageView.setOnTouchListener(onTouchListener)
+        imageView.setMoveWatcher(touchWather)
         val layoutManager = LinearLayoutManager(this)
         chatRecyclerView.layoutManager = layoutManager
         chatAdapter = ChatAdapter()
@@ -107,17 +78,5 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
         builder.create()
         if(!this.isFinishing)
             builder.show()
-    }
-
-    fun drawPoint(point: Point){
-        canvas.drawPoint(point.x, point.y, paint)
-        imageView.invalidate()
-        presenter.sendPoint(point)
-    }
-
-    fun drawLine(previousX: Float, previousY: Float, point: Point){
-        canvas.drawLine(previousX, previousY, point.x, point.y, paint)
-        imageView.invalidate()
-        presenter.sendPoint(point)
     }
 }
