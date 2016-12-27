@@ -3,6 +3,7 @@ package com.jeketos.associatewith.drawer
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BaseMvpPresenter
+import com.jeketos.associatewith.chat.IChatItem
 import com.jeketos.associatewith.util.ChatUtils
 import java.util.*
 import javax.inject.Inject
@@ -90,6 +91,10 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
     override fun detachView() {
         super.detachView()
         model.removeListeners()
+    }
+
+    override fun updateChatItemColor(chatItem: IChatItem, position: Int) {
+        model.updateChatItemColor(chatItem, position)
     }
 
 }

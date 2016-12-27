@@ -3,7 +3,7 @@ package com.jeketos.associatewith.drawer
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BasePresenter
-import com.jeketos.associatewith.guesser.chat.IChatItem
+import com.jeketos.associatewith.chat.IChatItem
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
@@ -25,6 +25,8 @@ class DrawerMVP() {
         fun showWinnerDialog(name: String)
 
         fun setStrokeWidth(strokeWidth: Float)
+
+        fun  updateChatItemColor(chatItem: IChatItem, position: Int)
     }
 
     interface DrawerPresenter : BasePresenter<DrawerView> {
@@ -36,6 +38,7 @@ class DrawerMVP() {
         fun saveWord(word: CharSequence)
         fun winnerDataReceived(dataSnapshot: DataSnapshot)
         fun clearDraw()
+        fun  updateChatItemColor(chatItem: IChatItem, position: Int)
     }
 
     interface DrawerModel {
@@ -55,6 +58,7 @@ class DrawerMVP() {
         fun addEventListeners()
         fun removeListeners()
         fun clearDraw()
+        fun  updateChatItemColor(chatItem: IChatItem, position: Int)
     }
 
 }

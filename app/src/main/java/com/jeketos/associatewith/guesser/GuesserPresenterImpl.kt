@@ -4,7 +4,8 @@ import android.text.TextUtils
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BaseMvpPresenter
-import com.jeketos.associatewith.guesser.chat.ChatItem
+import com.jeketos.associatewith.chat.ChatItem
+import com.jeketos.associatewith.chat.IChatItem
 import com.jeketos.associatewith.util.ChatUtils
 import java.util.*
 import javax.inject.Inject
@@ -50,10 +51,12 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
         if(childrenCount == 0){
             view?.clearChat()
         } else {
-            val list = Array(childrenCount - previousChatCount, { i -> i + previousChatCount})
+            val list = Array(childrenCount, { i -> i })
+            val chatItems : ArrayList<IChatItem> = ArrayList()
             list.forEach {
-                view?.addChatItem(ChatUtils.getChatItem(dataSnapshot, it))
+                chatItems.add(ChatUtils.getChatItem(dataSnapshot, it))
             }
+            view?.updateChatItems(chatItems)
             previousChatCount = childrenCount
         }
     }

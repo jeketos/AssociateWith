@@ -11,11 +11,12 @@ import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.base.BaseActivity
 import com.jeketos.associatewith.base.BasePresenter
+import com.jeketos.associatewith.chat.ChatAdapter
+import com.jeketos.associatewith.chat.IChatItem
 import com.jeketos.associatewith.drawer.DrawerActivity
-import com.jeketos.associatewith.guesser.chat.ChatAdapter
-import com.jeketos.associatewith.guesser.chat.IChatItem
 import com.jeketos.associatewith.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_guesser.*
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -26,7 +27,7 @@ import javax.inject.Inject
 class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.GuesserView {
 
     @Inject lateinit var presenter : GuesserMVP.GuesserPresenter
-    lateinit var  chatAdapter : ChatAdapter
+    lateinit var chatAdapter: ChatAdapter
 
     fun onSendClick(){
          val message = editText.text.toString()
@@ -79,8 +80,8 @@ class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Gue
         chatAdapter.updateItems(null)
     }
 
-    override fun addChatItem(item: IChatItem) {
-        chatAdapter.updateItems(item)
+    override fun updateChatItems(items: ArrayList<IChatItem>) {
+        chatAdapter.updateItems(items)
     }
 
     override fun showWinnerDialog(name: String, word: String, isWinner: Boolean) {

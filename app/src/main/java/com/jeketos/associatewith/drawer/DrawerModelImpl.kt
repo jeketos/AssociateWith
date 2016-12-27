@@ -2,6 +2,7 @@ package com.jeketos.associatewith.drawer
 
 import com.google.firebase.database.*
 import com.jeketos.associatewith.Point
+import com.jeketos.associatewith.chat.IChatItem
 import java.util.*
 import javax.inject.Inject
 
@@ -61,6 +62,10 @@ import javax.inject.Inject
         val map = HashMap<String,Any>()
         map.put(movesCount.toString(),point)
         referenceMove.updateChildren(map)
+    }
+
+    override fun updateChatItemColor(chatItem: IChatItem, position: Int) {
+        referenceChat.updateChildren(mapOf(Pair(position.toString(), chatItem)))
     }
 
     override fun clearData() {

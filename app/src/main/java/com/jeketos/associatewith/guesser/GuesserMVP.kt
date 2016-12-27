@@ -3,7 +3,8 @@ package com.jeketos.associatewith.guesser
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BasePresenter
-import com.jeketos.associatewith.guesser.chat.IChatItem
+import com.jeketos.associatewith.chat.IChatItem
+import java.util.*
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
@@ -22,7 +23,7 @@ import com.jeketos.associatewith.guesser.chat.IChatItem
 
         fun clearChat()
 
-        fun addChatItem(item : IChatItem)
+        fun updateChatItems(items: ArrayList<IChatItem>)
 
         fun showWinnerDialog(name : String, word : String, isWinner : Boolean)
 

@@ -1,7 +1,7 @@
 package com.jeketos.associatewith.guesser
 
 import com.google.firebase.database.*
-import com.jeketos.associatewith.guesser.chat.IChatItem
+import com.jeketos.associatewith.chat.IChatItem
 import javax.inject.Inject
 /**
  * Created by eugene.kotsogub on 10/28/16.

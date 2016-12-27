@@ -2,6 +2,7 @@ package com.jeketos.associatewith.drawer
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -10,21 +11,21 @@ import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.base.BaseActivity
 import com.jeketos.associatewith.base.BasePresenter
+import com.jeketos.associatewith.chat.ExtChatAdapter
+import com.jeketos.associatewith.chat.IChatItem
 import com.jeketos.associatewith.guesser.GuesserActivity
-import com.jeketos.associatewith.guesser.chat.ChatAdapter
-import com.jeketos.associatewith.guesser.chat.IChatItem
 import com.jeketos.associatewith.listener.TouchWatcher
 import com.jeketos.associatewith.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_drawer.*
 import kotlinx.android.synthetic.main.drawer_layout.*
-import kotlinx.android.synthetic.main.item_picker.*
+import kotlinx.android.synthetic.main.drawer_picker.*
 import javax.inject.Inject
 
 class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerView, ColorChooserDialog.ColorCallback {
 
 
     @Inject lateinit var presenter : DrawerMVP.DrawerPresenter
-    lateinit var chatAdapter : ChatAdapter
+    lateinit var extChatAdapter: ExtChatAdapter
 
     val touchWatcher = object : TouchWatcher {
 
@@ -58,8 +59,10 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
         imageView.setMoveWatcher(touchWatcher)
         val layoutManager = LinearLayoutManager(this)
         chatRecyclerView.layoutManager = layoutManager
-        chatAdapter = ChatAdapter()
-        chatRecyclerView.adapter = chatAdapter
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
+        extChatAdapter = ExtChatAdapter(this)
+        chatRecyclerView.adapter = extChatAdapter
         drawerImage.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.END)
         }
@@ -81,6 +84,9 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
         }
         strokeRecyclerView.layoutManager = LinearLayoutManager(this)
         strokeRecyclerView. adapter = StrokeWidthAdapter(this)
+        val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.peekHeight = resources.getDimension(R.dimen.bottom_sheet_peek).toInt()
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     override fun onColorSelection(dialog: ColorChooserDialog, selectedColor: Int) {
@@ -88,16 +94,20 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
     }
 
     override fun addChatItem(chatItem: IChatItem?) {
-        chatAdapter.updateItems(chatItem)
+        extChatAdapter.updateItems(chatItem)
     }
 
     override fun clearChat() {
-        chatAdapter.updateItems(null)
+        extChatAdapter.updateItems(null)
     }
 
     override fun setStrokeWidth(strokeWidth: Float) {
         imageView.setStrokeWidth(strokeWidth)
         drawerLayout.closeDrawer(GravityCompat.END)
+    }
+
+    override fun updateChatItemColor(chatItem: IChatItem, position: Int) {
+        presenter.updateChatItemColor(chatItem, position)
     }
 
     override fun showChooseWordDialog(words: Array<CharSequence>) {

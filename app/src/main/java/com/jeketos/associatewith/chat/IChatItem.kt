@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.guesser.chat
+package com.jeketos.associatewith.chat
 
 /**
  * Created by eugene.kotsogub on 11/7/16.
@@ -14,5 +14,9 @@ interface IChatItem {
     fun getName() : String
 
     fun setName(name : String)
+
+    fun getColor() : Int
+
+    fun setColor(color : Int)
 
 }
