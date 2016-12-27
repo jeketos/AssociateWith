@@ -34,13 +34,15 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
             view?.clearBoard()
         } else {
             for (i in previousPointCount until childrenCount){
-                val hashMap = dataSnapshot.child(i.toString()).value as HashMap<*,*>
-                val motionEvent = hashMap["motionEvent"] as Long
-                val x = hashMap["x"].toString().toFloat()
-                val y = hashMap["y"].toString().toFloat()
-                val color = hashMap["color"].toString().toInt()
-                val strokeWidth = hashMap["strokeWidth"].toString().toFloat()
-                view?.draw( Point(x, y, motionEvent.toInt(), color, strokeWidth))
+                if(dataSnapshot.child(i.toString()).value != null) {
+                    val hashMap = dataSnapshot.child(i.toString()).value as HashMap<*, *>
+                    val motionEvent = hashMap["motionEvent"] as Long
+                    val x = hashMap["x"].toString().toFloat()
+                    val y = hashMap["y"].toString().toFloat()
+                    val color = hashMap["color"].toString().toInt()
+                    val strokeWidth = hashMap["strokeWidth"].toString().toFloat()
+                    view?.draw(Point(x, y, motionEvent.toInt(), color, strokeWidth))
+                }
             }
         }
         previousPointCount = childrenCount
