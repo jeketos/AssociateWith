@@ -79,6 +79,8 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
                 .show()
             drawerLayout.closeDrawer(GravityCompat.END)
         }
+        strokeRecyclerView.layoutManager = LinearLayoutManager(this)
+        strokeRecyclerView. adapter = StrokeWidthAdapter(this)
     }
 
     override fun onColorSelection(dialog: ColorChooserDialog, selectedColor: Int) {
@@ -91,6 +93,11 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
 
     override fun clearChat() {
         chatAdapter.updateItems(null)
+    }
+
+    override fun setStrokeWidth(strokeWidth: Float) {
+        imageView.setStrokeWidth(strokeWidth)
+        drawerLayout.closeDrawer(GravityCompat.END)
     }
 
     override fun showChooseWordDialog(words: Array<CharSequence>) {

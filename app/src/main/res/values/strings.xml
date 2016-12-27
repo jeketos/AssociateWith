@@ -11,5 +11,6 @@
     <string name="change_color">Change color</string>
     <string name="choose_color">Choose color</string>
     <string name="color_shades">Color shades</string>
+    <string name="stroke_width">Stroke width:</string>
 
 </resources>

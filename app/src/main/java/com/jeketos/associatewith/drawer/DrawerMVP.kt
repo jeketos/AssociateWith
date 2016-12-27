@@ -23,6 +23,8 @@ class DrawerMVP() {
         fun showChooseWordDialog(words: Array<CharSequence>)
 
         fun showWinnerDialog(name: String)
+
+        fun setStrokeWidth(strokeWidth: Float)
     }
 
     interface DrawerPresenter : BasePresenter<DrawerView> {

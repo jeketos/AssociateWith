@@ -30,7 +30,7 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
     override fun moveDataReceived(dataSnapshot: DataSnapshot) {
         val childrenCount = dataSnapshot.childrenCount.toInt()
         if(childrenCount == 0){
-            view!!.clearBoard()
+            view?.clearBoard()
         } else {
             for (i in previousPointCount until childrenCount){
                 val hashMap = dataSnapshot.child(i.toString()).value as HashMap<*,*>
@@ -38,7 +38,8 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
                 val x = hashMap["x"].toString().toFloat()
                 val y = hashMap["y"].toString().toFloat()
                 val color = hashMap["color"].toString().toInt()
-                view?.draw( Point(x,y,motionEvent.toInt(),color))
+                val strokeWidth = hashMap["strokeWidth"].toString().toFloat()
+                view?.draw( Point(x, y, motionEvent.toInt(), color, strokeWidth))
             }
         }
         previousPointCount = childrenCount
@@ -47,11 +48,11 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
     override fun chatDataReceived(dataSnapshot: DataSnapshot) {
         val childrenCount = dataSnapshot.childrenCount.toInt()
         if(childrenCount == 0){
-            view!!.clearChat()
+            view?.clearChat()
         } else {
             val list = Array(childrenCount - previousChatCount, { i -> i + previousChatCount})
             list.forEach {
-                view!!.addChatItem(ChatUtils.getChatItem(dataSnapshot, it))
+                view?.addChatItem(ChatUtils.getChatItem(dataSnapshot, it))
             }
             previousChatCount = childrenCount
         }
@@ -65,7 +66,7 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
         if(dataSnapshot.value != null) {
             val name = dataSnapshot.value as String
             if (!TextUtils.isEmpty(name)) {
-                view!!.showWinnerDialog(name, selectedWord!!, isWinner)
+                view?.showWinnerDialog(name, selectedWord!!, isWinner)
             }
         }
     }

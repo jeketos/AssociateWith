@@ -41,6 +41,7 @@ import com.jeketos.associatewith.listener.TouchWatcher
         init()
     }
 
+    @Suppress("unused")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(context: Context?, attrs: AttributeSet?, defStyle: Int, defStyleRes: Int) : super(context, attrs, defStyle, defStyleRes) {
         init()
@@ -51,13 +52,13 @@ import com.jeketos.associatewith.listener.TouchWatcher
         path = Path()
         bitmapPaint = Paint(Paint.DITHER_FLAG)
         paint = Paint()
-        paint.setAntiAlias(true)
-        paint.setDither(true)
-        paint.setColor(Color.BLACK)
-        paint.setStyle(Paint.Style.STROKE)
-        paint.setStrokeJoin(Paint.Join.ROUND)
-        paint.setStrokeCap(Paint.Cap.ROUND)
-        paint.setStrokeWidth(12f)
+        paint.isAntiAlias = true
+        paint.isDither = true
+        paint.color = Color.BLACK
+        paint.style = Paint.Style.STROKE
+        paint.strokeJoin = Paint.Join.ROUND
+        paint.strokeCap = Paint.Cap.ROUND
+        paint.strokeWidth = 12f
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -84,9 +85,9 @@ import com.jeketos.associatewith.listener.TouchWatcher
 
     fun actionDown(x: Float, y: Float){
         path.reset()
-        path.moveTo(x,y)
-        canvas.drawPoint(x,y,paint)
-        touchWatcher?.actionTouch(Point(x,y,MotionEvent.ACTION_DOWN, paint.color))
+        path.moveTo(x, y)
+        canvas.drawPoint(x, y, paint)
+        touchWatcher?.actionTouch(Point(x, y, MotionEvent.ACTION_DOWN, paint.color, paint.strokeWidth))
         mX = x
         mY = y
     }
@@ -96,16 +97,16 @@ import com.jeketos.associatewith.listener.TouchWatcher
         val dy = Math.abs(y - mY)
         if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE){
             path.quadTo(mX, mY, (x+mX)/2, (y+mY)/2)
-            touchWatcher?.actionTouch(com.jeketos.associatewith.Point((x+mX)/2,(y+mY)/2, MotionEvent.ACTION_MOVE, paint.color))
+            touchWatcher?.actionTouch(com.jeketos.associatewith.Point((x+mX)/2, (y+mY)/2, MotionEvent.ACTION_MOVE, paint.color, paint.strokeWidth))
             mX = x
             mY = y
         }
     }
 
     fun actionUp(){
-        touchWatcher?.actionTouch(com.jeketos.associatewith.Point(mX, mY, MotionEvent.ACTION_UP, paint.color))
+        touchWatcher?.actionTouch(com.jeketos.associatewith.Point(mX, mY, MotionEvent.ACTION_UP, paint.color, paint.strokeWidth))
         path.lineTo(mX, mY)
-        canvas.drawPath(path,paint)
+        canvas.drawPath(path, paint)
         path.reset()
     }
 
@@ -160,5 +161,9 @@ import com.jeketos.associatewith.listener.TouchWatcher
 
     fun setDrawColor(selectedColor: Int) {
         paint.color = selectedColor
+    }
+
+    fun setStrokeWidth(strokeWidth: Float) {
+        paint.strokeWidth = strokeWidth
     }
 }
