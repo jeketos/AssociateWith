@@ -23,6 +23,7 @@ object DialogUtils {
         if(!TextUtils.isEmpty(word)) {
             sourceWord = "\n" + context.getString(R.string.source_word) + word
         }
+        builder.setCancelable(false)
         builder.setMessage(winner + sourceWord)
         builder.setPositiveButton(android.R.string.ok, {dialogInterface, i -> dialogInterface.dismiss()})
         return  builder

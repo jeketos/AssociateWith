@@ -95,7 +95,9 @@ class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Gue
                 startActivity(Intent(this, GuesserActivity::class.java))
             }
         })
-        builder.create().show()
+        val dialog = builder.create()
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
     }
 
     fun hideKeyboard(){

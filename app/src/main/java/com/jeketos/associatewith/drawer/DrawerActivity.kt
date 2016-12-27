@@ -128,8 +128,9 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
             finish()
             startActivity(Intent(this, GuesserActivity::class.java))
         })
-        builder.create()
+        val dialog = builder.create()
+        dialog.setCanceledOnTouchOutside(false)
         if(!this.isFinishing)
-            builder.show()
+            dialog.show()
     }
 }
