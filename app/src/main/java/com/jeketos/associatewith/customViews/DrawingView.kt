@@ -30,6 +30,7 @@ import com.jeketos.associatewith.listener.TouchWatcher
    var mX = 0f
    var mY = 0f
    val TOUCH_TOLERANCE = 4f
+   var density = 0
 
     constructor(context: Context?) : super(context){
         init()
@@ -65,6 +66,7 @@ import com.jeketos.associatewith.listener.TouchWatcher
         super.onSizeChanged(w, h, oldw, oldh)
         bitmapWidth = w
         bitmapHeight = h
+        density = context.resources.displayMetrics.densityDpi
         initDrawBitmap()
     }
 
@@ -87,7 +89,7 @@ import com.jeketos.associatewith.listener.TouchWatcher
         path.reset()
         path.moveTo(x, y)
         canvas.drawPoint(x, y, paint)
-        touchWatcher?.actionTouch(Point(x, y, MotionEvent.ACTION_DOWN, paint.color, paint.strokeWidth))
+        touchWatcher?.actionTouch(Point(x/density, y/density, MotionEvent.ACTION_DOWN, paint.color, paint.strokeWidth))
         mX = x
         mY = y
     }
@@ -97,14 +99,14 @@ import com.jeketos.associatewith.listener.TouchWatcher
         val dy = Math.abs(y - mY)
         if(dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE){
             path.quadTo(mX, mY, (x+mX)/2, (y+mY)/2)
-            touchWatcher?.actionTouch(com.jeketos.associatewith.Point((x+mX)/2, (y+mY)/2, MotionEvent.ACTION_MOVE, paint.color, paint.strokeWidth))
+            touchWatcher?.actionTouch(com.jeketos.associatewith.Point((x+mX)/(2*density), (y+mY)/(2*density), MotionEvent.ACTION_MOVE, paint.color, paint.strokeWidth))
             mX = x
             mY = y
         }
     }
 
     fun actionUp(){
-        touchWatcher?.actionTouch(com.jeketos.associatewith.Point(mX, mY, MotionEvent.ACTION_UP, paint.color, paint.strokeWidth))
+        touchWatcher?.actionTouch(com.jeketos.associatewith.Point(mX/density, mY/density, MotionEvent.ACTION_UP, paint.color, paint.strokeWidth))
         path.lineTo(mX, mY)
         canvas.drawPath(path, paint)
         path.reset()

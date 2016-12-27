@@ -28,6 +28,7 @@ class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Gue
 
     @Inject lateinit var presenter : GuesserMVP.GuesserPresenter
     lateinit var chatAdapter: ChatAdapter
+    var density = 0
 
     fun onSendClick(){
          val message = editText.text.toString()
@@ -45,6 +46,7 @@ class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Gue
         super.onCreate(savedInstanceState)
         component.inject(this)
         setContentView(R.layout.activity_guesser)
+        density = resources.displayMetrics.densityDpi
         init()
     }
 
@@ -63,7 +65,7 @@ class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Gue
     override fun draw(point: Point) {
         imageView.setDrawColor(point.color)
         imageView.setStrokeWidth(point.strokeWidth)
-        val motionEvent = MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), point.motionEvent, point.x, point.y, 0)
+        val motionEvent = MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), point.motionEvent, point.x*density, point.y*density, 0)
         imageView.onTouchEvent(motionEvent)
     }
 
