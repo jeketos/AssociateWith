@@ -1,9 +1,9 @@
 package com.jeketos.associatewith.di.module
 
 import android.app.Application
-import com.jeketos.associatewith.guesser.GuesserMVP
-import com.jeketos.associatewith.guesser.GuesserModelImpl
-import com.jeketos.associatewith.guesser.GuesserPresenterImpl
+import com.jeketos.associatewith.ui.guesser.GuesserMVP
+import com.jeketos.associatewith.ui.guesser.GuesserModelImpl
+import com.jeketos.associatewith.ui.guesser.GuesserPresenterImpl
 import dagger.Module
 import dagger.Provides
 

@@ -1,9 +1,9 @@
-package com.jeketos.associatewith.drawer
+package com.jeketos.associatewith.ui.drawer
 
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BaseMvpPresenter
-import com.jeketos.associatewith.chat.IChatItem
+import com.jeketos.associatewith.ui.chat.IChatItem
 import com.jeketos.associatewith.util.ChatUtils
 import java.util.*
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
 
    override fun init() {
         previousChatCount = 0
-        model.clearData()
+//        model.clearData()
         clearChat()
         model.addChatListener({ dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
         model.addWinnerListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})
@@ -41,14 +41,14 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
         val childrenCount = dataSnapshot.childrenCount.toInt()
         if(childrenCount != 0){
             for(i in previousChatCount until childrenCount){
-                view!!.addChatItem(ChatUtils.getChatItem(dataSnapshot, i))
+                view?.addChatItem(ChatUtils.getChatItem(dataSnapshot, i))
             }
         }
         previousChatCount = childrenCount
     }
 
     override fun clearChat() {
-        view!!.clearChat()
+        view?.clearChat()
     }
 
     override fun wordsDataReceived(dataSnapshot: DataSnapshot) {
@@ -59,7 +59,7 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
             for (i in 0 until 3){
                 words[i] = dataSnapshot.child(random.nextInt(childrenCount).toString()).value as CharSequence
             }
-            view!!.showChooseWordDialog(words)
+            view?.showChooseWordDialog(words)
         }
     }
 

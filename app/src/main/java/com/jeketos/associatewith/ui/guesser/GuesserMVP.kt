@@ -1,9 +1,9 @@
-package com.jeketos.associatewith.guesser
+package com.jeketos.associatewith.ui.guesser
 
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BasePresenter
-import com.jeketos.associatewith.chat.IChatItem
+import com.jeketos.associatewith.ui.chat.IChatItem
 import java.util.*
 
 /**

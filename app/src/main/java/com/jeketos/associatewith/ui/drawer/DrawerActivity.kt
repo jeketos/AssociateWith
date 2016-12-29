@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.drawer
+package com.jeketos.associatewith.ui.drawer
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,26 +6,33 @@ import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
+import android.util.Log
+import android.view.View
+import android.widget.LinearLayout
 import com.afollestad.materialdialogs.color.ColorChooserDialog
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.base.BaseActivity
 import com.jeketos.associatewith.base.BasePresenter
-import com.jeketos.associatewith.chat.ExtChatAdapter
-import com.jeketos.associatewith.chat.IChatItem
-import com.jeketos.associatewith.guesser.GuesserActivity
 import com.jeketos.associatewith.listener.TouchWatcher
+import com.jeketos.associatewith.ui.chat.ExtChatAdapter
+import com.jeketos.associatewith.ui.chat.IChatItem
+import com.jeketos.associatewith.ui.guesser.GuesserActivity
 import com.jeketos.associatewith.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_drawer.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.drawer_picker.*
 import javax.inject.Inject
 
-class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerView, ColorChooserDialog.ColorCallback {
+class DrawerActivity : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerView, ColorChooserDialog.ColorCallback {
 
 
     @Inject lateinit var presenter : DrawerMVP.DrawerPresenter
     lateinit var extChatAdapter: ExtChatAdapter
+    var  selectedWord: String? = null
+    private var  chooseWordsDialog: AlertDialog? = null
+    private var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>? = null
 
     val touchWatcher = object : TouchWatcher {
 
@@ -42,8 +49,17 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
         super.onCreate(savedInstanceState)
         component.inject(this)
         setContentView(R.layout.drawer_layout)
-        showProgressDialog()
-        init()
+        if(savedInstanceState == null) {
+            showProgressDialog()
+            init()
+        } else {
+            selectedWord = savedInstanceState.getString("selected_word")
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        outState?.putString("selected_word", selectedWord)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onStart() {
@@ -84,9 +100,29 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
         }
         strokeRecyclerView.layoutManager = LinearLayoutManager(this)
         strokeRecyclerView. adapter = StrokeWidthAdapter(this)
-        val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.peekHeight = resources.getDimension(R.dimen.bottom_sheet_peek).toInt()
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior!!.peekHeight = resources.getDimension(R.dimen.bottom_sheet_peek).toInt()
+        bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetBehavior!!.setBottomSheetCallback(object: BottomSheetBehavior.BottomSheetCallback(){
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                Log.d("DrawerActivity","slide offset" + slideOffset * 180)
+                chatDrawerImage.rotation = slideOffset * 180
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) { }
+        })
+        chatDrawerImage.setOnClickListener {
+           when (bottomSheetBehavior!!.state){
+               BottomSheetBehavior.STATE_COLLAPSED -> {
+                   bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
+                   chatDrawerImage.rotation = 180f
+               }
+               BottomSheetBehavior.STATE_EXPANDED -> {
+                   bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
+                   chatDrawerImage.rotation = 0f
+               }
+           }
+        }
     }
 
     override fun onColorSelection(dialog: ColorChooserDialog, selectedColor: Int) {
@@ -111,15 +147,22 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
     }
 
     override fun showChooseWordDialog(words: Array<CharSequence>) {
-        hideProgressDialog()
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.choose_word)
-        builder.setCancelable(false)
-        builder.setItems(words, { dialogInterface, i ->
-            presenter.saveWord(words[i])
-            dialogInterface.dismiss()
-        })
-        builder.create().show()
+        if(TextUtils.isEmpty(selectedWord) && chooseWordsDialog == null) {
+            hideProgressDialog()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle(R.string.choose_word)
+            builder.setCancelable(false)
+            builder.setItems(words, { dialogInterface, i ->
+                selectedWord = words[i].toString()
+                selectedWordTextView.text = selectedWord
+                presenter.saveWord(words[i])
+                dialogInterface.dismiss()
+            })
+            chooseWordsDialog = builder.create()
+            if(!chooseWordsDialog!!.isShowing) {
+                chooseWordsDialog?.show()
+            }
+        }
     }
 
     override fun showWinnerDialog(name: String) {
@@ -132,5 +175,13 @@ class DrawerActivity() : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerV
         dialog.setCanceledOnTouchOutside(false)
         if(!this.isFinishing)
             dialog.show()
+    }
+
+    override fun onBackPressed() {
+        if(bottomSheetBehavior != null && bottomSheetBehavior!!.state == BottomSheetBehavior.STATE_EXPANDED){
+            bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            super.onBackPressed()
+        }
     }
 }

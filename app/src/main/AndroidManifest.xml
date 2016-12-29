@@ -10,10 +10,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".drawer.DrawerActivity"
+        <activity android:name="com.jeketos.associatewith.ui.drawer.DrawerActivity"
                   android:screenOrientation="portrait"
             />
-        <activity android:name=".guesser.GuesserActivity"
+        <activity android:name="com.jeketos.associatewith.ui.guesser.GuesserActivity"
                   android:screenOrientation="portrait"
             />
         <activity android:name=".login.LoginActivity"

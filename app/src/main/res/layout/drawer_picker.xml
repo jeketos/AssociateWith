@@ -7,6 +7,15 @@
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
               android:background="@color/colorPrimary">
+    <TextView
+        android:id="@+id/selectedWordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        tools:text="some text"/>
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/clearButton"
         android:layout_gravity="center"

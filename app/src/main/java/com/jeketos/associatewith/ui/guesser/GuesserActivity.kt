@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.guesser
+package com.jeketos.associatewith.ui.guesser
 
 import android.content.Context
 import android.content.Intent
@@ -11,9 +11,9 @@ import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.base.BaseActivity
 import com.jeketos.associatewith.base.BasePresenter
-import com.jeketos.associatewith.chat.ChatAdapter
-import com.jeketos.associatewith.chat.IChatItem
-import com.jeketos.associatewith.drawer.DrawerActivity
+import com.jeketos.associatewith.ui.chat.ChatAdapter
+import com.jeketos.associatewith.ui.chat.IChatItem
+import com.jeketos.associatewith.ui.drawer.DrawerActivity
 import com.jeketos.associatewith.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_guesser.*
 import java.util.*
@@ -24,7 +24,7 @@ import javax.inject.Inject
  *
  */
 
-class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.GuesserView {
+class GuesserActivity : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.GuesserView {
 
     @Inject lateinit var presenter : GuesserMVP.GuesserPresenter
     lateinit var chatAdapter: ChatAdapter
@@ -70,7 +70,6 @@ class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Gue
     }
 
     override fun clearBoard() {
-        init()
         imageView.clear()
     }
 
@@ -103,8 +102,8 @@ class GuesserActivity() : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Gue
     }
 
     fun hideKeyboard(){
-        if (getCurrentFocus() != null) {
-            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(getCurrentFocus()!!.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+        if (currentFocus != null) {
+            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         }
     }
 }

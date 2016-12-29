@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.drawer
+package com.jeketos.associatewith.ui.drawer
 
 import dagger.Module
 import dagger.Provides

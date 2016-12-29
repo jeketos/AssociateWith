@@ -1,8 +1,8 @@
 package com.jeketos.associatewith.util
 
 import com.google.firebase.database.DataSnapshot
-import com.jeketos.associatewith.chat.ChatItem
-import com.jeketos.associatewith.chat.IChatItem
+import com.jeketos.associatewith.ui.chat.ChatItem
+import com.jeketos.associatewith.ui.chat.IChatItem
 import java.util.*
 
 /**

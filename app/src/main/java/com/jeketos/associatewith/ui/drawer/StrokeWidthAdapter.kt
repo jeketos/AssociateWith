@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.drawer
+package com.jeketos.associatewith.ui.drawer
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

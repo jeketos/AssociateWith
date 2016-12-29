@@ -1,11 +1,11 @@
-package com.jeketos.associatewith.guesser
+package com.jeketos.associatewith.ui.guesser
 
 import android.text.TextUtils
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BaseMvpPresenter
-import com.jeketos.associatewith.chat.ChatItem
-import com.jeketos.associatewith.chat.IChatItem
+import com.jeketos.associatewith.ui.chat.ChatItem
+import com.jeketos.associatewith.ui.chat.IChatItem
 import com.jeketos.associatewith.util.ChatUtils
 import java.util.*
 import javax.inject.Inject

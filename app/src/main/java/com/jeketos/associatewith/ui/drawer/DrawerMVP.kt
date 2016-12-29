@@ -1,9 +1,9 @@
-package com.jeketos.associatewith.drawer
+package com.jeketos.associatewith.ui.drawer
 
 import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BasePresenter
-import com.jeketos.associatewith.chat.IChatItem
+import com.jeketos.associatewith.ui.chat.IChatItem
 
 /**
  * Created by eugene.kotsogub on 10/28/16.

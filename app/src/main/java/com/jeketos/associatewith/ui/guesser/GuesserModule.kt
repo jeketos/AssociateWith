@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.guesser
+package com.jeketos.associatewith.ui.guesser
 
 import dagger.Module
 import dagger.Provides

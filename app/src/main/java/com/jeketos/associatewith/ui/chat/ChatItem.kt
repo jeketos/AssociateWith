@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.chat
+package com.jeketos.associatewith.ui.chat
 
 import android.graphics.Color
 

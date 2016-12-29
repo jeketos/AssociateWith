@@ -2,10 +2,10 @@ package com.jeketos.associatewith.di.component
 
 import com.jeketos.associatewith.di.module.ActivityModule
 import com.jeketos.associatewith.di.scope.ActivityScope
-import com.jeketos.associatewith.drawer.DrawerActivity
-import com.jeketos.associatewith.drawer.DrawerModule
-import com.jeketos.associatewith.guesser.GuesserActivity
-import com.jeketos.associatewith.guesser.GuesserModule
+import com.jeketos.associatewith.ui.drawer.DrawerActivity
+import com.jeketos.associatewith.ui.drawer.DrawerModule
+import com.jeketos.associatewith.ui.guesser.GuesserActivity
+import com.jeketos.associatewith.ui.guesser.GuesserModule
 import dagger.Subcomponent
 
 /**

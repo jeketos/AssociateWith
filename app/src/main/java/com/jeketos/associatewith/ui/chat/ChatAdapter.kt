@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.chat
+package com.jeketos.associatewith.ui.chat
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

@@ -4,8 +4,6 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.*
 import android.os.Build
-import android.os.Bundle
-import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -134,27 +132,29 @@ import com.jeketos.associatewith.listener.TouchWatcher
     }
 
     fun clear(){
-        bitmap = Bitmap.createBitmap(width, height,Bitmap.Config.ARGB_8888)
-        canvas =  Canvas(bitmap)
-        canvas.drawColor(Color.WHITE)
-        invalidate()
-    }
-
-    override fun onSaveInstanceState(): Parcelable {
-        val bundle = Bundle()
-        bundle.putParcelable("bitmap", bitmap)
-        bundle.putParcelable("superState", super.onSaveInstanceState())
-        return bundle
-    }
-
-    override fun onRestoreInstanceState(state: Parcelable?) {
-        if(state != null && state is Bundle){
-            bitmap = state.get("bitmap") as Bitmap
-            super.onRestoreInstanceState(state.getParcelable("superState"))
-        } else {
-            super.onRestoreInstanceState(state)
+        if(width > 0 && height > 0) {
+            bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            canvas = Canvas(bitmap)
+            canvas.drawColor(Color.WHITE)
+            invalidate()
         }
     }
+
+//    override fun onSaveInstanceState(): Parcelable {
+//        val bundle = Bundle()
+//        bundle.putParcelable("bitmap", bitmap)
+//        bundle.putParcelable("superState", super.onSaveInstanceState())
+//        return bundle
+//    }
+
+//    override fun onRestoreInstanceState(state: Parcelable?) {
+//        if(state != null && state is Bundle){
+//            bitmap = state.get("bitmap") as Bitmap
+//            super.onRestoreInstanceState(state.getParcelable("superState"))
+//        } else {
+//            super.onRestoreInstanceState(state)
+//        }
+//    }
 
     fun setMoveWatcher(touchWatcher: TouchWatcher) {
         this.touchWatcher = touchWatcher

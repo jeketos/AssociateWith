@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.jeketos.associatewith.R
-import com.jeketos.associatewith.drawer.DrawerActivity
-import com.jeketos.associatewith.guesser.GuesserActivity
+import com.jeketos.associatewith.ui.drawer.DrawerActivity
+import com.jeketos.associatewith.ui.guesser.GuesserActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**

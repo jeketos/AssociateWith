@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.chat
+package com.jeketos.associatewith.ui.chat
 
 /**
  * Created by eugene.kotsogub on 11/7/16.

@@ -1,8 +1,8 @@
-package com.jeketos.associatewith.drawer
+package com.jeketos.associatewith.ui.drawer
 
 import com.google.firebase.database.*
 import com.jeketos.associatewith.Point
-import com.jeketos.associatewith.chat.IChatItem
+import com.jeketos.associatewith.ui.chat.IChatItem
 import java.util.*
 import javax.inject.Inject
 

@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="horizontal"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
@@ -36,6 +38,7 @@
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:tint="@color/green"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_thumb_up_black"/>
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/dislikeButton"
@@ -44,5 +47,6 @@
         android:layout_height="wrap_content"
         android:padding="4dp"
         android:tint="@color/red"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_thumb_down_black"/>
 </LinearLayout>

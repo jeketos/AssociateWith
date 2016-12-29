@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.chat
+package com.jeketos.associatewith.ui.chat
 
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jeketos.associatewith.R
-import com.jeketos.associatewith.drawer.DrawerMVP
+import com.jeketos.associatewith.ui.drawer.DrawerMVP
 import kotlinx.android.synthetic.main.item_chat_ext.view.*
 import java.util.*
 
