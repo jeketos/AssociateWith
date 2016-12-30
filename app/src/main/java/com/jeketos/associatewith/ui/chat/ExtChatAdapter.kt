@@ -37,7 +37,7 @@ class ExtChatAdapter(var view: DrawerMVP.DrawerView) : RecyclerView.Adapter<ExtC
             val chatItem = chatItems[position]
             val  color = ContextCompat.getColor(holder.name.context, R.color.green)
             chatItem.setColor(color)
-            view.updateChatItemColor(chatItem, position)
+            view.updateChatItemColor(chatItem, chatItem.getKey())
             setTextColor(holder,  color)
 
         }
@@ -45,7 +45,7 @@ class ExtChatAdapter(var view: DrawerMVP.DrawerView) : RecyclerView.Adapter<ExtC
             val chatItem = chatItems[position]
             val  color = ContextCompat.getColor(holder.name.context, R.color.red)
             chatItem.setColor(color)
-            view.updateChatItemColor(chatItem, position)
+            view.updateChatItemColor(chatItem, chatItem.getKey())
             setTextColor(holder,  color)
         }
     }
@@ -61,9 +61,9 @@ class ExtChatAdapter(var view: DrawerMVP.DrawerView) : RecyclerView.Adapter<ExtC
         return chatItems.size
     }
 
-    fun updateItems(item: IChatItem?){
-        if(item != null)
-            chatItems.add(item)
+    fun updateItems(items: ArrayList<IChatItem>?){
+        if(items != null)
+            chatItems = items
         else
             chatItems = ArrayList<IChatItem>()
         notifyDataSetChanged()

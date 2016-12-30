@@ -66,7 +66,7 @@ import javax.inject.Inject
 
     override fun sendMessage(item: IChatItem) {
         val map = hashMapOf(Pair(chatCount.toString(),item as Any))
-        referenceChat.updateChildren(map)
+        referenceChat.push().setValue(item)
     }
 
     override fun setWinner(item: IChatItem) {

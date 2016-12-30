@@ -40,9 +40,7 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
     override fun chatDataReceived(dataSnapshot: DataSnapshot) {
         val childrenCount = dataSnapshot.childrenCount.toInt()
         if(childrenCount != 0){
-            for(i in previousChatCount until childrenCount){
-                view?.addChatItem(ChatUtils.getChatItem(dataSnapshot, i))
-            }
+            view?.addChatItems(ChatUtils.getChatItems(dataSnapshot))
         }
         previousChatCount = childrenCount
     }
@@ -93,8 +91,8 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
         model.removeListeners()
     }
 
-    override fun updateChatItemColor(chatItem: IChatItem, position: Int) {
-        model.updateChatItemColor(chatItem, position)
+    override fun updateChatItemColor(chatItem: IChatItem, key: String) {
+        model.updateChatItemColor(chatItem, key)
     }
 
 }

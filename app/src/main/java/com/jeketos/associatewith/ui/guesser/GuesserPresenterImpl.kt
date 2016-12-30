@@ -53,12 +53,12 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
         if(childrenCount == 0){
             view?.clearChat()
         } else {
-            val list = Array(childrenCount, { i -> i })
-            val chatItems : ArrayList<IChatItem> = ArrayList()
-            list.forEach {
-                chatItems.add(ChatUtils.getChatItem(dataSnapshot, it))
-            }
-            view?.updateChatItems(chatItems)
+//            val list = Array(childrenCount, { i -> i })
+//            val chatItems : ArrayList<IChatItem> = ArrayList()
+//            list.forEach {
+//                chatItems.add(ChatUtils.getChatItem(dataSnapshot, it))
+//            }
+            view?.updateChatItems(ChatUtils.getChatItems(dataSnapshot))
             previousChatCount = childrenCount
         }
     }

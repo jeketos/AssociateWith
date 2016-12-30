@@ -64,8 +64,8 @@ import javax.inject.Inject
         referenceMove.updateChildren(map)
     }
 
-    override fun updateChatItemColor(chatItem: IChatItem, position: Int) {
-        referenceChat.updateChildren(mapOf(Pair(position.toString(), chatItem)))
+    override fun updateChatItemColor(chatItem: IChatItem, key: String) {
+        referenceChat.updateChildren(mapOf(Pair(key, chatItem)))
     }
 
     override fun clearData() {

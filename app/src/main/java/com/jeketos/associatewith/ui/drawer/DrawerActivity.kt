@@ -23,6 +23,7 @@ import com.jeketos.associatewith.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_drawer.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.drawer_picker.*
+import java.util.*
 import javax.inject.Inject
 
 class DrawerActivity : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerView, ColorChooserDialog.ColorCallback {
@@ -129,7 +130,7 @@ class DrawerActivity : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerVie
         imageView.setDrawColor(selectedColor)
     }
 
-    override fun addChatItem(chatItem: IChatItem?) {
+    override fun addChatItems(chatItem: ArrayList<IChatItem>) {
         extChatAdapter.updateItems(chatItem)
     }
 
@@ -142,8 +143,8 @@ class DrawerActivity : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerVie
         drawerLayout.closeDrawer(GravityCompat.END)
     }
 
-    override fun updateChatItemColor(chatItem: IChatItem, position: Int) {
-        presenter.updateChatItemColor(chatItem, position)
+    override fun updateChatItemColor(chatItem: IChatItem, key: String) {
+        presenter.updateChatItemColor(chatItem, key)
     }
 
     override fun showChooseWordDialog(words: Array<CharSequence>) {

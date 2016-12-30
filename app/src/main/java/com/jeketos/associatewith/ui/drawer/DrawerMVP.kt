@@ -4,6 +4,7 @@ import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BasePresenter
 import com.jeketos.associatewith.ui.chat.IChatItem
+import java.util.*
 
 /**
  * Created by eugene.kotsogub on 10/28/16.
@@ -16,7 +17,7 @@ class DrawerMVP() {
 
         fun init()
 
-        fun addChatItem(chatItem: IChatItem?)
+        fun addChatItems(chatItem: ArrayList<IChatItem>)
 
         fun clearChat()
 
@@ -26,7 +27,7 @@ class DrawerMVP() {
 
         fun setStrokeWidth(strokeWidth: Float)
 
-        fun  updateChatItemColor(chatItem: IChatItem, position: Int)
+        fun  updateChatItemColor(chatItem: IChatItem, key: String)
     }
 
     interface DrawerPresenter : BasePresenter<DrawerView> {
@@ -38,7 +39,7 @@ class DrawerMVP() {
         fun saveWord(word: CharSequence)
         fun winnerDataReceived(dataSnapshot: DataSnapshot)
         fun clearDraw()
-        fun  updateChatItemColor(chatItem: IChatItem, position: Int)
+        fun  updateChatItemColor(chatItem: IChatItem, key: String)
     }
 
     interface DrawerModel {
@@ -58,7 +59,7 @@ class DrawerMVP() {
         fun addEventListeners()
         fun removeListeners()
         fun clearDraw()
-        fun  updateChatItemColor(chatItem: IChatItem, position: Int)
+        fun  updateChatItemColor(chatItem: IChatItem, key: String)
     }
 
 }

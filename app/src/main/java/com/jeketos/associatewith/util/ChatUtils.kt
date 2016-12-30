@@ -24,4 +24,24 @@ object ChatUtils {
         return item
     }
 
+    fun getChatItems(dataSnapshot: DataSnapshot): ArrayList<IChatItem> {
+
+        val list = dataSnapshot.children.toList()
+        val chatItems : ArrayList<IChatItem> = ArrayList()
+        list.forEach {
+            val hashMap = it.value as HashMap<*, *>
+            val name = hashMap["name"]
+            val message =  hashMap["message"]
+            val color = hashMap["color"].toString().toInt()
+            val key = it.key
+            val item = ChatItem()
+            item.setColor(color)
+            if (message is String) item.setMessage(message)
+            if (name is String) item.setName(name)
+            item.setKey(key)
+            chatItems.add(item)
+        }
+        return chatItems
+    }
+
 }

@@ -19,4 +19,8 @@ interface IChatItem {
 
     fun setColor(color : Int)
 
+    fun getKey() : String
+
+    fun setKey(key : String)
+
 }
