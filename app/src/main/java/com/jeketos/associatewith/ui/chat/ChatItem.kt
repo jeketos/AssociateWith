@@ -13,7 +13,7 @@ class ChatItem() : IChatItem {
     lateinit private var  name : String
     lateinit private var  message : String
     private var color : Int = Color.argb(0xff, 0, 0, 0)
-    lateinit private var key : String
+    private var key : String = ""
 
     override fun getMessage(): String {
         return message
