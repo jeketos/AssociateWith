@@ -1,5 +1,6 @@
 package com.jeketos.associatewith.login
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.jeketos.associatewith.customViews.RoomDialog
 import com.jeketos.associatewith.listener.RoomListener
 import com.jeketos.associatewith.ui.drawer.DrawerActivity
 import com.jeketos.associatewith.ui.guesser.GuesserActivity
+import com.jeketos.associatewith.util.DialogUtils
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -22,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity(), RoomListener {
 
     lateinit var roomDialog : RoomDialog
+    private var currentProgressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,11 +69,13 @@ class LoginActivity : AppCompatActivity(), RoomListener {
     }
 
     override fun roomCreated(roomName: String, roomPassword: String) {
+        showProgressDialog()
         val reference = FirebaseDatabase.getInstance().reference
         reference.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError?) {}
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                hideProgressDialog()
                 if(dataSnapshot.child(roomName).exists()){
                     Toast.makeText(applicationContext , getString(R.string.error_create_room_message), Toast.LENGTH_LONG).show()
                 } else {
@@ -85,11 +90,13 @@ class LoginActivity : AppCompatActivity(), RoomListener {
     }
 
     override fun roomJoined(roomName: String, roomPassword: String) {
+        showProgressDialog()
         val referenceRoom = FirebaseDatabase.getInstance().getReference(roomName)
         referenceRoom.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError?) {}
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                hideProgressDialog()
                 val password = dataSnapshot.child("password").value as String?
                 if(password == roomPassword){
                     roomDialog.dismiss()
@@ -101,6 +108,17 @@ class LoginActivity : AppCompatActivity(), RoomListener {
             }
 
         })
+    }
+
+    fun showProgressDialog() {
+        currentProgressDialog = DialogUtils.showProgressDialog(this)
+    }
+
+    fun hideProgressDialog() {
+        if (currentProgressDialog != null && currentProgressDialog!!.isShowing) {
+            currentProgressDialog!!.dismiss()
+        }
+        currentProgressDialog = null
     }
 //    private fun addWords() {
 //        val words = FirebaseDatabase.getInstance().getReference("words")
