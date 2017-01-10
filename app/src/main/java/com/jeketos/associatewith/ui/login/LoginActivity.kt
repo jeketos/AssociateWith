@@ -1,4 +1,4 @@
-package com.jeketos.associatewith.login
+package com.jeketos.associatewith.ui.login
 
 import android.app.ProgressDialog
 import android.content.Intent

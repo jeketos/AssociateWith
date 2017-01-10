@@ -10,7 +10,7 @@ import android.widget.EditText
 import com.jeketos.associatewith.App
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.listener.RoomListener
-import com.jeketos.associatewith.login.Type
+import com.jeketos.associatewith.ui.login.Type
 import com.jeketos.associatewith.storage.Storer
 
 /**
