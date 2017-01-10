@@ -12,5 +12,11 @@
     <string name="choose_color">Choose color</string>
     <string name="color_shades">Color shades</string>
     <string name="stroke_width">Stroke width:</string>
+    <string name="create_room">Create room</string>
+    <string name="join_room">Join room</string>
+    <string name="room_name">Room name</string>
+    <string name="signup_last_name">Room password</string>
+    <string name="room_password">Room password</string>
+    <string name="please_fill_all_fields">Please fill all fields.</string>
 
 </resources>

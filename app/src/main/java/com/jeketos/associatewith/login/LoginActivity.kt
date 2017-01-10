@@ -3,7 +3,10 @@ package com.jeketos.associatewith.login
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.google.firebase.database.FirebaseDatabase
 import com.jeketos.associatewith.R
+import com.jeketos.associatewith.customViews.RoomDialog
+import com.jeketos.associatewith.listener.RoomListener
 import com.jeketos.associatewith.ui.drawer.DrawerActivity
 import com.jeketos.associatewith.ui.guesser.GuesserActivity
 import kotlinx.android.synthetic.main.activity_login.*
@@ -12,7 +15,9 @@ import kotlinx.android.synthetic.main.activity_login.*
  * Created by jeketos on 05.12.2016.
  *
  */
-class LoginActivity() : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), RoomListener {
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +28,26 @@ class LoginActivity() : AppCompatActivity() {
         buttonGuesser.setOnClickListener {
             startGuesserActivity()
         }
+
+        buttonCreateRoom.setOnClickListener {
+            showCreateRoomDialog()
+        }
+
+        buttonJoinRoom.setOnClickListener {
+            showJoinRoomDialog()
+        }
+    }
+
+    private fun showCreateRoomDialog() {
+        val bundle = Bundle()
+        val roomDialog = RoomDialog()
+        roomDialog.listener = this
+        roomDialog.show(supportFragmentManager,"room_dialog")
+
+    }
+
+    private fun showJoinRoomDialog() {
+
     }
 
     private fun startDrawerActivity() {
@@ -33,6 +58,12 @@ class LoginActivity() : AppCompatActivity() {
     private fun startGuesserActivity() {
         val intent = Intent(this, GuesserActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun roomCreated(roomName: String, roomPassword: String) {
+        val referenceRoom = FirebaseDatabase.getInstance().getReference(roomName)
+        referenceRoom.child("password").setValue(roomPassword)
+        startDrawerActivity()
     }
 
 //    private fun addWords() {
