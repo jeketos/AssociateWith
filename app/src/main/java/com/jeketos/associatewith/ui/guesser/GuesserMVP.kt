@@ -55,6 +55,7 @@ import java.util.*
          fun addWinnerListener(winnerListener: (DataSnapshot) -> Unit)
          fun addEventListeners()
          fun removeListeners()
+         fun init()
      }
 
 }

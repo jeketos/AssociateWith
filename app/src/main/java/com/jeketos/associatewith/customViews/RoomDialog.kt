@@ -10,6 +10,7 @@ import android.widget.EditText
 import com.jeketos.associatewith.App
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.listener.RoomListener
+import com.jeketos.associatewith.login.Type
 import com.jeketos.associatewith.storage.Storer
 
 /**
@@ -22,6 +23,16 @@ class RoomDialog : AppCompatDialogFragment() {
     lateinit var listener : RoomListener
     lateinit var roomName : EditText
     lateinit var roomPassword : EditText
+
+    companion  object {
+        fun newInstance(type: Type): RoomDialog {
+            val fragment = RoomDialog()
+            val bundle = Bundle()
+            bundle.putSerializable("type", type)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +73,13 @@ class RoomDialog : AppCompatDialogFragment() {
         } else {
             storer.saveRoomName(roomName)
             storer.saveRoomPassword(roomPassword)
-            dialog.dismiss()
-            listener.roomCreated(roomName, roomPassword)
+            val type = arguments.getSerializable("type") as Type
+            if(type == Type.CREATE_ROOM) {
+                listener.roomCreated(roomName, roomPassword)
+            } else {
+                listener.roomJoined(roomName, roomPassword)
+            }
+//            dialog.dismiss()
         }
     }
 }

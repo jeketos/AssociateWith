@@ -5,7 +5,6 @@ import com.google.firebase.database.DataSnapshot
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.base.BaseMvpPresenter
 import com.jeketos.associatewith.ui.chat.ChatItem
-import com.jeketos.associatewith.ui.chat.IChatItem
 import com.jeketos.associatewith.util.ChatUtils
 import java.util.*
 import javax.inject.Inject
@@ -89,6 +88,7 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
 
     override fun attachView(view: GuesserMVP.GuesserView) {
         super.attachView(view)
+        model.init()
         model.addEventListeners()
         model.addChatListener { dataSnapshot: DataSnapshot -> chatDataReceived(dataSnapshot) }
         model.addMoveListener { dataSnapshot: DataSnapshot -> moveDataReceived(dataSnapshot) }

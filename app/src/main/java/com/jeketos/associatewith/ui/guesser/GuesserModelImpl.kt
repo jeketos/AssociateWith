@@ -1,6 +1,8 @@
 package com.jeketos.associatewith.ui.guesser
 
+import android.text.TextUtils
 import com.google.firebase.database.*
+import com.jeketos.associatewith.storage.Storer
 import com.jeketos.associatewith.ui.chat.IChatItem
 import javax.inject.Inject
 /**
@@ -15,11 +17,12 @@ import javax.inject.Inject
     val SELECTED_WORD = "selected_word"
     val WINNER = "winner"
     var chatCount : Int = 0
-    var referenceChat : DatabaseReference
-    var referenceSelectedWord : DatabaseReference
-    var referenceWinner : DatabaseReference
-    var referenceMove : DatabaseReference
-    var referenceColor : DatabaseReference
+    @Inject lateinit var storer : Storer
+    lateinit var referenceChat : DatabaseReference
+    lateinit var referenceSelectedWord : DatabaseReference
+    lateinit var referenceWinner : DatabaseReference
+    lateinit var referenceMove : DatabaseReference
+    lateinit var referenceColor : DatabaseReference
     lateinit var chatListener: (DataSnapshot) -> Unit
     lateinit var moveListener: (DataSnapshot) -> Unit
     lateinit var selectedWordListener: (DataSnapshot) -> Unit
@@ -56,12 +59,21 @@ import javax.inject.Inject
         }
     }
 
-    init {
-        referenceMove = FirebaseDatabase.getInstance().getReference(MOVE)
-        referenceChat = FirebaseDatabase.getInstance().getReference(CHAT)
-        referenceSelectedWord = FirebaseDatabase.getInstance().getReference(SELECTED_WORD)
-        referenceWinner = FirebaseDatabase.getInstance().getReference(WINNER)
-        referenceColor = FirebaseDatabase.getInstance().getReference("color")
+    override fun init() {
+        val roomName = storer.getRoomName()
+        if(TextUtils.isEmpty(roomName)) {
+            referenceMove = FirebaseDatabase.getInstance().getReference(MOVE)
+            referenceChat = FirebaseDatabase.getInstance().getReference(CHAT)
+            referenceSelectedWord = FirebaseDatabase.getInstance().getReference(SELECTED_WORD)
+            referenceWinner = FirebaseDatabase.getInstance().getReference(WINNER)
+            referenceColor = FirebaseDatabase.getInstance().getReference("color")
+        } else {
+            referenceMove = FirebaseDatabase.getInstance().getReference(roomName).child(MOVE)
+            referenceChat = FirebaseDatabase.getInstance().getReference(roomName).child(CHAT)
+            referenceSelectedWord = FirebaseDatabase.getInstance().getReference(roomName).child(SELECTED_WORD)
+            referenceWinner = FirebaseDatabase.getInstance().getReference(roomName).child(WINNER)
+            referenceColor = FirebaseDatabase.getInstance().getReference(roomName).child("color")
+        }
     }
 
     override fun sendMessage(item: IChatItem) {

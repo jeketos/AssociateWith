@@ -7,5 +7,6 @@ package com.jeketos.associatewith.listener
 interface RoomListener {
 
     fun roomCreated(roomName: String, roomPassword: String)
+    fun roomJoined(roomName: String, roomPassword: String)
 
 }

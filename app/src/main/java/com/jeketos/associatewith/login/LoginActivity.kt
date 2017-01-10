@@ -3,7 +3,11 @@ package com.jeketos.associatewith.login
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.jeketos.associatewith.R
 import com.jeketos.associatewith.customViews.RoomDialog
 import com.jeketos.associatewith.listener.RoomListener
@@ -17,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  */
 class LoginActivity : AppCompatActivity(), RoomListener {
 
-
+    lateinit var roomDialog : RoomDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,15 +43,16 @@ class LoginActivity : AppCompatActivity(), RoomListener {
     }
 
     private fun showCreateRoomDialog() {
-        val bundle = Bundle()
-        val roomDialog = RoomDialog()
+        roomDialog = RoomDialog.newInstance(Type.CREATE_ROOM)
         roomDialog.listener = this
         roomDialog.show(supportFragmentManager,"room_dialog")
 
     }
 
     private fun showJoinRoomDialog() {
-
+        roomDialog = RoomDialog.newInstance(Type.JOIN_ROOM)
+        roomDialog.listener = this
+        roomDialog.show(supportFragmentManager,"room_dialog")
     }
 
     private fun startDrawerActivity() {
@@ -61,11 +66,42 @@ class LoginActivity : AppCompatActivity(), RoomListener {
     }
 
     override fun roomCreated(roomName: String, roomPassword: String) {
-        val referenceRoom = FirebaseDatabase.getInstance().getReference(roomName)
-        referenceRoom.child("password").setValue(roomPassword)
-        startDrawerActivity()
+        val reference = FirebaseDatabase.getInstance().reference
+        reference.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError?) {}
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if(dataSnapshot.child(roomName).exists()){
+                    Toast.makeText(applicationContext , getString(R.string.error_create_room_message), Toast.LENGTH_LONG).show()
+                } else {
+                    val referenceRoom = FirebaseDatabase.getInstance().getReference(roomName)
+                    referenceRoom.child("password").setValue(roomPassword)
+                    roomDialog.dismiss()
+                    startDrawerActivity()
+                }
+            }
+        })
+
     }
 
+    override fun roomJoined(roomName: String, roomPassword: String) {
+        val referenceRoom = FirebaseDatabase.getInstance().getReference(roomName)
+        referenceRoom.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError?) {}
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val password = dataSnapshot.child("password").value as String?
+                if(password == roomPassword){
+                    roomDialog.dismiss()
+                    startGuesserActivity()
+                } else{
+                    Toast.makeText(applicationContext ,getString(R.string.error_join_room_message), Toast.LENGTH_LONG).show()
+                }
+                referenceRoom.removeEventListener(this)
+            }
+
+        })
+    }
 //    private fun addWords() {
 //        val words = FirebaseDatabase.getInstance().getReference("words")
 //        words.removeValue()
