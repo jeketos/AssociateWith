@@ -26,12 +26,12 @@ class LoginActivity : AppCompatActivity(), RoomListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        buttonDrawer.setOnClickListener {
-            startDrawerActivity()
-        }
-        buttonGuesser.setOnClickListener {
-            startGuesserActivity()
-        }
+//        buttonDrawer.setOnClickListener {
+//            startDrawerActivity()
+//        }
+//        buttonGuesser.setOnClickListener {
+//            startGuesserActivity()
+//        }
 
         buttonCreateRoom.setOnClickListener {
             showCreateRoomDialog()

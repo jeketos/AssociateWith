@@ -79,7 +79,6 @@ class RoomDialog : AppCompatDialogFragment() {
             } else {
                 listener.roomJoined(roomName, roomPassword)
             }
-//            dialog.dismiss()
         }
     }
 }
