@@ -2,10 +2,14 @@ package com.jeketos.associatewith.ui.guesser
 
 import android.content.Context
 import android.content.Intent
+import android.inputmethodservice.Keyboard
+import android.inputmethodservice.KeyboardView
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.jeketos.associatewith.Point
 import com.jeketos.associatewith.R
@@ -29,6 +33,8 @@ class GuesserActivity : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Guess
     @Inject lateinit var presenter : GuesserMVP.GuesserPresenter
     lateinit var chatAdapter: ChatAdapter
     var density = 0
+    val handler = Handler()
+    lateinit var keyboard : Keyboard
 
     fun onSendClick(){
          val message = editText.text.toString()
@@ -60,6 +66,81 @@ class GuesserActivity : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Guess
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
         chatAdapter = ChatAdapter()
         chatRecyclerView.adapter = chatAdapter
+        keyboard = Keyboard(this, R.xml.keyboard)
+        // Attach the keyboard to the view
+        keyboardView.keyboard = keyboard
+        keyboardView.setOnKeyboardActionListener(onKeyboardActionListener)
+        keyboardView.isPreviewEnabled = false
+        editText.setOnTouchListener(exitSoftKeyBoard)
+    }
+
+    private val exitSoftKeyBoard = View.OnTouchListener { v, event ->
+        val imm = applicationContext.getSystemService(
+                android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        if (v == editText) {
+            editText.requestFocus()
+            keyboardView.visibility = View.VISIBLE
+        }
+        true
+    }
+
+    private var removeLetterRunnable: Runnable? = null
+    private val onKeyboardActionListener = object : KeyboardView.OnKeyboardActionListener {
+        override fun onKey(primaryCode: Int, keyCodes: IntArray) {
+            val length = editText.text.length
+            if (primaryCode == 100) {
+                onSendClick()
+            } else if (primaryCode != -1) {
+                editText.text.append(getKeyLabel(primaryCode))
+                editText.setSelection(length + 1)
+            }
+        }
+
+        override fun onPress(primaryCode: Int) {
+            if (primaryCode == -1) {
+                if (editText.text.isNotEmpty()) {
+                    editText.text.delete(editText.text.length - 1, editText.text.length)
+                    editText.setSelection(editText.text.length)
+                    removeLetterRunnable = object : Runnable {
+                        override fun run() {
+                            if (editText.text.isNotEmpty()) {
+                                editText.text.delete(editText.text.length - 1, editText.text.length)
+                                editText.setSelection(editText.text.length)
+                                handler.postDelayed(this, 100)
+                            }
+                        }
+                    }
+                    handler.postDelayed(removeLetterRunnable, 500)
+                }
+            }
+        }
+
+        override fun onRelease(primaryCode: Int) {
+            if (primaryCode == -1) {
+                handler.removeCallbacks(removeLetterRunnable)
+            }
+        }
+
+        override fun onText(text: CharSequence) {
+        }
+
+        override fun swipeDown() {}
+
+        override fun swipeLeft() {}
+
+        override fun swipeRight() {}
+
+        override fun swipeUp() {}
+    }
+
+    fun getKeyLabel(keycode: Int): String {
+        val keys = keyboard.keys
+        keys
+                .filter { it.codes[0] == keycode }
+                .forEach { return it.label.toString() }
+        return ""
+
     }
 
     override fun draw(point: Point) {
