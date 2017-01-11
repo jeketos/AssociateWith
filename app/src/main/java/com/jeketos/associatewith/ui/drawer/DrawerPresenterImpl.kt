@@ -80,6 +80,7 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
 
     override fun attachView(view: DrawerMVP.DrawerView) {
         super.attachView(view)
+        model.init()
         model.addEventListeners()
         model.addChatListener({ dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
         model.addWinnerListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})

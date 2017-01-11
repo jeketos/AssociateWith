@@ -60,6 +60,7 @@ class DrawerMVP() {
         fun removeListeners()
         fun clearDraw()
         fun  updateChatItemColor(chatItem: IChatItem, key: String)
+        fun init()
     }
 
 }

@@ -1,7 +1,9 @@
 package com.jeketos.associatewith.ui.drawer
 
+import android.text.TextUtils
 import com.google.firebase.database.*
 import com.jeketos.associatewith.Point
+import com.jeketos.associatewith.storage.Storer
 import com.jeketos.associatewith.ui.chat.IChatItem
 import java.util.*
 import javax.inject.Inject
@@ -16,14 +18,15 @@ import javax.inject.Inject
     val  CHAT = "chat"
     val WORDS = "words"
     val SELECTED_WORD = "selected_word"
-    val referenceMove : DatabaseReference
-    val referenceChat : DatabaseReference
-    val referenceWords : DatabaseReference
-    val referenceSelectedWord : DatabaseReference
-    val referenceWinner : DatabaseReference
+    lateinit var referenceMove : DatabaseReference
+    lateinit var referenceChat : DatabaseReference
+    lateinit var referenceWords : DatabaseReference
+    lateinit var referenceSelectedWord : DatabaseReference
+    lateinit var referenceWinner : DatabaseReference
     lateinit var chatListener: (DataSnapshot) -> Unit
     lateinit var wordsListener: (DataSnapshot) -> Unit
     lateinit var winnerListener: (DataSnapshot) -> Unit
+    @Inject lateinit var storer : Storer
     val chatEventListener = object : ValueEventListener{
         override fun onCancelled(p0: DatabaseError?) {}
 
@@ -46,12 +49,19 @@ import javax.inject.Inject
         }
     }
 
-    init {
-        referenceSelectedWord = FirebaseDatabase.getInstance().getReference(SELECTED_WORD)
-        referenceMove = FirebaseDatabase.getInstance().getReference(MOVE)
-        referenceChat = FirebaseDatabase.getInstance().getReference(CHAT)
+   override fun init() {
+        if(TextUtils.isEmpty(storer.getRoomName())) {
+            referenceSelectedWord = FirebaseDatabase.getInstance().getReference(SELECTED_WORD)
+            referenceMove = FirebaseDatabase.getInstance().getReference(MOVE)
+            referenceChat = FirebaseDatabase.getInstance().getReference(CHAT)
+            referenceWinner = FirebaseDatabase.getInstance().getReference("winner")
+        } else {
+            referenceSelectedWord = FirebaseDatabase.getInstance().getReference(storer.getRoomName()).child(SELECTED_WORD)
+            referenceMove = FirebaseDatabase.getInstance().getReference(storer.getRoomName()).child(MOVE)
+            referenceChat = FirebaseDatabase.getInstance().getReference(storer.getRoomName()).child(CHAT)
+            referenceWinner = FirebaseDatabase.getInstance().getReference(storer.getRoomName()).child("winner")
+        }
         referenceWords = FirebaseDatabase.getInstance().getReference(WORDS)
-        referenceWinner = FirebaseDatabase.getInstance().getReference("winner")
     }
 
     override fun getMovesCount(): Int{
