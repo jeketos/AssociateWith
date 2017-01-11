@@ -192,4 +192,12 @@ class GuesserActivity : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Guess
             (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         }
     }
+
+    override fun onBackPressed() {
+        if(keyboardView.visibility == View.VISIBLE){
+            keyboardView.visibility = View.GONE
+        } else {
+            super.onBackPressed()
+        }
+    }
 }
