@@ -61,6 +61,11 @@ class GuesserActivity : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Guess
         presenter.init()
     }
 
+    override fun onStop() {
+        handler.removeCallbacks(removeLetterRunnable)
+        super.onStop()
+    }
+
     override fun init() {
         send.setOnClickListener {onSendClick()}
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -72,12 +77,14 @@ class GuesserActivity : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Guess
         keyboardView.setOnKeyboardActionListener(onKeyboardActionListener)
         keyboardView.isPreviewEnabled = false
         editText.setOnTouchListener(exitSoftKeyBoard)
+        editText.setOnFocusChangeListener { view, b ->
+            if(b){
+                keyboardView.visibility = View.VISIBLE
+            }
+        }
     }
 
     private val exitSoftKeyBoard = View.OnTouchListener { v, event ->
-        val imm = applicationContext.getSystemService(
-                android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         if (v == editText) {
             editText.requestFocus()
             keyboardView.visibility = View.VISIBLE
