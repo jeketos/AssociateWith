@@ -3,47 +3,48 @@
           android:keyHeight="5%p"
           android:keyWidth="7%p"
           android:layout_width="wrap_content"
-          android:verticalGap="1%p">
+          android:verticalGap="0.7%p"
+          android:horizontalGap="0.7%p" >
 
     <Row >
-        <Key android:codes="81" android:keyLabel="й" android:horizontalGap="1%p"  android:keyEdgeFlags="left"/>
-        <Key android:codes="87" android:keyLabel="ц" android:horizontalGap="1%p"/>
-        <Key android:codes="69" android:keyLabel="у" android:horizontalGap="1%p"/>
-        <Key android:codes="82" android:keyLabel="к" android:horizontalGap="1%p"/>
-        <Key android:codes="84" android:keyLabel="е" android:horizontalGap="1%p"/>
-        <Key android:codes="89" android:keyLabel="н" android:horizontalGap="1%p"/>
-        <Key android:codes="85" android:keyLabel="г" android:horizontalGap="1%p"/>
-        <Key android:codes="73" android:keyLabel="ш" android:horizontalGap="1%p"/>
-        <Key android:codes="79" android:keyLabel="щ" android:horizontalGap="1%p"/>
-        <Key android:codes="80" android:keyLabel="з" android:horizontalGap="1%p"/>
-        <Key android:codes="219" android:keyLabel="х" android:horizontalGap="1%p"/>
-        <Key android:codes="221" android:keyLabel="ъ" android:horizontalGap="1%p"/>
-        <Key android:codes="-1"    android:keyIcon="@drawable/ic_backspace" android:horizontalGap="1%p"  android:keyEdgeFlags="right"/>
+        <Key android:codes="81" android:keyLabel="й" android:keyEdgeFlags="left"/>
+        <Key android:codes="87" android:keyLabel="ц" />
+        <Key android:codes="69" android:keyLabel="у" />
+        <Key android:codes="82" android:keyLabel="к" />
+        <Key android:codes="84" android:keyLabel="е" />
+        <Key android:codes="89" android:keyLabel="н" />
+        <Key android:codes="85" android:keyLabel="г" />
+        <Key android:codes="73" android:keyLabel="ш" />
+        <Key android:codes="79" android:keyLabel="щ" />
+        <Key android:codes="80" android:keyLabel="з" />
+        <Key android:codes="219" android:keyLabel="х"/>
+        <Key android:codes="221" android:keyLabel="ъ"/>
+        <Key android:codes="-1"    android:keyIcon="@drawable/ic_backspace" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:keyLabel="ф"  android:horizontalGap="1%p"  android:keyEdgeFlags="left"/>
-        <Key android:keyLabel="ы" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="в" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="а" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="п" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="р" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="о" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="л" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="д" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="ж" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="э" android:horizontalGap="1%p"/>
-        <Key android:codes="100"  android:keyIcon="@drawable/ic_enter" android:horizontalGap="1%p" android:keyEdgeFlags="right"/>
+        <Key android:keyLabel="ф"  android:keyEdgeFlags="left" android:horizontalGap="4.2%p"/>
+        <Key android:keyLabel="ы"/>
+        <Key android:keyLabel="в"/>
+        <Key android:keyLabel="а"/>
+        <Key android:keyLabel="п"/>
+        <Key android:keyLabel="р"/>
+        <Key android:keyLabel="о"/>
+        <Key android:keyLabel="л"/>
+        <Key android:keyLabel="д"/>
+        <Key android:keyLabel="ж"/>
+        <Key android:keyLabel="э"/>
+        <Key android:codes="100"  android:keyIcon="@drawable/ic_enter" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:keyLabel="я" android:horizontalGap="1%p"  android:keyEdgeFlags="left"/>
-        <Key android:keyLabel="ч" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="с" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="м" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="и" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="т" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="ь" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="б" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="ю" android:horizontalGap="1%p"/>
-        <Key android:keyLabel="ë" android:horizontalGap="1%p" android:keyEdgeFlags="right"/>
+        <Key android:keyLabel="я"  android:keyEdgeFlags="left" android:horizontalGap="11.9%p"/>
+        <Key android:keyLabel="ч"/>
+        <Key android:keyLabel="с"/>
+        <Key android:keyLabel="м"/>
+        <Key android:keyLabel="и"/>
+        <Key android:keyLabel="т"/>
+        <Key android:keyLabel="ь"/>
+        <Key android:keyLabel="б"/>
+        <Key android:keyLabel="ю"/>
+        <Key android:keyLabel="ë" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

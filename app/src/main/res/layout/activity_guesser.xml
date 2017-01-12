@@ -4,7 +4,10 @@
                 android:id="@+id/main_container"
                 tools:ignore="RtlHardcoded"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:descendantFocusability="beforeDescendants"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
     <com.jeketos.associatewith.customViews.DrawingView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
@@ -47,10 +50,12 @@
             android:id="@+id/keyboardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:background="@null"
             android:keyTextColor="@color/black"
+            android:shadowColor="@android:color/transparent"
             android:keyBackground="@drawable/button_color_selector"
             android:visibility="gone"
             />
