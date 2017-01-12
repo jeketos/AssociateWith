@@ -15,6 +15,7 @@
             />
         <activity android:name="com.jeketos.associatewith.ui.guesser.GuesserActivity"
                   android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"
             />
         <activity android:name="com.jeketos.associatewith.ui.login.LoginActivity"
                   android:screenOrientation="portrait">

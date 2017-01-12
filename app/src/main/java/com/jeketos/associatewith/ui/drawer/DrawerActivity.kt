@@ -167,15 +167,17 @@ class DrawerActivity : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerVie
     }
 
     override fun showWinnerDialog(name: String) {
-        val builder = DialogUtils.createWinnerDialog(this,name,null)
-        builder.setPositiveButton(android.R.string.ok, {d,i ->
-            finish()
-            startActivity(Intent(this, GuesserActivity::class.java))
-        })
-        val dialog = builder.create()
-        dialog.setCanceledOnTouchOutside(false)
-        if(!this.isFinishing)
-            dialog.show()
+        if(selectedWord != null) {
+            val builder = DialogUtils.createWinnerDialog(this, name, null)
+            builder.setPositiveButton(android.R.string.ok, { d, i ->
+                finish()
+                startActivity(Intent(this, GuesserActivity::class.java))
+            })
+            val dialog = builder.create()
+            dialog.setCanceledOnTouchOutside(false)
+            if (!this.isFinishing)
+                dialog.show()
+        }
     }
 
     override fun onBackPressed() {

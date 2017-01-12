@@ -7,4 +7,8 @@
     <color name="green">#4caf50</color>
     <color name="red">#f44336</color>
     <color name="white">#fff</color>
+    <color name="transparent">#fff</color>
+    <color name="cyan">#00bcd4</color>
+    <color name="cyan_opacity_80">#8800bcd4</color>
+    <color name="cyan_opacity_50">#5500bcd4</color>
 </resources>
