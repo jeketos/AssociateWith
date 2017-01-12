@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          android:keyHeight="5%p"
+          android:keyWidth="7%p"
+          android:layout_width="wrap_content"
+          android:verticalGap="0.7%p"
+          android:horizontalGap="0.7%p" >
+
+    <Row >
+        <Key android:codes="81" android:keyLabel="й" android:keyEdgeFlags="left"/>
+        <Key android:codes="87" android:keyLabel="ц" />
+        <Key android:codes="69" android:keyLabel="у" />
+        <Key android:codes="82" android:keyLabel="к" />
+        <Key android:codes="84" android:keyLabel="е" />
+        <Key android:codes="89" android:keyLabel="н" />
+        <Key android:codes="85" android:keyLabel="г" />
+        <Key android:codes="73" android:keyLabel="ш" />
+        <Key android:codes="79" android:keyLabel="щ" />
+        <Key android:codes="80" android:keyLabel="з" />
+        <Key android:codes="219" android:keyLabel="х"/>
+        <Key android:codes="221" android:keyLabel="ъ"/>
+        <Key android:codes="-1"    android:keyIcon="@drawable/ic_backspace" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key android:keyLabel="ф"  android:keyEdgeFlags="left" android:horizontalGap="4.2%p"/>
+        <Key android:keyLabel="ы"/>
+        <Key android:keyLabel="в"/>
+        <Key android:keyLabel="а"/>
+        <Key android:keyLabel="п"/>
+        <Key android:keyLabel="р"/>
+        <Key android:keyLabel="о"/>
+        <Key android:keyLabel="л"/>
+        <Key android:keyLabel="д"/>
+        <Key android:keyLabel="ж"/>
+        <Key android:keyLabel="э"/>
+        <Key android:codes="100"  android:keyIcon="@drawable/ic_enter" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key android:keyLabel="я"  android:keyEdgeFlags="left" android:horizontalGap="11.9%p"/>
+        <Key android:keyLabel="ч"/>
+        <Key android:keyLabel="с"/>
+        <Key android:keyLabel="м"/>
+        <Key android:keyLabel="и"/>
+        <Key android:keyLabel="т"/>
+        <Key android:keyLabel="ь"/>
+        <Key android:keyLabel="б"/>
+        <Key android:keyLabel="ю"/>
+        <Key android:keyLabel="ë" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

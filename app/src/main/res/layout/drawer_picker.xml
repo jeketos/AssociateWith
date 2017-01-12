@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:clickable="true"
+              android:gravity="center_vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:background="@color/colorPrimary">
+    <TextView
+        android:id="@+id/selectedWordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        tools:text="some text"/>
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/clearButton"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete"/>
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/chooseColorButton"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_color"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:text="@string/stroke_width"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/strokeRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_stroke_width"/>
+
+
+</LinearLayout>

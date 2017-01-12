@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">AssociateWith</string>
+    <string name="drawer">Drawer</string>
+    <string name="guesser">guesser</string>
+    <string name="colon">:&#160;</string>
+    <string name="send">Send</string>
+    <string name="choose_word">Choose the word</string>
+    <string name="winner">Winner!</string>
+    <string name="winner_is">"Winner is -&#160;"</string>
+    <string name="source_word">"source word -&#160;"</string>
+    <string name="change_color">Change color</string>
+    <string name="choose_color">Choose color</string>
+    <string name="color_shades">Color shades</string>
+    <string name="stroke_width">Stroke width:</string>
+    <string name="create_room">Create room</string>
+    <string name="join_room">Join room</string>
+    <string name="room_name">Room name</string>
+    <string name="signup_last_name">Room password</string>
+    <string name="room_password">Room password</string>
+    <string name="please_fill_all_fields">Please fill all fields.</string>
+    <string name="error_join_room_message">Incorrect password or room name, please try again</string>
+    <string name="error_create_room_message">Room with this name already exists. Please enter unique room name</string>
+
 </resources>
