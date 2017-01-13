@@ -18,7 +18,6 @@ interface ActivityComponent {
 
     fun inject(drawerActivity: DrawerActivity)
     fun  inject(drawerActivity: GuesserActivity)
-//    fun injectDrawer (drawerActivity: DrawerActivity)
 
 
 }

@@ -140,22 +140,6 @@ import com.jeketos.associatewith.listener.TouchWatcher
         }
     }
 
-//    override fun onSaveInstanceState(): Parcelable {
-//        val bundle = Bundle()
-//        bundle.putParcelable("bitmap", bitmap)
-//        bundle.putParcelable("superState", super.onSaveInstanceState())
-//        return bundle
-//    }
-
-//    override fun onRestoreInstanceState(state: Parcelable?) {
-//        if(state != null && state is Bundle){
-//            bitmap = state.get("bitmap") as Bitmap
-//            super.onRestoreInstanceState(state.getParcelable("superState"))
-//        } else {
-//            super.onRestoreInstanceState(state)
-//        }
-//    }
-
     fun setMoveWatcher(touchWatcher: TouchWatcher) {
         this.touchWatcher = touchWatcher
     }

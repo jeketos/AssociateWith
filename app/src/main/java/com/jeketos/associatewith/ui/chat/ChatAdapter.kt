@@ -12,7 +12,7 @@ import java.util.*
  * Created by eugene.kotsogub on 12/27/16.
  *
  */
-class ChatAdapter() : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
+class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
 
     var chatItems: MutableList<IChatItem>
 

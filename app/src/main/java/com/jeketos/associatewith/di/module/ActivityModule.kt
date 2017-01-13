@@ -2,12 +2,6 @@ package com.jeketos.associatewith.di.module
 
 import android.support.v7.app.AppCompatActivity
 import com.jeketos.associatewith.base.ActivityHolder
-import com.jeketos.associatewith.ui.drawer.DrawerMVP
-import com.jeketos.associatewith.ui.drawer.DrawerModelImpl
-import com.jeketos.associatewith.ui.drawer.DrawerPresenterImpl
-import com.jeketos.associatewith.ui.guesser.GuesserMVP
-import com.jeketos.associatewith.ui.guesser.GuesserModelImpl
-import com.jeketos.associatewith.ui.guesser.GuesserPresenterImpl
 import dagger.Module
 import dagger.Provides
 import java.lang.ref.WeakReference
@@ -39,24 +33,4 @@ class ActivityModule(activity: AppCompatActivity) {
             }
         }
     }
-
-//    @Provides
-//    fun provideDrawerPresenter(drawerPresenterImpl: DrawerPresenterImpl) : DrawerMVP.DrawerPresenter{
-//        return drawerPresenterImpl
-//    }
-//
-//    @Provides
-//    fun provideDrawerModel(drawerModelImpl: DrawerModelImpl) : DrawerMVP.DrawerModel{
-//        return drawerModelImpl
-//    }
-//
-//    @Provides
-//    fun provideGuesserPresenter(guesserPresenterImpl: GuesserPresenterImpl) : GuesserMVP.GuesserPresenter{
-//        return guesserPresenterImpl
-//    }
-//
-//    @Provides
-//    fun provideGuesserModel(guesserModelImpl: GuesserModelImpl) : GuesserMVP.GuesserModel{
-//        return guesserModelImpl
-//    }
 }

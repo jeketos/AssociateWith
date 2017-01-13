@@ -53,10 +53,7 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
         val childrenCount = dataSnapshot.childrenCount.toInt()
         val random = Random()
         if(childrenCount != 0){
-            val words : Array<CharSequence> = kotlin.arrayOf("","","")
-            for (i in 0 until 3){
-                words[i] = dataSnapshot.child(random.nextInt(childrenCount).toString()).value as CharSequence
-            }
+            val words : Array<CharSequence> = Array(3, {i -> dataSnapshot.child(random.nextInt(childrenCount).toString()).value as CharSequence})
             view?.showChooseWordDialog(words)
         }
     }
