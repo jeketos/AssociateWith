@@ -24,9 +24,11 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
         previousChatCount = 0
 //        model.clearData()
         clearChat()
-        model.addChatListener({ dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
-        model.addWinnerListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})
-        model.addWordsListener({ dataSnap: DataSnapshot -> wordsDataReceived(dataSnap)})
+       with(model){
+           addChatListener({ dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
+           addWinnerListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})
+           addWordsListener({ dataSnap: DataSnapshot -> wordsDataReceived(dataSnap)})
+       }
         movesCount = model.getMovesCount()
     }
 
@@ -77,11 +79,14 @@ class DrawerPresenterImpl @Inject constructor() : BaseMvpPresenter<DrawerMVP.Dra
 
     override fun attachView(view: DrawerMVP.DrawerView) {
         super.attachView(view)
-        model.init()
-        model.addEventListeners()
-        model.addChatListener({ dataSnap: DataSnapshot -> chatDataReceived(dataSnap)})
-        model.addWinnerListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap)})
-        model.addWordsListener({ dataSnap: DataSnapshot -> wordsDataReceived(dataSnap)})
+        with(model) {
+            init()
+            addEventListeners()
+            addChatListener({ dataSnap: DataSnapshot -> chatDataReceived(dataSnap) })
+            addWinnerListener({ dataSnap: DataSnapshot -> winnerDataReceived(dataSnap) })
+            addWordsListener({ dataSnap: DataSnapshot -> wordsDataReceived(dataSnap) })
+        }
+
     }
 
     override fun detachView() {

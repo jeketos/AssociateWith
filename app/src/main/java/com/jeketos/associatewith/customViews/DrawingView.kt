@@ -51,13 +51,15 @@ import com.jeketos.associatewith.listener.TouchWatcher
         path = Path()
         bitmapPaint = Paint(Paint.DITHER_FLAG)
         paint = Paint()
-        paint.isAntiAlias = true
-        paint.isDither = true
-        paint.color = Color.BLACK
-        paint.style = Paint.Style.STROKE
-        paint.strokeJoin = Paint.Join.ROUND
-        paint.strokeCap = Paint.Cap.ROUND
-        paint.strokeWidth = 12f
+        with(paint){
+            isAntiAlias = true
+            isDither = true
+            color = Color.BLACK
+            style = Paint.Style.STROKE
+            strokeJoin = Paint.Join.ROUND
+            strokeCap = Paint.Cap.ROUND
+            strokeWidth = 12f
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

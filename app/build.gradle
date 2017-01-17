@@ -19,10 +19,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -53,8 +49,6 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.1.0'
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
 }
-
-apply plugin: 'me.tatarka.retrolambda' // Java 8 support
 apply plugin: 'com.google.gms.google-services'
 repositories {
     mavenCentral()

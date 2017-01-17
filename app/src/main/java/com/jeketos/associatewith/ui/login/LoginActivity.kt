@@ -40,15 +40,19 @@ class LoginActivity : AppCompatActivity(), RoomListener {
 
     private fun showCreateRoomDialog() {
         roomDialog = RoomDialog.newInstance(Type.CREATE_ROOM)
-        roomDialog.listener = this
-        roomDialog.show(supportFragmentManager,"room_dialog")
+        with(roomDialog){
+            listener = this@LoginActivity
+            show(supportFragmentManager,"room_dialog")
+        }
 
     }
 
     private fun showJoinRoomDialog() {
         roomDialog = RoomDialog.newInstance(Type.JOIN_ROOM)
-        roomDialog.listener = this
-        roomDialog.show(supportFragmentManager,"room_dialog")
+        with(roomDialog){
+            listener = this@LoginActivity
+            show(supportFragmentManager,"room_dialog")
+        }
     }
 
     private fun startDrawerActivity() {

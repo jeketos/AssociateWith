@@ -102,16 +102,18 @@ class DrawerActivity : BaseActivity<DrawerMVP.DrawerView>(), DrawerMVP.DrawerVie
         strokeRecyclerView.layoutManager = LinearLayoutManager(this)
         strokeRecyclerView. adapter = StrokeWidthAdapter(this)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior!!.peekHeight = resources.getDimension(R.dimen.bottom_sheet_peek).toInt()
-        bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
-        bottomSheetBehavior!!.setBottomSheetCallback(object: BottomSheetBehavior.BottomSheetCallback(){
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                Log.d("DrawerActivity","slide offset" + slideOffset * 180)
-                chatDrawerImage.rotation = slideOffset * 180
-            }
+        with(bottomSheetBehavior!!){
+            peekHeight = resources.getDimension(R.dimen.bottom_sheet_peek).toInt()
+            state = BottomSheetBehavior.STATE_COLLAPSED
+            setBottomSheetCallback(object: BottomSheetBehavior.BottomSheetCallback(){
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                    Log.d("DrawerActivity","slide offset" + slideOffset * 180)
+                    chatDrawerImage.rotation = slideOffset * 180
+                }
 
-            override fun onStateChanged(bottomSheet: View, newState: Int) { }
-        })
+                override fun onStateChanged(bottomSheet: View, newState: Int) { }
+            })
+        }
         chatDrawerImage.setOnClickListener {
            when (bottomSheetBehavior!!.state){
                BottomSheetBehavior.STATE_COLLAPSED -> {

@@ -151,15 +151,17 @@ class GuesserActivity : BaseActivity<GuesserMVP.GuesserView>(), GuesserMVP.Guess
     }
 
     override fun draw(point: Point) {
-        imageView.setDrawColor(point.color)
-        imageView.setStrokeWidth(point.strokeWidth)
         val motionEvent = MotionEvent.obtain(System.currentTimeMillis(),
                 System.currentTimeMillis(),
                 point.motionEvent,
                 point.x*imageView.bitmapWidth,
                 point.y*imageView.bitmapHeight,
                 0)
-        imageView.onTouchEvent(motionEvent)
+        with(imageView){
+            setDrawColor(point.color)
+            setStrokeWidth(point.strokeWidth)
+            onTouchEvent(motionEvent)
+        }
     }
 
     override fun clearBoard() {

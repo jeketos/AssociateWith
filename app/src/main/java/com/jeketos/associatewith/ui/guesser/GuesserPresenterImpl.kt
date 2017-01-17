@@ -83,12 +83,15 @@ class GuesserPresenterImpl @Inject constructor() : BaseMvpPresenter<GuesserMVP.G
 
     override fun attachView(view: GuesserMVP.GuesserView) {
         super.attachView(view)
-        model.init()
-        model.addEventListeners()
-        model.addChatListener { dataSnapshot: DataSnapshot -> chatDataReceived(dataSnapshot) }
-        model.addMoveListener { dataSnapshot: DataSnapshot -> moveDataReceived(dataSnapshot) }
-        model.addWinnerListener { dataSnapshot: DataSnapshot ->  winnerDataReceived(dataSnapshot)}
-        model.addSelectedWordListener { dataSnapshot: DataSnapshot ->  selectedWordReceived(dataSnapshot)}
+        with(model){
+            init()
+            addEventListeners()
+            addChatListener { dataSnapshot: DataSnapshot -> chatDataReceived(dataSnapshot) }
+            addMoveListener { dataSnapshot: DataSnapshot -> moveDataReceived(dataSnapshot) }
+            addWinnerListener { dataSnapshot: DataSnapshot ->  winnerDataReceived(dataSnapshot)}
+            addSelectedWordListener { dataSnapshot: DataSnapshot ->  selectedWordReceived(dataSnapshot)}
+        }
+
     }
 
     override fun detachView() {

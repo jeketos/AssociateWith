@@ -1,7 +1,6 @@
 package com.jeketos.associatewith
 
 import android.app.Application
-import android.content.Context
 import com.jeketos.associatewith.di.component.AppComponent
 import com.jeketos.associatewith.di.component.DaggerAppComponent
 import com.jeketos.associatewith.di.module.AppModule
@@ -22,6 +21,7 @@ class App : Application(){
         component = DaggerAppComponent
                 .builder()
                 .appModule(AppModule(this))
+
                 .build()
         component.inject(this)
     }
