@@ -11,7 +11,7 @@ import java.util.*
  *
  */
 
-class DrawerMVP() {
+class DrawerMVP {
 
     interface DrawerView {
 

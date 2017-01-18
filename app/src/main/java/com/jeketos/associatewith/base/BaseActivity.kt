@@ -12,7 +12,8 @@ import com.jeketos.associatewith.util.DialogUtils
  * Created by jeketos on 12.12.2016.
  *
  */
-abstract class BaseActivity<V> : AppCompatActivity(){
+@Suppress("UNCHECKED_CAST")
+abstract class BaseActivity<in V> : AppCompatActivity(){
 
     lateinit var component: ActivityComponent
     lateinit var activityModule: ActivityModule

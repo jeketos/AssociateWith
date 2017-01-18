@@ -12,18 +12,6 @@ import java.util.*
 
 object ChatUtils {
 
-    fun  getChatItem(dataSnapshot: DataSnapshot , position : Int): IChatItem{
-        val hashMap = dataSnapshot.child(position.toString()).value as HashMap<*, *>
-        val name = hashMap["name"]
-        val message =  hashMap["message"]
-        val color = hashMap["color"].toString().toInt()
-        val item = ChatItem()
-        item.setColor(color)
-        if (message is String) item.setMessage(message)
-        if (name is String) item.setName(name)
-        return item
-    }
-
     fun getChatItems(dataSnapshot: DataSnapshot): ArrayList<IChatItem> {
 
         val list = dataSnapshot.children.toList()

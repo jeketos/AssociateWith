@@ -77,7 +77,6 @@ import javax.inject.Inject
     }
 
     override fun sendMessage(item: IChatItem) {
-        val map = hashMapOf(Pair(chatCount.toString(),item as Any))
         referenceChat.push().setValue(item)
     }
 

@@ -7,7 +7,7 @@ import android.graphics.Color
  *
  */
 
-class ChatItem() : IChatItem {
+class ChatItem : IChatItem {
 
 
     lateinit private var  name : String
